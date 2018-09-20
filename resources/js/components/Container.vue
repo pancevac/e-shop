@@ -20,10 +20,22 @@
 
 <script>
   export default {
-    name: "Container"
+
+    computed: {
+      user() {
+        // Get user from store
+      }
+    },
+
+    created() {
+      this.storeUser();
+    },
+
+    methods: {
+      /** Auth **/
+      storeUser() {
+        //
+      }
+    }
   }
 </script>
-
-<style scoped>
-
-</style>
