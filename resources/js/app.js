@@ -7,6 +7,15 @@
 
 require('./bootstrap');
 
+// Css
+// Js
+
+require('./assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min');
+require('./assets/extra-libs/sparkline/sparkline');
+require('./dist/js/waves');
+require('./dist/js/sidebarmenu');
+require('./dist/js/custom');
+
 window.Vue = require('vue');
 
 /**
@@ -15,7 +24,13 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('container', require('./components/Container'));
+Vue.component('preloader', require('./components/partials/Preloader'));
+Vue.component('top-bar', require('./components/partials/TopBar'));
+Vue.component('left-bar', require('./components/partials/LeftBar'));
+Vue.component('breadcrumb', require('./components/partials/Breadcrumb'));
+Vue.component('page', require('./components/partials/Content'));
+//Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({
     el: '#app'
