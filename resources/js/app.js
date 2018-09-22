@@ -1,15 +1,13 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
-// Css
-// Js
-
+// Load admin template js
 require('./assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min');
 require('./assets/extra-libs/sparkline/sparkline');
 require('./dist/js/waves');
@@ -25,13 +23,35 @@ window.Vue = require('vue');
  */
 
 Vue.component('container', require('./components/Container'));
+
+// Navigation
 Vue.component('preloader', require('./components/partials/Preloader'));
 Vue.component('top-bar', require('./components/partials/TopBar'));
 Vue.component('left-bar', require('./components/partials/LeftBar'));
 Vue.component('breadcrumb', require('./components/partials/Breadcrumb'));
+
 Vue.component('page', require('./components/partials/Content'));
-//Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+import Auth from './packages/auth/Auth';
+import { router } from "./routes";
+import { store } from "./store/store";
+
+Vue.use(Auth);
+
+router.beforeEach(
+  (to, from, next) => {
+    if (to.matched.some(record => record.meta.guest)) {
+      if (Vue.auth.isAuth()) {
+        next({ path: '/home' })
+      }
+      else next();
+    }
+    // else conditions
+  }
+);
 
 const app = new Vue({
-    el: '#app'
+  el: '#app',
+  router: router,
+  store,
 });
