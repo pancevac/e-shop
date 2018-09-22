@@ -30,6 +30,15 @@ Vue.component('top-bar', require('./components/partials/TopBar'));
 Vue.component('left-bar', require('./components/partials/LeftBar'));
 Vue.component('breadcrumb', require('./components/partials/Breadcrumb'));
 
+// Form Helper
+Vue.component('text-field', require('./components/helper/form/TextField'));
+Vue.component('password-field', require('./components/helper/form/PasswordField'));
+Vue.component('email-field', require('./components/helper/form/EmailField'));
+Vue.component('text-area-field', require('./components/helper/form/TextAreaField'));
+Vue.component('checkbox-field', require('./components/helper/form/CheckBoxField'));
+Vue.component('select-field', require('./components/helper/form/SelectField'));
+Vue.component('select-multiple-field', require('./components/helper/form/SelectMultipleField'));
+
 Vue.component('page', require('./components/partials/Content'));
 
 import Auth from './packages/auth/Auth';
