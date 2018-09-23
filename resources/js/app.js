@@ -42,10 +42,12 @@ Vue.component('select-multiple-field', require('./components/helper/form/SelectM
 Vue.component('page', require('./components/partials/Content'));
 
 import Auth from './packages/auth/Auth';
+import Toast from './packages/toast/toast';
 import { router } from "./routes";
 import { store } from "./store/store";
 
 Vue.use(Auth);
+Vue.use(Toast);
 
 router.beforeEach(
   (to, from, next) => {
