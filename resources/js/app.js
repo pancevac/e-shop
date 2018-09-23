@@ -55,6 +55,12 @@ router.beforeEach(
       }
       else next();
     }
+    else if (to.matched.some(record => record.meta.auth)) {
+      if (Vue.auth.isAuth()) {
+        next();
+      }
+      else next({ path: '/login' });
+    }
     // else conditions
   }
 );

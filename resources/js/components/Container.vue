@@ -25,7 +25,7 @@
 
     computed: {
       user() {
-        // Get user from store
+        return this.$store.getters['user/getUser'];
       }
     },
 
@@ -36,7 +36,25 @@
     methods: {
       /** Auth **/
       storeUser() {
-        //
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$auth.getToken();
+        if (this.$store.getters['user/getUser'] == null) {
+          axios.get('api/user')
+            .then(res => {
+              if (res.data.role_id < 1) {
+                this.$auth.destroyToken();
+                this.$router.push('/login');
+              }
+              else {
+                this.$store.dispatch('user/changeUser', res.data);
+              }
+            })
+            .catch(e => {
+              if (e.response.status === 401) {
+                this.$auth.destroyToken();
+                this.$router.push('/login');
+              }
+            })
+        }
       }
     }
   }
