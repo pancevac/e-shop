@@ -4,10 +4,10 @@
     <br>
     <div class="col-sm-9">
       <switches
-              v-model="model"
+              v-model="value"
               theme="bootstrap"
               color="primary"
-              @input="$emit('input', model ? 1 : 0)"
+              @input="$emit('input', value)"
       ></switches>
     </div>
   </div>
@@ -21,7 +21,13 @@
         model: this.value,
       }
     },
-    props: ['label', 'value', 'error', 'required'],
+    props: {
+      label: String,
+      value: Boolean,
+      error: String,
+      required: Boolean
+    },
+    //props: ['label', 'value', 'error', 'required'],
     components: { Switches },
   }
 </script>

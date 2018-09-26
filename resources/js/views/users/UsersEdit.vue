@@ -5,7 +5,7 @@
         <div class="card">
 
           <div class="card-body">
-            <h4>Kreiranje korisnika</h4>
+            <h4>Izmena korisnika</h4>
 
             <text-field
                 label="Username"
@@ -21,13 +21,11 @@
             ></email-field>
             <password-field
                 label="Password"
-                required=true
                 v-model="user.password"
                 :error="error? error.password : ''"
             ></password-field>
             <password-field
                 label="Potvrda passworda"
-                required=true
                 v-model="user.password_confirmation"
                 :error="error? error.password_confirmation : ''"
             ></password-field>
@@ -38,7 +36,8 @@
             <select-field
                 :options="options"
                 label="Uloga"
-                v-model="user.role_id"
+                :value="role"
+                @input="user.role_id = $event"
                 optionLabel="title"
                 trackBy="id"
                 :error="error? error.role_id : ''"
@@ -47,25 +46,10 @@
           </div>
           <div class="border-top">
             <div class="card-body">
-              <button type="button" class="btn btn-primary" @click="submit">Unesi</button>
+              <button type="button" class="btn btn-primary" @click="submit">Izmeni</button>
             </div>
           </div>
 
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h4>Upload profilne slike</h4>
-
-            <upload-image-helper
-                :image="user.imagePath"
-                :error="error"
-                @uploadImage="prepare($event)"
-            ></upload-image-helper>
-
-          </div>
         </div>
       </div>
     </div>
@@ -73,7 +57,6 @@
 </template>
 
 <script>
-  import UploadImageHelper from '../../components/helper/UploadImageHelper';
   export default {
     data() {
       return {
@@ -84,14 +67,25 @@
           {title: 'Normal user', id: 3},
         ],
         error: null,
+        role: {title: 'Moderator', id: 2}
       }
     },
-    components: {
-      'upload-image-helper': UploadImageHelper
+    mounted(){
+      this.getUser();
     },
     methods: {
+      getUser() {
+        axios.get('api/users/' + this.$route.params.id + '/edit')
+          .then(res => {
+
+            this.user = res.data.user;
+            if (res.data.user.block)
+              this.user.block = true;
+          })
+      },
+
       submit() {
-        axios.post('api/users', this.user)
+        axios.put('api/users/' + this.$route.params.id, this.user)
           .then(res => {
             this.$toasted.global.toastSuccess({ message: res.data.message });
             this.$router.push('/users');
@@ -102,18 +96,11 @@
               message: e.response.data.message
             });
           })
-      },
-
-      prepare(image){
-        this.user.imagePath = image.src;
-        this.user.image = image.file;
-      },
+      }
     }
   }
 </script>
 
 <style scoped>
-  .text-muted {
-    color: red
-  }
+
 </style>

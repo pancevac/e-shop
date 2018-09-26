@@ -10,6 +10,7 @@ export const router = new VueRouter({
     { path: '/logout', component: require('./views/auth/Logout'), meta: { auth: true }},
     { path: '/home', component: require('./components/partials/Content'), meta: { auth: true }},
     { path: '/test', component: require('./components/partials/test'), meta: { auth: true }},
-    { path: '/users/create', component: require('./views/users/UserCreate'), meta: {auth: true }}
+    { path: '/users/create', component: require('./views/users/UserCreate'), meta: {auth: true }},
+    { path: '/users/:id/edit', component: require('./views/users/UsersEdit'), meta: {auth: true}},
   ]
 });
