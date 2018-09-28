@@ -38,6 +38,7 @@ Vue.component('text-area-field', require('./components/helper/form/TextAreaField
 Vue.component('checkbox-field', require('./components/helper/form/CheckBoxField'));
 Vue.component('select-field', require('./components/helper/form/SelectField'));
 Vue.component('select-multiple-field', require('./components/helper/form/SelectMultipleField'));
+Vue.component('font-awesome-icon', require('@fortawesome/vue-fontawesome'));
 
 Vue.component('page', require('./components/partials/Content'));
 
@@ -45,6 +46,40 @@ import Auth from './packages/auth/Auth';
 import Toast from './packages/toast/toast';
 import { router } from "./routes";
 import { store } from "./store/store";
+
+import fontawesome from '@fortawesome/fontawesome';
+import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
+import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
+import faBell from '@fortawesome/fontawesome-free-solid/faBell';
+import faCommentAlt from '@fortawesome/fontawesome-free-solid/faCommentAlt';
+import faChevronCircleDown from '@fortawesome/fontawesome-free-solid/faChevronCircleDown';
+import faCogs from '@fortawesome/fontawesome-free-solid/faCogs';
+import faAngleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
+import faHome from '@fortawesome/fontawesome-free-solid/faHome';
+import faUsers from '@fortawesome/fontawesome-free-solid/faUsers';
+import faPaste from '@fortawesome/fontawesome-free-solid/faPaste';
+import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart';
+import faAlignJustify from '@fortawesome/fontawesome-free-solid/faAlignJustify';
+import faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
+import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
+import faLink from '@fortawesome/fontawesome-free-solid/faLink';
+import faBars from '@fortawesome/fontawesome-free-solid/faBars';
+import faAmountUp from '@fortawesome/fontawesome-free-solid/faSortAmountUp';
+import faImages from '@fortawesome/fontawesome-free-solid/faImages';
+import faRandom from '@fortawesome/fontawesome-free-solid/faRandom';
+import faThLarge from '@fortawesome/fontawesome-free-solid/faThLarge';
+import faTags from '@fortawesome/fontawesome-free-solid/faTags';
+import faCopy from '@fortawesome/fontawesome-free-solid/faCopy';
+import faEye from '@fortawesome/fontawesome-free-solid/faEye';
+import faShoppingBasket from '@fortawesome/fontawesome-free-solid/faShoppingBasket';
+import faExclamation from '@fortawesome/fontawesome-free-solid/faExclamation';
+import faStream from '@fortawesome/fontawesome-free-solid/faStream';
+import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlusSquare';
+
+fontawesome.library.add(
+    faPlus, faEnvelope, faBell, faCommentAlt, faChevronCircleDown, faCogs, faAngleRight, faHome, faUsers, faPaste, faShoppingCart, faAlignJustify, faPencilAlt, faTimes,
+    faLink, faBars, faAmountUp, faImages, faRandom, faThLarge, faTags, faCopy, faEye, faShoppingBasket, faExclamation, faStream, faPlusSquare,
+);
 
 Vue.use(Auth);
 Vue.use(Toast);
