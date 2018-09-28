@@ -28,7 +28,7 @@
                       class="ti-pencil"></i></span>
                 </div>
                 <input
-                    type="text"
+                    type="password"
                     class="form-control form-control-lg"
                     placeholder="Password"
                     aria-label="Password"
@@ -66,7 +66,7 @@
       login() {
         let data = {
           client_id: 2,
-          client_secret: 'oCNSAi0rpMMdaWOYSh7QFWRt1lvKQrjc2cRAslsg',
+          client_secret: '3XIrIg0nWVrRHit18yrEozwvw0I88riBBh2r43BJ',
           grant_type: 'password',
           username: this.email,
           password: this.password

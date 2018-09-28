@@ -73,7 +73,7 @@
 </template>
 
 <script>
-  import UploadImageHelper from '../../components/helper/UploadImageHelper';
+  //import UploadImageHelper from '../../components/helper/UploadImageHelper';
   export default {
     data() {
       return {
@@ -87,7 +87,7 @@
       }
     },
     components: {
-      'upload-image-helper': UploadImageHelper
+      //'upload-image-helper': UploadImageHelper
     },
     methods: {
       submit() {

@@ -25,7 +25,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('created_at', 'DESC')->paginate(50);
+        $users = User::orderBy('created_at', 'DESC')->paginate(15);
         return response()->json([
             'users' => $users,
         ]);
@@ -86,7 +86,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->delete();
         return response()->json([
-            'message' => 'Deleted!'
+            'message' => 'Korisnik je uspešno obrisan!'
         ]);
     }
 }
