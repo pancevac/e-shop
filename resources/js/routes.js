@@ -12,5 +12,10 @@ export const router = new VueRouter({
     { path: '/users', component: require('./views/users/UserList.vue'), meta: { auth: true }},
     { path: '/users/create', component: require('./views/users/UserCreate'), meta: {auth: true }},
     { path: '/users/:id/edit', component: require('./views/users/UsersEdit'), meta: {auth: true}},
+
+    // Brands
+    { path: '/brands', component: require('./views/brands/BrandList'), meta: {auth: true}},
+    { path: '/brands/create', component: require('./views/brands/BrandCreate'), meta: {auth: true}},
+    { path: '/brands/:id/edit', component: require('./views/brands/BrandEdit'), meta: {auth: true}},
   ]
 });

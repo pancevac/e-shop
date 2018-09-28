@@ -11,6 +11,17 @@
               <li class="sidebar-item"><router-link :to="'users'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Korisnici </span></router-link></li>
             </ul>
           </li>
+
+          <li class="sidebar-item">
+            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+              <i class="mdi mdi-account-key"></i>
+              <span class="hide-menu">Prodavnica </span>
+            </a>
+            <ul aria-expanded="false" class="collapse  first-level">
+              <li class="sidebar-item"><router-link :to="'brands'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Brendovi </span></router-link></li>
+            </ul>
+          </li>
+
           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-alert"></i><span class="hide-menu">Errors </span></a>
             <ul aria-expanded="false" class="collapse  first-level">
               <li class="sidebar-item"><a href="error-403.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> Error 403 </span></a></li>

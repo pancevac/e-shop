@@ -58,7 +58,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <router-link :to="'/users/create'" class="dropdown-item" href="#">Korisnika</router-link>
-              <a class="dropdown-item" href="#">Another action</a>
+              <router-link :to="'/brands/create'" class="dropdown-item" href="#">Brend</router-link>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a>
             </div>

@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('users', 'Api\UsersController')->except(['show', 'create']);
+Route::resource('brands', 'Api\BrandsController')->except(['show', 'create']);
