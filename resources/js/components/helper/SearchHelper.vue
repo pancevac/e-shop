@@ -6,17 +6,17 @@
           <div class="row">
 
             <div class="col-md-3">
-              <input type="text" class="form-control" placeholder="Pretraga" v-model="value.title">
+              <input type="text" class="form-control" placeholder="Pretraga" v-model="search.title">
             </div>
 
             <div class="col-md-3" v-show="enableList">
-              <select class="form-control" v-model="value.option">
+              <select class="form-control" v-model="search.option">
                 <option :value="index" v-for="(option, index) in lists">{{ option }}</option>
               </select>
             </div>
 
             <div class="col-md-3">
-              <button class="btn btn-primary pull-right">Pretraži</button>
+              <button class="btn btn-primary pull-right" @click.prevent="submit">Pretraži</button>
             </div>
 
           </div>
@@ -31,13 +31,13 @@
 
     props: {
       lists: Object,
-      value: Object,
+      search: Object,
       enableList: Boolean,
     },
 
     methods: {
       submit() {
-        this.$emit('input', this.value);
+        this.$emit('updateSearch', this.value);
       }
     }
 
