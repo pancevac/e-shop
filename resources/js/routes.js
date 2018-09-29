@@ -17,5 +17,11 @@ export const router = new VueRouter({
     { path: '/brands', component: require('./views/brands/BrandList'), meta: {auth: true}},
     { path: '/brands/create', component: require('./views/brands/BrandCreate'), meta: {auth: true}},
     { path: '/brands/:id/edit', component: require('./views/brands/BrandEdit'), meta: {auth: true}},
+
+    // Category
+    { path: '/categories', component: require('./views/categories/CategoryList'), meta: {auth: true}},
+    { path: '/categories/create', component: require('./views/categories/CategoryCreate'), meta: {auth: true}},
+    { path: '/categories/:id/edit', component: require('./views/categories/CategoryEdit'), meta: {auth: true}},
+    { path: '/categories/sort', component: require('./views/categories/CategorySort'), meta: {auth: true}},
   ]
 });

@@ -2,7 +2,7 @@
   <div class="form-group row">
     <label :for="label" class="col-sm-3 text-right control-label col-form-label">{{ label }} <span v-if="required">*</span></label>
     <br>
-    <div class="col-sm-9">
+    <div class="col-sm-6" style="padding-top: 10px;">
       <switches
               v-model="value"
               theme="bootstrap"
@@ -23,7 +23,7 @@
     },
     props: {
       label: String,
-      value: Boolean,
+      value: [Boolean, Number],
       error: String,
       required: Boolean
     },
