@@ -52,6 +52,7 @@
           <div class="card-body">
 
             <select-field
+                v-if="!isLoading"
                 :options="categories"
                 label="Nad kategorija"
                 :value="selectedCategory"
@@ -91,7 +92,14 @@
         category: {},
         categories: [],
         error: null,
-        selectedCategory: {},
+        selectedCategory: null,
+        loading: true,
+      }
+    },
+
+    computed: {
+      isLoading () {
+        return this.loading;
       }
     },
 
@@ -106,6 +114,7 @@
           .then(res => {
             this.category = res.data.category;
             this.selectedCategory = res.data.category.parent_category;
+            this.loading = false;
           })
       },
 

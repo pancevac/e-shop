@@ -52,9 +52,10 @@
           <div class="card-body">
 
             <select-field
+                v-if="!isLoading"
                 :options="categories"
                 label="Nad kategorija"
-                v-model="category.parent"
+                @input="category.parent = $event"
                 optionLabel="title"
                 trackBy="id"
                 :error="error? error.parent : ''"
@@ -93,6 +94,13 @@
         },
         error: null,
         categories: [],
+        loading: true,
+      }
+    },
+
+    computed: {
+      isLoading() {
+        return this.loading;
       }
     },
 
@@ -105,6 +113,7 @@
         axios.get('api/categories/lists')
           .then(res => {
             this.categories = res.data.categories;
+            this.loading = false;
           })
           .catch(e => {
             console.log(e);

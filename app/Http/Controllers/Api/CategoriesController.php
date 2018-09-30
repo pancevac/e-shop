@@ -77,7 +77,6 @@ class CategoriesController extends Controller
      */
     public function update(CreateCategoryRequest $request, Category $category)
     {
-        dd($request->all());
         $category->update($request->all());
         return response()->json([
             'category' => $category,
