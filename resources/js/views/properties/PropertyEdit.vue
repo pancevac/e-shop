@@ -51,6 +51,21 @@
 
         </div>
       </div>
+
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h5>Vezani atributi</h5>
+            <ul class="list-group">
+              <li class="list-group-item" v-for="attribute in property.attributes">
+                <span>{{ attribute.title }}</span>
+                <router-link tag="a" :to="'/attributes/' + attribute.id + '/edit'" class="btn btn-primary">Izmeni</router-link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -104,3 +119,13 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .list-group-item{
+    display: flex;
+
+    span{
+      flex: 1;
+    }
+  }
+</style>

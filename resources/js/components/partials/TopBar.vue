@@ -61,6 +61,7 @@
               <router-link :to="'/brands/create'" class="dropdown-item" href="#">Brend</router-link>
               <router-link :to="'/categories/create'" class="dropdown-item" href="#">Kategoriju</router-link>
               <router-link :to="'/properties/create'" class="dropdown-item" href="#">Osobine</router-link>
+              <router-link :to="'/attributes/create'" class="dropdown-item" href="#">Atribut</router-link>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a>
             </div>

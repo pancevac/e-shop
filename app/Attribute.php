@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Property extends Model
+class Attribute extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,10 +12,8 @@ class Property extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'slug', 'order', 'additional', 'publish'
+        'title', 'slug', 'order', 'additional', 'property_id', 'publish'
     ];
-
-    protected $hidden = ['pivot'];
 
     /**
      * Set property slug, if slug field have value, make slug of it, otherwise make slug of title.
@@ -43,22 +41,12 @@ class Property extends Model
     }
 
     /**
-     * Categories many-to-many relationship
+     * Property one-to-many relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categories()
+    public function property()
     {
-        return $this->belongsToMany(Category::class);
-    }
-
-    /**
-     * Attribute one-to-many relationship
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function attributes()
-    {
-        return $this->hasMany(Attribute::class);
+        return $this->belongsTo(Property::class);
     }
 }

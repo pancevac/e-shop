@@ -187,6 +187,43 @@ export const router = new VueRouter({
           {title: 'Izmena osobine'}
         ]
       }
+    },
+
+    // Attributes
+    {
+      path: '/attributes',
+      component: require('./views/attributes/AttributeList'),
+      meta: {
+        auth: true,
+        pageTitle: 'Atributi',
+        breadcrumb: [
+          {title: 'Atribut'}
+        ]
+      }
+    },
+    {
+      path: '/attributes/create',
+      component: require('./views/attributes/AttributeCreate'),
+      meta: {
+        auth: true,
+        pageTitle: 'Kreiranje atributa',
+        breadcrumb: [
+          {title: 'Atribut', link: '/attributes'},
+          {title: 'Kreiranje atributa'}
+        ]
+      }
+    },
+    {
+      path: '/attributes/:id/edit',
+      component: require('./views/attributes/AttributeEdit'),
+      meta: {
+        auth: true,
+        pageTitle: 'Izmena atributa',
+        breadcrumb: [
+          {title: 'Atribut', link: '/attributes'},
+          {title: 'Izmena atributa'}
+        ]
+      }
     }
   ]
 });

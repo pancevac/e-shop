@@ -57,9 +57,12 @@ class PropertiesController extends Controller
      */
     public function edit($id)
     {
-        $property = Property::with(['categories' => function ($query) {
-            $query->withoutGlobalScopes()->select('id', 'title');
-        }])
+        $property = Property::with([
+            'categories' => function ($query) {
+                $query->withoutGlobalScopes()->select('id', 'title');
+            },
+            'attributes'
+        ])
             ->whereId($id)
             ->first();
 
@@ -98,6 +101,20 @@ class PropertiesController extends Controller
 
         return response()->json([
             'message' => 'Osobina je uspešno izbrisana.'
+        ]);
+    }
+
+    /**
+     * Return list of properties as id-title.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lists()
+    {
+        $properties = Property::select('id', 'title')->orderBy('title')->get();
+
+        return response()->json([
+            'properties' => $properties
         ]);
     }
 }
