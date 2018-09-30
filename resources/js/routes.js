@@ -151,5 +151,42 @@ export const router = new VueRouter({
         ]
       }
     },
+
+    // Properties
+    {
+      path: '/properties',
+      component: require('./views/properties/PropertyList'),
+      meta: {
+        auth: true,
+        pageTitle: 'Osobine',
+        breadcrumb: [
+          {title: 'Osobina'}
+        ]
+      }
+    },
+    {
+      path: '/properties/create',
+      component: require('./views/properties/PropertyCreate'),
+      meta: {
+        auth: true,
+        pageTitle: 'Kreiranje osobine',
+        breadcrumb: [
+          {title: 'Osobina', link: '/properties'},
+          {title: 'Kreiranje osobine'}
+        ]
+      }
+    },
+    {
+      path: '/properties/:id/edit',
+      component: require('./views/properties/PropertyEdit'),
+      meta: {
+        auth: true,
+        pageTitle: 'Izmena osobine',
+        breadcrumb: [
+          {title: 'Osobina', link: '/properties'},
+          {title: 'Izmena osobine'}
+        ]
+      }
+    }
   ]
 });
