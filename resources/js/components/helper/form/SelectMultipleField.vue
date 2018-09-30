@@ -46,6 +46,9 @@
       }
     },
     watch: {
+      value: function(value, oldValue) {
+        this.selected = this.value;
+      },
       selected(value) {
         this.$emit('input', this.filterIds());
       }

@@ -89,7 +89,7 @@
     data() {
       return {
         category: {},
-        categories: {},
+        categories: [],
         error: null,
         selectedCategory: {},
       }
@@ -117,7 +117,17 @@
       },
 
       submit() {
-        //
+        axios.put('/api/categories/' + this.$route.params.id, this.category)
+          .then(res => {
+            this.$toasted.global.toastSuccess({ message: res.data.message });
+            this.$router.push('/categories');
+          })
+          .catch(e => {
+            this.error = e.response.data.errors;
+            this.$toasted.global.toastError({
+              message: e.response.data.message
+            });
+          })
       }
     }
   }

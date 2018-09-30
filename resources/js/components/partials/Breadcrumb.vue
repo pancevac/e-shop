@@ -51,6 +51,7 @@
     watch: {
       '$route'() {
         this.updateList();
+        this.updateTitle();
       }
     },
 

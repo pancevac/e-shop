@@ -92,7 +92,7 @@
           parent: null,
         },
         error: null,
-        categories: {},
+        categories: [],
       }
     },
 

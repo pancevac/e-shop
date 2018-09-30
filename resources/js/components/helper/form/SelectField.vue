@@ -36,6 +36,9 @@
       //
     },
     watch: {
+      value(value, oldValue) {
+        this.selected = this.value;
+      },
       selected(value) {
         if (value == null) {
           this.$emit('input', 0);
