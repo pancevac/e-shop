@@ -36,9 +36,9 @@
       //
     },
     watch: {
-      value(value, oldValue) {
-        this.selected = this.value;
-      },
+      // value(value, oldValue) {
+      //   this.selected = this.value;
+      // },
       selected(value) {
         if (value == null) {
           this.$emit('input', 0);
@@ -52,7 +52,16 @@
       isInvalid() {
         if (this.error != null && this.error)
           return true;
-      }
+      },
+
+      // model: {
+      //   get() {
+      //     return this.value
+      //   },
+      //   set(val) {
+      //     this.$emit('input', val.id)
+      //   }
+      // }
     }
   }
 </script>
