@@ -19,10 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Users CRUD
 Route::resource('users', 'Api\UsersController')->except(['show', 'create']);
-// Categories CRUD
+// Brands CRUD
 Route::resource('brands', 'Api\BrandsController')->except(['show', 'create']);
 // Categories CRUD
 Route::resource('categories', 'Api\CategoriesController')->except(['show', 'create']);
 Route::get('categories/lists', 'Api\CategoriesController@lists');
 Route::get('categories/sort', 'Api\CategoriesController@sort');
 Route::post('categories/order', 'Api\CategoriesController@saveOrder');
+// Properties CRUD
+Route::resource('properties', 'Api\PropertiesController')->except(['show', 'create']);

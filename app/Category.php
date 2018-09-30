@@ -177,4 +177,14 @@ class Category extends Model
     {
         return $this->childrenCategory()->with('children');
     }
+
+    /**
+     * Property many-to-many relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function properties()
+    {
+        return $this->belongsToMany(Property::class);
+    }
 }
