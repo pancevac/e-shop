@@ -46,7 +46,9 @@
   export default {
     data() {
       return {
-        brand: {},
+        brand: {
+          slug: null,
+        },
         error: null,
       }
     },

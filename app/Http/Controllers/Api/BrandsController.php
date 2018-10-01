@@ -88,4 +88,18 @@ class BrandsController extends Controller
             'message' => 'Brend je uspešno obrisan'
         ]);
     }
+
+    /**
+     * Return list of brands as id-title.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lists()
+    {
+        $brands = Brand::select('id', 'title')->orderBy('title')->get();
+
+        return response()->json([
+            'brands' => $brands
+        ]);
+    }
 }

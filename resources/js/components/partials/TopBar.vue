@@ -57,6 +57,7 @@
               <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <router-link :to="'/products/create'" class="dropdown-item" href="#">Proizvod</router-link>
               <router-link :to="'/users/create'" class="dropdown-item" href="#">Korisnika</router-link>
               <router-link :to="'/brands/create'" class="dropdown-item" href="#">Brend</router-link>
               <router-link :to="'/categories/create'" class="dropdown-item" href="#">Kategoriju</router-link>

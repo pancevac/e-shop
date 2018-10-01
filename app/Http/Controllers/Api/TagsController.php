@@ -89,4 +89,18 @@ class TagsController extends Controller
             'message' => 'tag je uspešno izbrisan.'
         ]);
     }
+
+    /**
+     * Return list of tags as id-title.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lists()
+    {
+        $tags = Tag::select('id', 'title')->orderBy('title')->get();
+
+        return response()->json([
+            'tags' => $tags
+        ]);
+    }
 }

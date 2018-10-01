@@ -31,6 +31,16 @@ class Brand extends Model
     }
 
     /**
+     * Scope published
+     *
+     * @param $query
+     */
+    public function scopePublished($query)
+    {
+        $query->where('publish', 1);
+    }
+
+    /**
      * Return as boolean value;
      *
      * @param $publish

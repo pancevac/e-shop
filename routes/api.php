@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('users', 'Api\UsersController')->except(['show', 'create']);
 // Brands CRUD
 Route::resource('brands', 'Api\BrandsController')->except(['show', 'create']);
+Route::get('brands/lists', 'Api\BrandsController@lists');
 // Categories CRUD
 Route::resource('categories', 'Api\CategoriesController')->except(['show', 'create']);
 Route::get('categories/lists', 'Api\CategoriesController@lists');
@@ -33,3 +34,6 @@ Route::get('properties/lists', 'Api\PropertiesController@lists');
 Route::resource('attributes', 'Api\AttributesController')->except(['show', 'create']);
 // Tag CRUD
 Route::resource('tags', 'Api\TagsController')->except(['show', 'create']);
+Route::get('tags/lists', 'Api\TagsController@lists');
+// Product CRUD
+Route::resource('products', 'Api\ProductsController')->except(['show', 'create']);

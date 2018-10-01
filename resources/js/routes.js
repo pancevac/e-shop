@@ -261,6 +261,31 @@ export const router = new VueRouter({
           {title: 'Izmena taga'}
         ]
       }
+    },
+
+    // Product CRUD
+    {
+      path: '/products',
+      component: require('./views/products/ProductList.vue'),
+      meta: {
+        auth: true,
+        pageTitle: 'Proizvodi',
+        breadcrumb: [
+          {title: 'Proizvod'}
+        ]
+      }
+    },
+    {
+      path: '/products/create',
+      component: require('./views/products/ProductCreate.vue'),
+      meta: {
+        auth: true,
+        pageTitle: 'Kreiranje proizvoda',
+        breadcrumb: [
+          {title: 'Proizvod', link: '/products'},
+          {title: 'Kreiranje proizvoda'}
+        ]
+      }
     }
   ]
 });
