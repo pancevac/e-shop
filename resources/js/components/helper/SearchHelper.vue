@@ -11,7 +11,7 @@
 
             <div class="col-md-3" v-show="enableList">
               <select class="form-control" v-model="search.option">
-                <option :value="index" v-for="(option, index) in lists">{{ option }}</option>
+                <option :value="index" v-for="(option, index) in lists">{{ option.title }}</option>
               </select>
             </div>
 
@@ -30,14 +30,14 @@
   export default {
 
     props: {
-      lists: Object,
+      lists: [Object, Array],
       search: Object,
       enableList: Boolean,
     },
 
     methods: {
       submit() {
-        this.$emit('updateSearch', this.value);
+        this.$emit('updateSearch', this.search);
       }
     }
 

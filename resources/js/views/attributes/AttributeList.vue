@@ -4,6 +4,14 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
+
+            <search-helper
+                    :lists="properties"
+                    :search="search"
+                    :enableList=true
+                    @updateSearch="search($event)"
+            ></search-helper>
+
             <h5 class="card-title m-b-0">Osobine</h5>
 
             <table class="table">
@@ -40,6 +48,7 @@
 <script>
   import Pagination from 'laravel-vue-pagination';
   import Swal from 'sweetalert2';
+  import SearchHelper from '../../components/helper/SearchHelper.vue';
 
   export default {
     name: "AttributeList",
@@ -47,15 +56,25 @@
       return {
         attributes: {},
         paginate: {},
+        properties: {},
+        search: {},
       }
     },
 
     components: {
-      Pagination
+      Pagination,
+      SearchHelper
+    },
+
+    computed: {
+      searchAttribute() {
+        return this.$store.getters['search/getSearchAttribute'];
+      }
     },
 
     mounted() {
       this.getAttributes();
+      this.getProperties();
     },
 
     methods: {
@@ -64,6 +83,13 @@
           .then(res => {
             this.attributes = res.data.attributes.data;
             this.paginate = res.data.attributes;
+          })
+      },
+
+      getProperties() {
+        axios.get('api/properties/lists')
+          .then(res => {
+            this.properties = res.data.properties;
           })
       },
 
@@ -94,11 +120,21 @@
                 })
             }
           })
-      }
+      },
+
+      search(value) {
+        this.$store.dispatch('changeSearchAttributePage', 1);
+        this.$store.dispatch('changeSearchAttribute', value);
+
+        axios.post('api/attributes/search', this.searchAttribute)
+          .then(res => {
+            this.attributes = res.data.attributes.data;
+            this.paginate = res.data.attributes;
+          })
+          .catch(e => {
+            console.log(e);
+          })
+      },
     }
   }
 </script>
-
-<style scoped>
-
-</style>
