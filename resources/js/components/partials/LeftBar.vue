@@ -22,6 +22,7 @@
               <li class="sidebar-item"><router-link :to="'/categories'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Kategorije </span></router-link></li>
               <li class="sidebar-item"><router-link :to="'/properties'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Osobine </span></router-link></li>
               <li class="sidebar-item"><router-link :to="'/attributes'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Atributi </span></router-link></li>
+              <li class="sidebar-item"><router-link :to="'/tags'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Tagovi </span></router-link></li>
             </ul>
           </li>
 

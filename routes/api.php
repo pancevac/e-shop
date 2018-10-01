@@ -31,3 +31,5 @@ Route::resource('properties', 'Api\PropertiesController')->except(['show', 'crea
 Route::get('properties/lists', 'Api\PropertiesController@lists');
 // Attribute CRUD
 Route::resource('attributes', 'Api\AttributesController')->except(['show', 'create']);
+// Tag CRUD
+Route::resource('tags', 'Api\TagsController')->except(['show', 'create']);

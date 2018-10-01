@@ -224,6 +224,43 @@ export const router = new VueRouter({
           {title: 'Izmena atributa'}
         ]
       }
+    },
+
+    // Tags CRUD
+    {
+      path: '/tags',
+      component: require('./views/tags/TagList.vue'),
+      meta: {
+        auth: true,
+        pageTitle: 'Tagovi',
+        breadcrumb: [
+          {title: 'Tag'}
+        ]
+      }
+    },
+    {
+      path: '/tags/create',
+      component: require('./views/tags/TagCreate.vue'),
+      meta: {
+        auth: true,
+        pageTitle: 'Kreiranje tagova',
+        breadcrumb: [
+          {title: 'Tag', link: '/tags'},
+          {title: 'Kreiranje tagova'}
+        ]
+      }
+    },
+    {
+      path: '/tags/:id/edit',
+      component: require('./views/tags/TagEdit.vue'),
+      meta: {
+        auth: true,
+        pageTitle: 'Izmena tagova',
+        breadcrumb: [
+          {title: 'Tag', link: '/tags'},
+          {title: 'Izmena taga'}
+        ]
+      }
     }
   ]
 });
