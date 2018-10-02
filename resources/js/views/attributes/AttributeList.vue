@@ -7,12 +7,13 @@
 
             <search-helper
                     :lists="properties"
-                    :search="search"
+                    :search="searchAttribute"
                     :enableList=true
                     @updateSearch="search($event)"
+                    @resetSearch="search($event)"
             ></search-helper>
 
-            <h5 class="card-title m-b-0">Osobine</h5>
+            <h5 class="card-title m-b-0">Atributi</h5>
 
             <table class="table">
               <thead>
@@ -36,7 +37,7 @@
               </tbody>
             </table>
 
-            <pagination :data="paginate" @pagination-change-page="getAttributes"></pagination>
+            <pagination :data="paginate" @pagination-change-page="clickTolink"></pagination>
 
           </div>
         </div>
@@ -57,7 +58,6 @@
         attributes: {},
         paginate: {},
         properties: {},
-        search: {},
       }
     },
 
@@ -78,8 +78,9 @@
     },
 
     methods: {
-      getAttributes(page = 1) {
-        axios.get('api/attributes?page=' + page)
+      getAttributes() {
+        this.$store.dispatch('search/changeSearchAttributePage', 1);
+        axios.post('api/attributes/search', this.searchAttribute)
           .then(res => {
             this.attributes = res.data.attributes.data;
             this.paginate = res.data.attributes;
@@ -89,7 +90,7 @@
       getProperties() {
         axios.get('api/properties/lists')
           .then(res => {
-            this.properties = res.data.properties;
+            this.properties = res.data.lists;
           })
       },
 
@@ -123,8 +124,8 @@
       },
 
       search(value) {
-        this.$store.dispatch('changeSearchAttributePage', 1);
-        this.$store.dispatch('changeSearchAttribute', value);
+        this.$store.dispatch('search/changeSearchAttributePage', 1);
+        this.$store.dispatch('search/changeSearchAttribute', value);
 
         axios.post('api/attributes/search', this.searchAttribute)
           .then(res => {
@@ -135,6 +136,15 @@
             console.log(e);
           })
       },
+
+      clickTolink(page) {
+        this.$store.dispatch('search/changeSearchAttributePage', page);
+        axios.post('api/attributes/search', this.searchAttribute)
+          .then(res => {
+            this.attributes = res.data.attributes.data;
+            this.paginate = res.data.attributes;
+          })
+      }
     }
   }
 </script>

@@ -114,7 +114,8 @@ class PropertiesController extends Controller
         $properties = Property::select('id', 'title')->orderBy('title')->get();
 
         return response()->json([
-            'properties' => $properties
+            'properties' => $properties,
+            'lists' => $properties->pluck('title', 'id')->prepend('Izaberite osobinu', 0)
         ]);
     }
 }

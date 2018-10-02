@@ -1,11 +1,11 @@
 export default {
-  namespaces: true,
+  namespaced: true,
 
   state: {
 
     /** search attribute **/
     searchAttribute: {
-      title: '',
+      text: '',
       option: 0,
       page: 1,
     },

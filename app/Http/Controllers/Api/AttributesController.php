@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Attribute;
 use App\Http\Requests\CreateAttributeRequest;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -99,6 +100,35 @@ class AttributesController extends Controller
 
         return response()->json([
             'message' => 'Attribut je uspešno izbrisan.'
+        ]);
+    }
+
+    /**
+     * Filter attributes list based on property and page number...
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search()
+    {
+        $attributes = Attribute::with('property')
+
+            // Filter attributes based on searchable text
+            ->where(function ($query) {
+                if (request('text')) {
+                    $query->where('title', 'like', '%' . request('text') . '%')->orWhere('slug', 'like', '%' . request('text') . '%');
+                }
+            })
+
+            // Filter attributes based on property
+            ->where(function ($query) {
+                if (request('option') > 0) {
+                    $query->where('property_id', request('option'));
+                }
+            })
+            ->paginate();
+
+        return response()->json([
+            'attributes' => $attributes
         ]);
     }
 }
