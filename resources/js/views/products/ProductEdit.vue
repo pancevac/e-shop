@@ -8,8 +8,10 @@
             <h4>Novi proizvod</h4>
 
             <select-field
+                    v-if="!isLoading"
                     :options="brands"
                     label="Brend"
+                    :value="product.brand"
                     @input="product.brand_id = $event"
                     optionLabel="title"
                     trackBy="id"
@@ -60,6 +62,7 @@
             <select-multiple-field
                     :options="tags"
                     label="Tagovi"
+                    :value="product.tags"
                     @input="product.selectedTags = $event"
                     optionLabel="title"
                     trackBy="id"
@@ -104,6 +107,7 @@
                     v-model="product.selectedCategories"
                     :options="categories"
                     label="Kategorije"
+                    :error="error? error.selectedCategories : ''"
             ></tree-select>
 
           </div>
@@ -124,16 +128,13 @@
     data() {
       return {
         product: {
-          slug: null,
-          date: moment().format('YYYY-MM-DD'),
-          time: moment().format('HH:00'),
-          selectedTags: [],
           selectedCategories: [],
         },
         brands: [],
         tags: [],
         categories: [],
-        error: null
+        error: null,
+        loading: true,
       }
     },
 
@@ -147,15 +148,28 @@
       publish_at(){
         return this.product.date + ' ' + this.product.time
       },
+      isLoading() {
+        return this.loading;
+      }
     },
 
     mounted() {
       this.getBrands();
       this.getCategories();
       this.getTags();
+      this.getProduct();
     },
 
     methods: {
+      getProduct() {
+        axios.get('api/products/' + this.$route.params.id + '/edit')
+          .then(res => {
+            this.product = res.data.product;
+            this.product.selectedCategories = res.data.product.categoriesIds;
+            this.loading = false;
+          })
+      },
+
       getBrands() {
         axios.get('api/brands/lists')
           .then(res => {
@@ -181,7 +195,7 @@
         this.product.user_id = this.$store.getters['user/getUser'].id;
         this.product.publish_at = this.publish_at;
 
-        axios.post('api/products', this.product)
+        axios.put('api/products/' + this.$route.params.id, this.product)
           .then(res => {
             this.$toasted.global.toastSuccess({ message: res.data.message });
             this.$router.push('/products');

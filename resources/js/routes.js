@@ -286,6 +286,18 @@ export const router = new VueRouter({
           {title: 'Kreiranje proizvoda'}
         ]
       }
-    }
+    },
+    {
+      path: '/products/:id/edit',
+      component: require('./views/products/ProductEdit.vue'),
+      meta: {
+        auth: true,
+        pageTitle: 'Izmena proizvoda',
+        breadcrumb: [
+          {title: 'Proizvod', link: '/products'},
+          {title: 'Izmena proizvoda'}
+        ]
+      }
+    },
   ]
 });

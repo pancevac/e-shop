@@ -16,7 +16,19 @@ class Category extends Model
         'title', 'slug', 'seo_title', 'seo_keywords', 'seo_description', 'order', 'parent', 'level','featured', 'publish'
     ];
 
+    /**
+     * Category array in which nested categories will be stored when recursive method is called.
+     *
+     * @var
+     */
     public $categories;
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['label'];
 
     /**
      * Boot method of model, executed every time category class is initialized.
@@ -136,6 +148,16 @@ class Category extends Model
     public function getPublishAttribute($publish)
     {
         return (bool) $publish;
+    }
+
+    /**
+     * Get the label flag for category title.
+     *
+     * @return mixed
+     */
+    public function getLabelAttribute()
+    {
+        return $this->attributes['label'] = $this->title;
     }
 
     /**

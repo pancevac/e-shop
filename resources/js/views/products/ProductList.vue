@@ -21,7 +21,7 @@
               <tr v-for="row in products">
                 <td>{{ row.title }}</td>
                 <td>{{ row.code }}</td>
-                <td v-if="row.categories">[<template v-for="category in row.categories">{{ category.title }},</template>]</td><td v-else>/</td>
+                <td v-if="row.categories"><template v-for="category in row.categories"><span class="badge badge-primary" style="margin-right: 3px;">{{ category.title }}</span></template></td><td v-else>/</td>
                 <td v-if="row.publish">Da</td><td v-else>Ne</td>
                 <td>{{ row.publish_at }}</td>
                 <td>

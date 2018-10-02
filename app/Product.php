@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -14,6 +15,13 @@ class Product extends Model
     protected $fillable = [
         'user_id', 'brand_id', 'title', 'slug', 'code', 'short', 'description', 'image', 'price', 'price_outlet', 'views', 'stock', 'featured', 'publish', 'publish_at'
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['date', 'time', 'categoriesIds'];
 
     /**
      * Boot method (eager load relationships)
@@ -41,6 +49,51 @@ class Product extends Model
             }]);
         });
         // Eager load categories relationship
+    }
+
+    /**
+     * Set brand slug, if slug field have value, make slug of it, otherwise make slug of title.
+     *
+     * @param $value
+     */
+    public function setSlugAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['slug'] = str_slug($value);
+        }
+        else {
+            $this->attributes['slug'] = str_slug(request('title'));
+        }
+    }
+
+    /**
+     * Get the label flag for date.
+     *
+     * @return string
+     */
+    public function getDateAttribute()
+    {
+        return Carbon::parse($this->publish_at)->format('Y-m-d');
+    }
+
+    /**
+     * Get the label flag for time.
+     *
+     * @return string
+     */
+    public function getTimeAttribute()
+    {
+        return Carbon::parse($this->publish_at)->format('H:00:00');
+    }
+
+    /**
+     * Get the label flag for product categories ids...
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getCategoriesIdsAttribute()
+    {
+        return $this->categories()->pluck('id');
     }
 
     /**
