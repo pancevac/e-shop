@@ -6,7 +6,9 @@
             v-model="model"
             :multiple="true"
             :options="optionsList"
-            value-consists-of="ALL_WITH_INDETERMINATE"
+            :value-consists-of="valueConsistOf"
+            :disable-branch-nodes="disableBranchNodes"
+            :show-count="showCount"
     ></treeselect>
 
     <small class="form-text text-muted" v-if="isInvalid">{{ error[0] }}</small>
@@ -23,8 +25,33 @@
         optionsList: this.options,
       }
     },
-
-    props: ['value', 'options', 'label', 'error'],
+    props: {
+      value: {
+        type: Array
+      },
+      options: {
+        type: Array
+      },
+      label: {
+        type: String,
+      },
+      error: {
+        type: [Array, String]
+      },
+      valueConsistOf: {
+        type: String,
+        default: 'BRANCH_PRIORITY',
+      },
+      disableBranchNodes: {
+        type: Boolean,
+        default: false,
+      },
+      showCount: {
+        type: Boolean,
+        default: false,
+      }
+    },
+    //props: ['value', 'options', 'label', 'error'],
 
     computed: {
       model: {
