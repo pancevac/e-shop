@@ -97,6 +97,16 @@ class Product extends Model
     }
 
     /**
+     * Get the label flag for selected attributes ids...
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getSelectedAttributesAttribute()
+    {
+        return $this->attributes['selectedAttributes'] = $this->attributes()->pluck('id');
+    }
+
+    /**
      * Scope published
      *
      * @param $query

@@ -105,22 +105,22 @@
 
             <tree-select
                     v-model="product.selectedCategories"
+                    @input="trigger($event)"
                     :options="categories"
                     label="Kategorije"
                     :error="error? error.selectedCategories : ''"
             ></tree-select>
 
-            <select-multiple-field
-                v-if="properties"
-                v-for="(property, index) in properties"
-                :key="index"
-                :options="property.attributes"
-                :value="filterAttributesArray(product.attributes, property.attributes)"
-                @input="product.selectedAttributes = product.selectedAttributes.concat($event)"
-                :label="property.title"
-                optionLabel="title"
-                trackBy="id"
-            ></select-multiple-field>
+            <tree-select
+                    v-if="properties"
+                    v-model="product.selectedAttributes"
+                    label="Osobine i atributi"
+                    :options="properties"
+                    :disableBranchNodes="true"
+                    :showCount="true"
+                    valueConsistOf="LEAF_PRIORITY"
+                    :error="error? error.selectedAttributes : ''"
+            ></tree-select>
 
           </div>
         </div>
@@ -188,20 +188,9 @@
 
     methods: {
 
-      filterAttributesArray(set, arr) {
-        let result = [];
-        arr.forEach((properties, index) => {
-          if (this.findByMatchingProperties(set, properties)) {
-            result[index] = this.findByMatchingProperties(set, properties);
-          }
-        });
-        return result;
-      },
-
-      findByMatchingProperties(set, properties) {
-        return set.find(function (obj) {
-          return obj.id === properties.id;
-        });
+      // Trigger when selected category is changed cuz stupid watch property doesn't work sometimes...
+      trigger(value) {
+        this.getProperties();
       },
 
       getProduct() {
@@ -210,7 +199,6 @@
             this.product = res.data.product;
             this.product.selectedCategories = res.data.product.categoriesIds;
             this.loading = false;
-            // Retrieve atributes ids
           })
       },
 

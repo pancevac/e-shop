@@ -9,6 +9,7 @@
             :value-consists-of="valueConsistOf"
             :disable-branch-nodes="disableBranchNodes"
             :show-count="showCount"
+            :valueFormat="valueFormat"
     ></treeselect>
 
     <small class="form-text text-muted" v-if="isInvalid">{{ error[0] }}</small>
@@ -49,6 +50,10 @@
       showCount: {
         type: Boolean,
         default: false,
+      },
+      valueFormat: {
+        type: String,
+        default: 'id',
       }
     },
     //props: ['value', 'options', 'label', 'error'],

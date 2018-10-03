@@ -23,6 +23,13 @@ class Property extends Model
     protected $hidden = ['pivot'];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    //protected $appends = ['label', 'children'];
+
+    /**
      * Return properties that belongs to given categories with related attributes.
      *
      * @param $categoriesIds
@@ -35,7 +42,29 @@ class Property extends Model
             ->whereHas('categories', function ($query) use ($categoriesIds) {
                 $query->whereIn('id', $categoriesIds);
             })
-            ->get();
+            ->get()
+            ->each
+            ->append(['label', 'children']);
+    }
+
+    /**
+     * Get the label flag for label title
+     *
+     * @return mixed
+     */
+    public function getLabelAttribute()
+    {
+        return $this->attributes['label'] = $this->title;
+    }
+
+    /**
+     * Get the label flag children as attributes
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getChildrenAttribute()
+    {
+        return $this->attributes['children'] = $this->attributes()->get();
     }
 
     /**

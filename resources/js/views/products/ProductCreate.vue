@@ -104,19 +104,19 @@
                     v-model="product.selectedCategories"
                     :options="categories"
                     label="Kategorije"
+                    valueConsistOf="ALL_WITH_INDETERMINATE"
                     :error="error? error.selectedCategories : ''"
             ></tree-select>
 
-            <select-multiple-field
-                v-if="properties"
-                v-for="(property, index) in properties"
-                :key="index"
-                :options="property.attributes"
-                @input="product.selectedAttributes = product.selectedAttributes.concat($event)"
-                :label="property.title"
-                optionLabel="title"
-                trackBy="id"
-            ></select-multiple-field>
+            <tree-select
+                    v-if="properties"
+                    v-model="product.selectedAttributes"
+                    label="Osobine i atributi"
+                    :options="properties"
+                    :disableBranchNodes="true"
+                    :showCount="true"
+                    valueConsistOf="LEAF_PRIORITY"
+            ></tree-select>
 
           </div>
         </div>
@@ -166,11 +166,6 @@
         return this.product.selectedCategories;
       },
 
-      removeDuplicateAttributes() {
-        return this.product.selectedAttributes.filter((elem, pos, arr) => {
-          return arr.indexOf(elem) === pos;
-        });
-      }
     },
 
     mounted() {
@@ -218,7 +213,6 @@
       submit() {
         this.product.user_id = this.$store.getters['user/getUser'].id;
         this.product.publish_at = this.publish_at;
-        this.product.selectedAttributes = this.removeDuplicateAttributes;
 
         axios.post('api/products', this.product)
           .then(res => {

@@ -68,7 +68,7 @@ class ProductsController extends Controller
         $product = Product::with('tags')->whereId($id)->first();
 
         return response()->json([
-            'product' => $product
+            'product' => $product->append('selectedAttributes')
         ]);
     }
 
@@ -82,11 +82,19 @@ class ProductsController extends Controller
      */
     public function update(EditProductRequest $request, Product $product)
     {
+        // Cut attribute prefix that makes attributes ID's unique to prevent conflict with property ID's.
+        $attributeIds = [];
+        foreach ($request->selectedAttributes as $attribute) {
+            $attributeIds[] = explode('.', $attribute)[1];
+        }
+
+
         // Update product
         $product->update($request->except('selectedCategories', 'selectedTags'));
 
         // Sync product's categories and tags...
         $product->categories()->sync($request->selectedCategories);
+        $product->attributes()->sync($attributeIds);
         $product->tags()->sync($request->selectedTags);
 
         return response()->json([

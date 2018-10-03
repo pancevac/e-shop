@@ -34,8 +34,8 @@ class EditProductRequest extends FormRequest
                 Rule::unique('products')->ignore($this->code),
             ],
             'selectedCategories' => 'required|array|min:1',
+            'selectedAttributes' => 'required|array|min:1',
             'brand_id' => 'required|numeric|min:1',
-            //'att_ids' => 'required|array|min:1',
             'price' => 'required|numeric|min:1',
             'publish_at' => 'required|date',
         ];
@@ -54,9 +54,9 @@ class EditProductRequest extends FormRequest
             'brand_id.required' => 'Brend je obavezan',
             'brand_id.numeric' => 'Brend je obavezan',
             'brand_id.min' => 'Brend je obavezan',
-            /*'att_ids.required' => 'Jedan atribut je obavezan',
-            'att_ids.numeric' => 'Jedan atribut je obavezan',
-            'att_ids.min' => 'Jedan atribut je obavezan',*/
+            'selectedAttributes.required' => 'Jedan atribut je obavezan',
+            'selectedAttributes.numeric' => 'Jedan atribut je obavezan',
+            'selectedAttributes.min' => 'Jedan atribut je obavezan',
             'price.required' => 'Cena je obavezna',
             'price.numeric' => 'Cena je obavezna',
             'price.min' => 'Cena je obavezna',

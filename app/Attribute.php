@@ -15,7 +15,19 @@ class Attribute extends Model
         'title', 'slug', 'order', 'additional', 'property_id', 'publish'
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = ['pivot'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['label'];
 
     /**
      * Set property slug, if slug field have value, make slug of it, otherwise make slug of title.
@@ -30,6 +42,28 @@ class Attribute extends Model
         else {
             $this->attributes['slug'] = str_slug(request('title'));
         }
+    }
+
+    /**
+     * Get the label flag for label title
+     *
+     * @return mixed
+     */
+    public function getLabelAttribute()
+    {
+        return $this->attributes['label'] = $this->title;
+    }
+
+    /**
+     * Get the label flag for attribute id. This override real attr ID cuz of specific situation
+     * on product edit api controller. Prefix "attributes" is added for unique ID to prevent collision with
+     * property ID on same drop-down select field...
+     *
+     * @return string
+     */
+    public function getIdAttribute()
+    {
+        return $this->attributes['id'] = 'attribute.' . $this->attributes['id'];
     }
 
     /**
