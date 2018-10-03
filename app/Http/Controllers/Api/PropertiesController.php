@@ -118,4 +118,18 @@ class PropertiesController extends Controller
             'lists' => $properties->pluck('title', 'id')->prepend('Izaberite osobinu', 0)
         ]);
     }
+
+    /**
+     * Return list of properties as id-title based on given categories.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function listsByCategories()
+    {
+        $properties = Property::getPropertiesByCategories(request('categoriesIds'));
+
+        return response()->json([
+            'properties' => $properties
+        ]);
+    }
 }

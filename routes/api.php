@@ -28,8 +28,9 @@ Route::get('categories/lists', 'Api\CategoriesController@lists');
 Route::get('categories/sort', 'Api\CategoriesController@sort');
 Route::post('categories/order', 'Api\CategoriesController@saveOrder');
 // Properties CRUD
-Route::resource('properties', 'Api\PropertiesController')->except(['show', 'create']);
 Route::get('properties/lists', 'Api\PropertiesController@lists');
+Route::post('properties/categories', 'Api\PropertiesController@listsByCategories');
+Route::resource('properties', 'Api\PropertiesController')->except(['show', 'create']);
 // Attribute CRUD
 Route::resource('attributes', 'Api\AttributesController')->except(['show', 'create']);
 Route::post('attributes/search', 'Api\AttributesController@search');

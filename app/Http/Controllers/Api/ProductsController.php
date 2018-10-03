@@ -48,6 +48,7 @@ class ProductsController extends Controller
 
         // Sync product's categories and tags...
         $product->categories()->sync($request->selectedCategories);
+        $product->attributes()->sync($request->selectedAttributes);
         $product->tags()->sync($request->selectedTags);
 
         return response()->json([

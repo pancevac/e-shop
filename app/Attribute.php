@@ -15,6 +15,8 @@ class Attribute extends Model
         'title', 'slug', 'order', 'additional', 'property_id', 'publish'
     ];
 
+    protected $hidden = ['pivot'];
+
     /**
      * Set property slug, if slug field have value, make slug of it, otherwise make slug of title.
      *

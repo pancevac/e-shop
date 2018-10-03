@@ -110,6 +110,18 @@
                     :error="error? error.selectedCategories : ''"
             ></tree-select>
 
+            <select-multiple-field
+                v-if="properties"
+                v-for="(property, index) in properties"
+                :key="index"
+                :options="property.attributes"
+                :value="filterAttributesArray(product.attributes, property.attributes)"
+                @input="product.selectedAttributes = product.selectedAttributes.concat($event)"
+                :label="property.title"
+                optionLabel="title"
+                trackBy="id"
+            ></select-multiple-field>
+
           </div>
         </div>
       </div>
@@ -129,10 +141,12 @@
       return {
         product: {
           selectedCategories: [],
+          selectedAttributes: [],
         },
         brands: [],
         tags: [],
         categories: [],
+        properties: [],
         error: null,
         loading: true,
       }
@@ -148,9 +162,14 @@
       publish_at(){
         return this.product.date + ' ' + this.product.time
       },
+
       isLoading() {
         return this.loading;
-      }
+      },
+
+      watchSelectedCategories() {
+        return this.product.selectedCategories;
+      },
     },
 
     mounted() {
@@ -160,13 +179,38 @@
       this.getProduct();
     },
 
+    watch: {
+      // If selected categories are changed, call method for getting properties
+      watchSelectedCategories() {
+        this.getProperties();
+      }
+    },
+
     methods: {
+
+      filterAttributesArray(set, arr) {
+        let result = [];
+        arr.forEach((properties, index) => {
+          if (this.findByMatchingProperties(set, properties)) {
+            result[index] = this.findByMatchingProperties(set, properties);
+          }
+        });
+        return result;
+      },
+
+      findByMatchingProperties(set, properties) {
+        return set.find(function (obj) {
+          return obj.id === properties.id;
+        });
+      },
+
       getProduct() {
         axios.get('api/products/' + this.$route.params.id + '/edit')
           .then(res => {
             this.product = res.data.product;
             this.product.selectedCategories = res.data.product.categoriesIds;
             this.loading = false;
+            // Retrieve atributes ids
           })
       },
 
@@ -181,6 +225,13 @@
         axios.get('api/categories/sort')
           .then(res => {
             this.categories = res.data.categories;
+          })
+      },
+
+      getProperties() {
+        axios.post('api/properties/categories', { categoriesIds: this.product.selectedCategories })
+          .then(res => {
+            this.properties = res.data.properties;
           })
       },
 

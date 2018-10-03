@@ -15,7 +15,28 @@ class Property extends Model
         'title', 'slug', 'order', 'additional', 'publish'
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = ['pivot'];
+
+    /**
+     * Return properties that belongs to given categories with related attributes.
+     *
+     * @param $categoriesIds
+     * @return Property[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function getPropertiesByCategories($categoriesIds)
+    {
+        return self::with('attributes')
+            ->select('id', 'title')
+            ->whereHas('categories', function ($query) use ($categoriesIds) {
+                $query->whereIn('id', $categoriesIds);
+            })
+            ->get();
+    }
 
     /**
      * Set property slug, if slug field have value, make slug of it, otherwise make slug of title.

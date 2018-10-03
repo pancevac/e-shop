@@ -104,7 +104,19 @@
                     v-model="product.selectedCategories"
                     :options="categories"
                     label="Kategorije"
+                    :error="error? error.selectedCategories : ''"
             ></tree-select>
+
+            <select-multiple-field
+                v-if="properties"
+                v-for="(property, index) in properties"
+                :key="index"
+                :options="property.attributes"
+                @input="product.selectedAttributes = product.selectedAttributes.concat($event)"
+                :label="property.title"
+                optionLabel="title"
+                trackBy="id"
+            ></select-multiple-field>
 
           </div>
         </div>
@@ -129,10 +141,12 @@
           time: moment().format('HH:00'),
           selectedTags: [],
           selectedCategories: [],
+          selectedAttributes: [],
         },
         brands: [],
         tags: [],
         categories: [],
+        properties: [],
         error: null
       }
     },
@@ -147,12 +161,29 @@
       publish_at(){
         return this.product.date + ' ' + this.product.time
       },
+
+      watchSelectedCategories() {
+        return this.product.selectedCategories;
+      },
+
+      removeDuplicateAttributes() {
+        return this.product.selectedAttributes.filter((elem, pos, arr) => {
+          return arr.indexOf(elem) === pos;
+        });
+      }
     },
 
     mounted() {
       this.getBrands();
       this.getCategories();
       this.getTags();
+    },
+
+    watch: {
+      // If selected categories are changed, call method for getting properties
+      watchSelectedCategories(value) {
+        this.getProperties()
+      },
     },
 
     methods: {
@@ -177,9 +208,17 @@
           })
       },
 
+      getProperties() {
+        axios.post('api/properties/categories', { categoriesIds: this.product.selectedCategories })
+          .then(res => {
+            this.properties = res.data.properties;
+          })
+      },
+
       submit() {
         this.product.user_id = this.$store.getters['user/getUser'].id;
         this.product.publish_at = this.publish_at;
+        this.product.selectedAttributes = this.removeDuplicateAttributes;
 
         axios.post('api/products', this.product)
           .then(res => {

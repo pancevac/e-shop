@@ -43,6 +43,7 @@
 
 <script>
   import Pagination from 'laravel-vue-pagination';
+  import Swal from 'sweetalert2';
 
   export default {
     data() {
