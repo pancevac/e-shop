@@ -29,7 +29,7 @@
     <container></container>
 
 </div>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-
 </body>
 </html>
