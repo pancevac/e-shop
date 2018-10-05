@@ -39,3 +39,4 @@ Route::resource('tags', 'Api\TagsController')->except(['show', 'create']);
 Route::get('tags/lists', 'Api\TagsController@lists');
 // Product CRUD
 Route::resource('products', 'Api\ProductsController')->except(['show', 'create']);
+Route::post('products/{id}/uploadImage', 'Api\ProductsController@uploadImage');

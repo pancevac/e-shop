@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\EditProductRequest;
+use App\Http\Requests\UploadImageRequest;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -44,15 +45,22 @@ class ProductsController extends Controller
     public function store(CreateProductRequest $request)
     {
         // Insert new product
-        $product = Product::create($request->except('selectedCategories', 'selectedTags'));
+        $product = Product::create($request->except('selectedCategories', 'selectedTags', 'image'));
+
+        // Cut attribute prefix that makes attributes ID's unique to prevent conflict with property ID's.
+        $selectedAttributes = [];
+        foreach ($request->selectedAttributes as $attribute) {
+            $selectedAttributes[] = explode('.', $attribute)[1];
+        }
 
         // Sync product's categories and tags...
         $product->categories()->sync($request->selectedCategories);
-        $product->attributes()->sync($request->selectedAttributes);
+        $product->attributes()->sync($selectedAttributes);
         $product->tags()->sync($request->selectedTags);
 
         return response()->json([
-            'message' => 'Proizvod je uspešno kreiran.'
+            'message' => 'Proizvod je uspešno kreiran.',
+            'product' => $product,
         ]);
     }
 
@@ -88,9 +96,8 @@ class ProductsController extends Controller
             $attributeIds[] = explode('.', $attribute)[1];
         }
 
-
         // Update product
-        $product->update($request->except('selectedCategories', 'selectedTags'));
+        $product->update($request->except('selectedCategories', 'selectedTags', 'image'));
 
         // Sync product's categories and tags...
         $product->categories()->sync($request->selectedCategories);
@@ -107,7 +114,7 @@ class ProductsController extends Controller
      *
      * @param Product $product
      * @return \Illuminate\Http\Response
-     * @internal param int $id
+     * @throws \Exception
      */
     public function destroy(Product $product)
     {
@@ -115,6 +122,18 @@ class ProductsController extends Controller
 
         return response()->json([
             'message' => 'Proizvod je uspešno izbrisan.'
+        ]);
+    }
+
+    public function uploadImage(UploadImageRequest $request, $id)
+    {
+        $product = Product::find($id);
+        $product->update([
+            'image' => $product->storeImage('image'),
+        ]);
+
+        return response()->json([
+            'image' => $product->image,
         ]);
     }
 }

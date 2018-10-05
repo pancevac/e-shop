@@ -13,7 +13,7 @@
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="validatedCustomFile" @change="setFileUploader">
           <label class="custom-file-label" for="validatedCustomFile">Izaberite sliku...</label>
-          <div class="invalid-feedback">Example invalid custom file feedback</div>
+          <small class="form-text text-muted" v-if="isInvalid">{{ error[0] }}</small>
         </div>
       </div>
     </div>
@@ -38,6 +38,19 @@
           }
         }
       }
+    },
+
+    computed: {
+      isInvalid() {
+        if (this.error != null && this.error)
+          return true;
+      },
     }
   }
 </script>
+
+<style scoped>
+  .text-muted {
+    color: red !important;
+  }
+</style>

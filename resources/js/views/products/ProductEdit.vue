@@ -8,82 +8,87 @@
             <h4>Novi proizvod</h4>
 
             <select-field
-                    v-if="!isLoading"
-                    :options="brands"
-                    label="Brend"
-                    :value="product.brand"
-                    @input="product.brand_id = $event"
-                    optionLabel="title"
-                    trackBy="id"
-                    :required=true
-                    :error="error? error.brand_id : ''"
+                v-if="!isLoading"
+                :options="brands"
+                label="Brend"
+                :value="product.brand"
+                @input="product.brand_id = $event"
+                optionLabel="title"
+                trackBy="id"
+                :required=true
+                :error="error? error.brand_id : ''"
             ></select-field>
 
             <text-field
-                    label="Naziv"
-                    :required=true
-                    v-model="product.title"
-                    :error="error? error.title : ''"
+                label="Naziv"
+                :required=true
+                v-model="product.title"
+                :error="error? error.title : ''"
             ></text-field>
 
             <text-field
-                    label="Slug"
-                    v-model="product.slug"
-                    :error="error? error.slug : ''"
+                label="Slug"
+                v-model="product.slug"
+                :error="error? error.slug : ''"
             ></text-field>
 
             <text-field
-                    label="Šifra"
-                    :required=true
-                    v-model="product.code"
-                    :error="error? error.code : ''"
+                label="Šifra"
+                :required=true
+                v-model="product.code"
+                :error="error? error.code : ''"
             ></text-field>
 
             <text-area-field
-                    label="Kratak opis"
-                    v-model="product.short"
-                    :error="error? error.short : ''"
+                label="Kratak opis"
+                v-model="product.short"
+                :error="error? error.short : ''"
             ></text-area-field>
 
             <!-- Ovde ide EDITOR komponenta -->
+            <ckeditor-field
+                label="Opis"
+                v-model="product.description"
+                :error="error? error.description : ''"
+            ></ckeditor-field>
 
             <text-field
-                    label="Cena"
-                    v-model="product.price"
-                    :error="error? error.price : ''"
+                label="Cena"
+                v-model="product.price"
+                :error="error? error.price : ''"
             ></text-field>
 
             <text-field
-                    label="Outlet cena"
-                    v-model="product.price_outlet"
-                    :error="error? error.price_outlet : ''"
+                label="Outlet cena"
+                v-model="product.price_outlet"
+                :error="error? error.price_outlet : ''"
             ></text-field>
 
             <select-multiple-field
-                    :options="tags"
-                    label="Tagovi"
-                    :value="product.tags"
-                    @input="product.selectedTags = $event"
-                    optionLabel="title"
-                    trackBy="id"
+                :options="tags"
+                label="Tagovi"
+                :value="product.tags"
+                @input="product.selectedTags = $event"
+                optionLabel="title"
+                trackBy="id"
             ></select-multiple-field>
 
             <checkbox-field
-                    label="Publikovano"
-                    v-model="product.publish"
+                label="Publikovano"
+                v-model="product.publish"
             ></checkbox-field>
 
             <div class="row">
               <div class="col-sm-6">
                 <date-field
-                        v-model="product.date"
-                        label="Objavi od datuma"
+                    v-model="product.date"
+                    label="Objavi od datuma"
                 ></date-field>
               </div>
               <div class="col-sm-6">
                 <time-field
-                        v-model="product.time"
-                        label="Od sati"
+                    v-model="product.time"
+                    label="Od sati"
                 ></time-field>
               </div>
             </div>
@@ -104,23 +109,32 @@
           <div class="card-body">
 
             <tree-select
-                    v-model="product.selectedCategories"
-                    @input="trigger($event)"
-                    :options="categories"
-                    label="Kategorije"
-                    :error="error? error.selectedCategories : ''"
+                v-model="product.selectedCategories"
+                @input="trigger($event)"
+                :options="categories"
+                label="Kategorije"
+                :error="error? error.selectedCategories : ''"
             ></tree-select>
 
             <tree-select
-                    v-if="properties"
-                    v-model="product.selectedAttributes"
-                    label="Osobine i atributi"
-                    :options="properties"
-                    :disableBranchNodes="true"
-                    :showCount="true"
-                    valueConsistOf="LEAF_PRIORITY"
-                    :error="error? error.selectedAttributes : ''"
+                v-if="properties"
+                v-model="product.selectedAttributes"
+                label="Osobine i atributi"
+                :options="properties"
+                :disableBranchNodes="true"
+                :showCount="true"
+                valueConsistOf="LEAF_PRIORITY"
+                :error="error? error.selectedAttributes : ''"
             ></tree-select>
+
+            <image-upload-helper
+                :image="product.image"
+                :defaultImage="null"
+                :titleImage="'proizvoda'"
+                :error="error ? error.image : ''"
+                @uploadImage="prepareImage($event)"
+                @removeRow="remove($event)"
+            ></image-upload-helper>
 
           </div>
         </div>
@@ -135,6 +149,8 @@
   import DateField from '../../components/helper/form/DateField.vue';
   import TimeField from '../../components/helper/form/TimeField.vue';
   import moment from 'moment';
+  import Ckeditor from '../../components/helper/form/CkeditorField';
+  import ImageUploadHelper from '../../components/helper/UploadImageHelper';
 
   export default {
     data() {
@@ -142,6 +158,8 @@
         product: {
           selectedCategories: [],
           selectedAttributes: [],
+          image: null,
+          description: null,
         },
         brands: [],
         tags: [],
@@ -149,6 +167,7 @@
         properties: [],
         error: null,
         loading: true,
+        formData: {},
       }
     },
 
@@ -156,10 +175,12 @@
       'tree-select': TreeSelect,
       'date-field': DateField,
       'time-field': TimeField,
+      'ckeditor-field': Ckeditor,
+      'image-upload-helper': ImageUploadHelper,
     },
 
     computed: {
-      publish_at(){
+      publish_at() {
         return this.product.date + ' ' + this.product.time
       },
 
@@ -217,7 +238,7 @@
       },
 
       getProperties() {
-        axios.post('api/properties/categories', { categoriesIds: this.product.selectedCategories })
+        axios.post('api/properties/categories', {categoriesIds: this.product.selectedCategories})
           .then(res => {
             this.properties = res.data.properties;
           })
@@ -236,8 +257,32 @@
 
         axios.put('api/products/' + this.$route.params.id, this.product)
           .then(res => {
-            this.$toasted.global.toastSuccess({ message: res.data.message });
+            this.uploadImage();
+            this.$toasted.global.toastSuccess({message: res.data.message});
             this.$router.push('/products');
+          })
+          .catch(e => {
+            this.error = e.response.data.errors;
+            this.$toasted.global.toastError({
+              message: e.response.data.message
+            });
+          })
+      },
+
+      prepareImage(image) {
+        this.product.image = image.src;
+        this.formData = new FormData();
+        this.formData.append('image', image.file);
+        this.$toasted.global.toastSuccess({
+          message: 'Nova slika je importovana.'
+        });
+      },
+
+      uploadImage() {
+        axios.post('api/products/' + this.$route.params.id + '/uploadImage', this.formData)
+          .then(res => {
+            this.product.image = res.data.image;
+            this.error = null
           })
           .catch(e => {
             this.error = e.response.data.errors;

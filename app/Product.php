@@ -2,11 +2,14 @@
 
 namespace App;
 
+use App\Traits\UploadableImageTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use UploadableImageTrait;
+
     /**
      * The attributes that are mass assignable.
      *
