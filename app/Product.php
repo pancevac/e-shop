@@ -168,4 +168,14 @@ class Product extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    /**
+     * Gallery one-to-many relationship. Every product can have gallery images.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function gallery()
+    {
+        return $this->hasMany(Gallery::class);
+    }
 }

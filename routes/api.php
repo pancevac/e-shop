@@ -40,3 +40,7 @@ Route::get('tags/lists', 'Api\TagsController@lists');
 // Product CRUD
 Route::resource('products', 'Api\ProductsController')->except(['show', 'create']);
 Route::post('products/{id}/uploadImage', 'Api\ProductsController@uploadImage');
+Route::get('products/{id}/gallery', 'Api\ProductsController@gallery');
+Route::post('products/{id}/uploadGallery', 'Api\ProductsController@uploadGallery');
+// Gallery
+Route::delete('galleries/{id}', 'Api\GalleriesController@destroy');

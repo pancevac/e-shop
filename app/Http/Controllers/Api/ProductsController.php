@@ -136,4 +136,19 @@ class ProductsController extends Controller
             'image' => $product->image,
         ]);
     }
+
+    public function gallery($id)
+    {
+        $product = Product::withoutGlobalScopes()->whereId($id)->first();
+
+        return response()->json([
+            'gallery' => $product->gallery,
+        ]);
+    }
+
+    public function uploadGallery($id)
+    {
+        Product::find($id)->storeGallery();
+        return 'Done';
+    }
 }
