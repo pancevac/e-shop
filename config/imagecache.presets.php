@@ -22,10 +22,35 @@
  */
 return array(
 
-  '80x80' => array(
-    'width' => 80,
-    'height' => 80,
-    'method' => 'crop',
-  ),
+    '80x80' => array(
+        'width' => 80,
+        'height' => 80,
+        'method' => 'crop',
+    ),
+    '63x84' => array(
+        'width' => 63,
+        'height' => 84,
+        'method' => 'crop',
+    ),
+    '120x90' => array(
+        'width' => 120,
+        'height' => 90,
+        'method' => 'crop',
+    ),
+    '100x43' => array(
+        'width' => 100,
+        'height' => 43,
+        'method' => 'crop',
+    ),
+    '90x120' => array(
+        'width' => 90,
+        'height' => 120,
+        'method' => 'crop',
+    ),
+    '215x287' => array(
+        'width' => 215,
+        'height' => 287,
+        'method' => 'crop',
+    ),
 
 );
