@@ -1,5 +1,5 @@
 <template>
-  <header class="topbar" data-navbarbg="skin5">
+  <header class="topbar" data-navbarbg="skin5" :class="{ hide: ! user }">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
       <div class="navbar-header" data-logobg="skin5">
         <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -116,7 +116,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
               <div class="dropdown-divider"></div>
-              <router-link :to="'/logout'" tag="a" class="dropdown-item" href="#"><i class="fa fa-power-off m-r-5 m-l-5"></i> Odjava</router-link>
+              <a class="dropdown-item" href="javascript:void(0)" @click="logout"><i class="fa fa-power-off m-r-5 m-l-5"></i> Odjava</a>
             </div>
           </li>
           <!-- ============================================================== -->
@@ -133,6 +133,17 @@
     methods: {
       showMenuSections() {
         //
+      },
+
+      logout() {
+        this.$auth.destroyToken();
+        location.reload();
+      }
+    },
+
+    computed: {
+      user() {
+        return this.$store.getters['user/getUser'];
       }
     }
   }

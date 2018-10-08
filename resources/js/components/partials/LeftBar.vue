@@ -1,5 +1,5 @@
 <template>
-  <aside class="left-sidebar" data-sidebarbg="skin5">
+  <aside class="left-sidebar" data-sidebarbg="skin5" :class="{ 'hide': ! user }">
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
       <!-- Sidebar navigation-->
@@ -45,7 +45,13 @@
 
 <script>
   export default {
-    name: "LeftBar"
+    name: "LeftBar",
+
+    computed: {
+      user() {
+        return this.$store.getters['user/getUser'];
+      }
+    }
   }
 </script>
 

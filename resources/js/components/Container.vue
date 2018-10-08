@@ -4,7 +4,7 @@
     <div id="main-wrapper">
       <top-bar></top-bar>
       <left-bar></left-bar>
-      <div class="page-wrapper">
+      <div class="page-wrapper" :class="{ expanded : ! user }">
 
         <breadcrumb></breadcrumb>
 
@@ -71,5 +71,11 @@
 
   .fade-enter, .fade-leave-active {
     opacity: 0
+  }
+</style>
+
+<style scoped>
+  .expanded {
+    margin-left: 0 !important;
   }
 </style>
