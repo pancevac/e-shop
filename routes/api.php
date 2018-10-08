@@ -38,6 +38,7 @@ Route::post('attributes/search', 'Api\AttributesController@search');
 Route::resource('tags', 'Api\TagsController')->except(['show', 'create']);
 Route::get('tags/lists', 'Api\TagsController@lists');
 // Product CRUD
+Route::post('products/search', 'Api\ProductsController@search');
 Route::resource('products', 'Api\ProductsController')->except(['show', 'create']);
 Route::post('products/{id}/uploadImage', 'Api\ProductsController@uploadImage');
 Route::get('products/{id}/gallery', 'Api\ProductsController@gallery');

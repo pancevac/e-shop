@@ -125,6 +125,41 @@ class ProductsController extends Controller
         ]);
     }
 
+    /**
+     * Filter products list based on category and page number...
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function search()
+    {
+        $products = Product::withoutGlobalScope('brand')
+            ->withoutGlobalScope('attributes')
+
+            // Filter products based on searchable text
+            ->where(function ($query) {
+                if (request('text')) {
+                    $query->where('title', 'like', '%' . request('text') . '%')
+                        ->orWhere('slug', 'like', '%' . request('text') . '%');
+                }
+            })
+
+            // Filter products based on property
+            ->where(function ($query) {
+                if (request('option') > 0) {
+                    $query->whereHas('categories', function ($categoryQuery) {
+                        $categoryQuery->where('id', request('option'));
+                    });
+                }
+            })
+
+            ->orderBy('id', 'DESC')
+            ->paginate();
+
+        return response()->json([
+            'products' => $products
+        ]);
+    }
+
     public function uploadImage(UploadImageRequest $request, $id)
     {
         $product = Product::find($id);

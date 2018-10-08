@@ -9,6 +9,13 @@ export default {
       option: 0,
       page: 1,
     },
+
+    /** search product **/
+    searchProduct: {
+      text: '',
+      option: 0,
+      page: 1,
+    },
   },
 
   getters: {
@@ -18,11 +25,16 @@ export default {
       return state.searchAttribute
     },
 
+    /* search product */
+    getSearchProduct: state => {
+      return state.searchProduct;
+    },
+
   },
 
   mutations: {
 
-    /** search product **/
+    /** search attribute **/
     changeSearchAttribute: (state, data) => {
       state.searchAttribute = data;
     },
@@ -30,16 +42,32 @@ export default {
       state.searchAttribute.page = data;
     },
 
+    /* search product */
+    changeSearchProduct: (state, data) => {
+      state.searchProduct = data;
+    },
+    changeSearchProductPage: (state, data) => {
+      state.searchProduct.page = data;
+    }
+
   },
 
   actions: {
 
-    /** search product **/
+    /** search attribute **/
     changeSearchAttribute: (context, data) => {
       context.commit('changeSearchAttribute', data);
     },
     changeSearchAttributePage: (context, data) => {
       context.commit('changeSearchAttributePage', data);
-    }
+    },
+
+    /* search product */
+    changeSearchProduct: (context, data) => {
+      context.commit('changeSearchProduct', data);
+    },
+    changeSearchProductPage: (context, data) => {
+      context.commit('changeSearchProductPage', data);
+    },
   }
 }

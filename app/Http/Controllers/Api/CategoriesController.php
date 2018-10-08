@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
 
 class CategoriesController extends Controller
 {
@@ -103,8 +104,17 @@ class CategoriesController extends Controller
     {
         $category = new Category();
 
+        $lists = new Collection();
+
+        foreach ($category->getCategories() as $option) {
+            $lists = $lists->merge(collect([
+                ['id' => $option['id'], 'title' => $option['title']]
+            ]));
+        }
+
         return response()->json([
             'categories' => $category->getCategories(),
+            'lists' => $lists->pluck('title', 'id')->prepend('Izaberite kategoriju', 0)
         ]);
     }
 
