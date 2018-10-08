@@ -60,9 +60,11 @@
             <h4>Upload profilne slike</h4>
 
             <upload-image-helper
-                :image="user.imagePath"
-                :error="error"
-                @uploadImage="prepare($event)"
+                :image="user.image"
+                :defaultImage="null"
+                :titleImage="'korisnika'"
+                :error="error ? error.image : ''"
+                @uploadImage="prepareImage($event)"
             ></upload-image-helper>
 
           </div>
@@ -73,7 +75,8 @@
 </template>
 
 <script>
-  //import UploadImageHelper from '../../components/helper/UploadImageHelper';
+  import UploadImageHelper from '../../components/helper/UploadImageHelper';
+  
   export default {
     data() {
       return {
@@ -84,15 +87,18 @@
           {title: 'Normal user', id: 3},
         ],
         error: null,
+        formData: {}
       }
     },
     components: {
-      //'upload-image-helper': UploadImageHelper
+      'upload-image-helper': UploadImageHelper
     },
     methods: {
       submit() {
         axios.post('api/users', this.user)
           .then(res => {
+            this.user = res.data.user;
+            this.uploadImage();
             this.$toasted.global.toastSuccess({ message: res.data.message });
             this.$router.push('/users');
           })
@@ -104,10 +110,28 @@
           })
       },
 
-      prepare(image){
-        this.user.imagePath = image.src;
-        this.user.image = image.file;
+      prepareImage(image) {
+        this.user.image = image.src;
+        this.formData = new FormData();
+        this.formData.append('image', image.file);
+        this.$toasted.global.toastSuccess({
+          message: 'Slika je setovana.'
+        });
       },
+
+      uploadImage() {
+        axios.post('api/users/' + this.user.id + '/uploadImage', this.formData)
+          .then(res => {
+            this.user.image = res.data.image;
+            this.error = null
+          })
+          .catch(e => {
+            this.error = e.response.data.errors;
+            this.$toasted.global.toastError({
+              message: e.response.data.message
+            });
+          })
+      }
     }
   }
 </script>

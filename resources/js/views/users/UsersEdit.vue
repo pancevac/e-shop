@@ -52,11 +52,31 @@
 
         </div>
       </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h4>Upload profilne slike</h4>
+
+            <upload-image-helper
+                :image="user.image"
+                :defaultImage="null"
+                :titleImage="'korisnika'"
+                :error="error ? error.image : ''"
+                @uploadImage="prepareImage($event)"
+            ></upload-image-helper>
+
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
+  import UploadImageHelper from '../../components/helper/UploadImageHelper';
+
   export default {
     data() {
       return {
@@ -70,6 +90,11 @@
         role: {title: 'Moderator', id: 2}
       }
     },
+
+    components: {
+      'upload-image-helper': UploadImageHelper
+    },
+
     mounted(){
       this.getUser();
     },
@@ -87,8 +112,32 @@
       submit() {
         axios.put('api/users/' + this.$route.params.id, this.user)
           .then(res => {
+            this.uploadImage();
             this.$toasted.global.toastSuccess({ message: res.data.message });
             this.$router.push('/users');
+          })
+          .catch(e => {
+            this.error = e.response.data.errors;
+            this.$toasted.global.toastError({
+              message: e.response.data.message
+            });
+          })
+      },
+
+      prepareImage(image) {
+        this.user.image = image.src;
+        this.formData = new FormData();
+        this.formData.append('image', image.file);
+        this.$toasted.global.toastSuccess({
+          message: 'Slika je setovana.'
+        });
+      },
+
+      uploadImage() {
+        axios.post('api/users/' + this.user.id + '/uploadImage', this.formData)
+          .then(res => {
+            this.user.image = res.data.image;
+            this.error = null
           })
           .catch(e => {
             this.error = e.response.data.errors;

@@ -21,6 +21,7 @@ Route::middleware('auth:api')->group(function () {
 
     // Users CRUD
     Route::resource('users', 'Api\UsersController')->except(['show', 'create']);
+    Route::post('users/{id}/uploadImage', 'Api\UsersController@uploadImage');
     // Brands CRUD
     Route::resource('brands', 'Api\BrandsController')->except(['show', 'create']);
     Route::get('brands/lists', 'Api\BrandsController@lists');

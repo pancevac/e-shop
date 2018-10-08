@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\EditUserRequest;
+use App\Http\Requests\UploadImageRequest;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,7 +32,7 @@ class UsersController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        $user = User::create($request->except('password_confirmation'));
+        $user = User::create($request->except('password_confirmation', 'image'));
         return response()->json([
             'user' => $user,
             'message' => 'Uspešno kreiran korisnik!',
@@ -60,7 +61,7 @@ class UsersController extends Controller
      */
     public function update(EditUserRequest $request, User $user)
     {
-        $user->update($request->all());
+        $user->update($request->except('image'));
         return response()->json([
             'user' => $user,
             'message' => 'Uspešno izmenjen korisnik!',
@@ -79,6 +80,18 @@ class UsersController extends Controller
         $user->delete();
         return response()->json([
             'message' => 'Korisnik je uspešno obrisan!'
+        ]);
+    }
+
+    public function uploadImage(UploadImageRequest $request, $id)
+    {
+        $user = User::find($id);
+        $user->update([
+            'image' => $user->storeImage('image'),
+        ]);
+
+        return response()->json([
+            'image' => $user->image,
         ]);
     }
 }
