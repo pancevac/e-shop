@@ -13,35 +13,39 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:api')->group(function () {
 
-// Users CRUD
-Route::resource('users', 'Api\UsersController')->except(['show', 'create']);
-// Brands CRUD
-Route::resource('brands', 'Api\BrandsController')->except(['show', 'create']);
-Route::get('brands/lists', 'Api\BrandsController@lists');
-// Categories CRUD
-Route::resource('categories', 'Api\CategoriesController')->except(['show', 'create']);
-Route::get('categories/lists', 'Api\CategoriesController@lists');
-Route::get('categories/sort', 'Api\CategoriesController@sort');
-Route::post('categories/order', 'Api\CategoriesController@saveOrder');
-// Properties CRUD
-Route::get('properties/lists', 'Api\PropertiesController@lists');
-Route::post('properties/categories', 'Api\PropertiesController@listsByCategories');
-Route::resource('properties', 'Api\PropertiesController')->except(['show', 'create']);
-// Attribute CRUD
-Route::resource('attributes', 'Api\AttributesController')->except(['show', 'create']);
-Route::post('attributes/search', 'Api\AttributesController@search');
-// Tag CRUD
-Route::resource('tags', 'Api\TagsController')->except(['show', 'create']);
-Route::get('tags/lists', 'Api\TagsController@lists');
-// Product CRUD
-Route::post('products/search', 'Api\ProductsController@search');
-Route::resource('products', 'Api\ProductsController')->except(['show', 'create']);
-Route::post('products/{id}/uploadImage', 'Api\ProductsController@uploadImage');
-Route::get('products/{id}/gallery', 'Api\ProductsController@gallery');
-Route::post('products/{id}/uploadGallery', 'Api\ProductsController@uploadGallery');
-// Gallery
-Route::delete('galleries/{id}', 'Api\GalleriesController@destroy');
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    // Users CRUD
+    Route::resource('users', 'Api\UsersController')->except(['show', 'create']);
+    // Brands CRUD
+    Route::resource('brands', 'Api\BrandsController')->except(['show', 'create']);
+    Route::get('brands/lists', 'Api\BrandsController@lists');
+    // Categories CRUD
+    Route::resource('categories', 'Api\CategoriesController')->except(['show', 'create']);
+    Route::get('categories/lists', 'Api\CategoriesController@lists');
+    Route::get('categories/sort', 'Api\CategoriesController@sort');
+    Route::post('categories/order', 'Api\CategoriesController@saveOrder');
+    // Properties CRUD
+    Route::get('properties/lists', 'Api\PropertiesController@lists');
+    Route::post('properties/categories', 'Api\PropertiesController@listsByCategories');
+    Route::resource('properties', 'Api\PropertiesController')->except(['show', 'create']);
+    // Attribute CRUD
+    Route::resource('attributes', 'Api\AttributesController')->except(['show', 'create']);
+    Route::post('attributes/search', 'Api\AttributesController@search');
+    // Tag CRUD
+    Route::resource('tags', 'Api\TagsController')->except(['show', 'create']);
+    Route::get('tags/lists', 'Api\TagsController@lists');
+    // Product CRUD
+    Route::post('products/search', 'Api\ProductsController@search');
+    Route::resource('products', 'Api\ProductsController')->except(['show', 'create']);
+    Route::post('products/{id}/uploadImage', 'Api\ProductsController@uploadImage');
+    Route::get('products/{id}/gallery', 'Api\ProductsController@gallery');
+    Route::post('products/{id}/uploadGallery', 'Api\ProductsController@uploadGallery');
+    // Gallery
+    Route::delete('galleries/{id}', 'Api\GalleriesController@destroy');
+
+});

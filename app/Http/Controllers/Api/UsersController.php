@@ -11,14 +11,6 @@ use App\Http\Controllers\Controller;
 class UsersController extends Controller
 {
     /**
-     * UsersController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
