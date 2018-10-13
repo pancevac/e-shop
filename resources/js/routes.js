@@ -22,7 +22,7 @@ export const router = new VueRouter({
     },
     {
       path: '/home',
-      component: require('./components/partials/Content'),
+      component: require('./components/partials/Dashboard'),
       meta: {
         auth: true,
         pageTitle: 'Početna',

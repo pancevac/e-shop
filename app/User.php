@@ -54,9 +54,25 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
+    /**
+     * Get the flag label for block field.
+     *
+     * @param $block
+     * @return bool
+     */
     public function getBlockAttribute($block)
     {
         return (bool) $block;
+    }
+
+    /**
+     * Get the flag label for image field.
+     *
+     * @return mixed
+     */
+    public function getProfileImageAttribute()
+    {
+        return \Imagecache::get($this->attributes['image'], 'profile_image')->src;
     }
 
     /**

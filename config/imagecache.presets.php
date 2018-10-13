@@ -22,6 +22,11 @@
  */
 return array(
 
+    'profile_image' => array(
+        'width' => 32,
+        'height' => 32,
+        'method' => 'crop'
+    ),
     '80x80' => array(
         'width' => 80,
         'height' => 80,

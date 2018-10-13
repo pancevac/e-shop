@@ -40,7 +40,7 @@ Vue.component('select-field', require('./components/helper/form/SelectField'));
 Vue.component('select-multiple-field', require('./components/helper/form/SelectMultipleField'));
 Vue.component('font-awesome-icon', require('@fortawesome/vue-fontawesome'));
 
-Vue.component('page', require('./components/partials/Content'));
+Vue.component('page', require('./components/partials/Dashboard'));
 
 import Auth from './packages/auth/Auth';
 import Toast from './packages/toast/toast';

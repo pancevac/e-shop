@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->group(function () {
 
     Route::get('/user', function (Request $request) {
-        return $request->user();
+        return $request->user()->append('profileImage');
     });
 
     // Users CRUD
