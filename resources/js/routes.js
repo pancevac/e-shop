@@ -299,5 +299,42 @@ export const router = new VueRouter({
         ]
       }
     },
+
+    // Permission CRUD
+    {
+      path: '/permissions',
+      component: require('./views/permissions/PermissionList'),
+      meta: {
+        auth: true,
+        pageTitle: 'Dozvole',
+        breadcrumb: [
+          {title: 'Dozvola'}
+        ]
+      }
+    },
+    {
+      path: '/permissions/create',
+      component: require('./views/permissions/PermissionCreate'),
+      meta: {
+        auth: true,
+        pageTitle: 'Kreiranje dozvole',
+        breadcrumb: [
+          {title: 'Dozvola', link: '/permissions'},
+          {title: 'Kreiranje dozvole'}
+        ]
+      }
+    },
+    {
+      path: '/permissions/:id/edit',
+      component: require('./views/permissions/PermissionEdit'),
+      meta: {
+        auth: true,
+        pageTitle: 'Editovanje dozvole',
+        breadcrumb: [
+          {title: 'Dozvole', link: '/permissions'},
+          {title: 'Editovanje dozvole'},
+        ]
+      }
+    }
   ]
 });

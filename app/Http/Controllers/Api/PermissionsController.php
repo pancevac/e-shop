@@ -30,7 +30,7 @@ class PermissionsController extends Controller
      */
     public function store(CreatePermissionRequest $request)
     {
-        $model = $request->get('model')['className'];
+        $model = $request->get('model');
         $ability = $request->get('ability');
 
         // Bind model and method in format "model.method"
@@ -56,7 +56,7 @@ class PermissionsController extends Controller
         $permission = Permission::find($id);
 
         // Separate "model.method" record on 2 parts...
-        $title = explode(',', $permission->title);
+        $title = explode('.', $permission->title);
         $model = ucfirst($title[0]);
         $ability = $title[1];
 

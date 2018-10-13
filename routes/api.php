@@ -48,5 +48,10 @@ Route::middleware('auth:api')->group(function () {
     Route::post('products/{id}/uploadGallery', 'Api\ProductsController@uploadGallery');
     // Gallery
     Route::delete('galleries/{id}', 'Api\GalleriesController@destroy');
+    // Permission CRUD
+    Route::get('permissions/models', 'Api\PermissionsController@getModels');
+    Route::get('permissions/abilities', 'Api\PermissionsController@getAbilities');
+    Route::get('permissions/lists', 'Api\PermissionsController@lists');
+    Route::resource('permissions', 'Api\PermissionsController')->except(['show', 'create']);
 
 });

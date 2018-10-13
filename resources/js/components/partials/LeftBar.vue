@@ -9,6 +9,7 @@
           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Korisici </span></a>
             <ul aria-expanded="false" class="collapse  first-level">
               <li class="sidebar-item"><router-link :to="'/users'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Korisnici </span></router-link></li>
+              <li class="sidebar-item"><router-link :to="'/permissions'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Dozvole </span></router-link></li>
             </ul>
           </li>
 
