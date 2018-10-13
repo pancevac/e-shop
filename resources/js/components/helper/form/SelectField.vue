@@ -30,7 +30,36 @@
         lists: this.options,
       }
     },
-    props: ['options', 'value', 'label', 'required', 'error', 'optionLabel', 'trackBy'],
+
+    props: {
+      options: {
+        type: Array,
+      },
+      value: {
+        type: [Object, String, Number],
+        default: null,
+      },
+      label: {
+        type: String,
+      },
+      required: {
+        type: Boolean,
+        default: false
+      },
+      error: {
+        type: [Object, Array, String],
+        default: null,
+      },
+      optionLabel: {
+        type: String,
+        default: null,
+      },
+      trackBy: {
+        type: String,
+        default: null,
+      },
+    },
+
     components: { MultiSelect },
     methods: {
       //
@@ -43,15 +72,31 @@
         if (value == null) {
           this.$emit('input', 0);
         }
-        else {
-          this.$emit('input', value.id);
+        else if (this.checkOptionsType) {
+          this.$emit('input', value[this.trackBy]); // value[] is not array but object and we can access property name
+                                                    // just like it is array element
         }
-      }
+        else {
+          this.$emit('input', value);
+        }
+      },
+
     },
     computed: {
       isInvalid() {
         if (this.error != null && this.error)
           return true;
+      },
+
+      /**
+       * Check if options array contain objects or just strings
+       *
+       * @returns {boolean}
+       */
+      checkOptionsType() {
+        if (this.trackBy !== null || this.optionLabel !== null) {
+          return true;
+        }
       },
 
       // model: {
