@@ -84,6 +84,9 @@ fontawesome.library.add(
 Vue.use(Auth);
 Vue.use(Toast);
 
+/**
+ * Manage route access
+ */
 router.beforeEach(
   (to, from, next) => {
     if (to.matched.some(record => record.meta.guest)) {
@@ -98,9 +101,48 @@ router.beforeEach(
       }
       else next({ path: '/login' });
     }
+    else if (to.matched.some(record => record.meta.permission)) {
+
+      // Check route permission based on route meta "permission" value...
+      let permissions = store.getters['user/getUser'].role.permissions;
+      let pass;
+
+      permissions.forEach(function (permission) {
+        if (to.meta.permission === permission.title)
+          pass = true;
+        if (store.getters['user/isAdmin'])
+          pass = true;
+      });
+
+      if (pass) {
+        next();
+      }
+      else {
+        next('/home');
+      }
+    }
     // else conditions
   }
 );
+
+Vue.mixin({
+  methods: {
+    /*
+      Determine does user have permission to see links
+     */
+    can(permissionName) {
+      let user = this.user;  // computed property from component where this method is called
+      let allow;
+      user.role.permissions.forEach(function (permission) {
+        if (store.getters['user/isAdmin'])
+          allow = true;
+        if (permission.title === permissionName)
+          allow = true;
+      });
+      return allow;
+    },
+  }
+});
 
 const app = new Vue({
   el: '#app',

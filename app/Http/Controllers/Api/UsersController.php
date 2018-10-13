@@ -48,7 +48,7 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         return response()->json([
-            'user' => $user,
+            'user' => $user->load('role'),
         ]);
     }
 

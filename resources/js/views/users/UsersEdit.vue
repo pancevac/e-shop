@@ -34,9 +34,10 @@
                 v-model="user.block"
             ></checkbox-field>
             <select-field
-                :options="options"
+                v-if="! isLoading"
+                :options="roles"
                 label="Uloga"
-                :value="role"
+                :value="user.role"
                 @input="user.role_id = $event"
                 optionLabel="title"
                 trackBy="id"
@@ -81,13 +82,9 @@
     data() {
       return {
         user: {},
-        options: [
-          {title: 'Admin', id: 1},
-          {title: 'Moderator', id: 2},
-          {title: 'Normal user', id: 3},
-        ],
+        roles: [],
         error: null,
-        role: {title: 'Moderator', id: 2}
+        loading: true,
       }
     },
 
@@ -96,14 +93,35 @@
     },
 
     mounted(){
+      this.getRoles();
       this.getUser();
     },
+
+    computed: {
+      isLoading() {
+        return this.loading;
+      }
+    },
+
     methods: {
+
+      getRoles() {
+        axios
+          .get('api/roles/lists')
+          .then(res => {
+            this.roles = res.data.roles;
+          })
+          .catch(e => {
+            console.log(e)
+          })
+      },
+
       getUser() {
         axios.get('api/users/' + this.$route.params.id + '/edit')
           .then(res => {
 
             this.user = res.data.user;
+            this.loading = false;
             if (res.data.user.block)
               this.user.block = true;
           })

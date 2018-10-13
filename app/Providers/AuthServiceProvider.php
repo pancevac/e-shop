@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use App\Traits\HasPermissionTrait;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    use HasPermissionTrait;
+
     /**
      * The policy mappings for the application.
      *
@@ -27,5 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+
+        $this->registerPermissions();
     }
 }

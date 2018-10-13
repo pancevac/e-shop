@@ -54,6 +54,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('permissions/lists', 'Api\PermissionsController@lists');
     Route::resource('permissions', 'Api\PermissionsController')->except(['show', 'create']);
     // Role CRUD
+    Route::get('roles/lists', 'Api\RolesController@lists');
     Route::resource('roles', 'Api\RolesController')->except(['show', 'create']);
 
 });

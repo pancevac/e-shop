@@ -36,7 +36,8 @@
                 v-model="user.block"
             ></checkbox-field>
             <select-field
-                :options="options"
+                v-if="roles"
+                :options="roles"
                 label="Uloga"
                 v-model="user.role_id"
                 optionLabel="title"
@@ -86,6 +87,7 @@
           {title: 'Moderator', id: 2},
           {title: 'Normal user', id: 3},
         ],
+        roles: [],
         error: null,
         formData: {}
       }
@@ -93,7 +95,24 @@
     components: {
       'upload-image-helper': UploadImageHelper
     },
+
+    mounted() {
+      this.getRoles();
+    },
+
     methods: {
+
+      getRoles() {
+        axios
+          .get('api/roles/lists')
+          .then(res => {
+            this.roles = res.data.roles;
+          })
+          .catch(e => {
+            console.log(e)
+          })
+      },
+
       submit() {
         axios.post('api/users', this.user)
           .then(res => {

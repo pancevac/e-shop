@@ -21,7 +21,7 @@
               <tr v-for="row in users">
                 <td>{{ row.name }}</td>
                 <td>{{ row.email }}</td>
-                <td>{{ row.role_id }}</td>
+                <td v-if="row.role">{{ row.role.title }}</td><td v-else>/</td>
                 <td v-if="row.block">Da</td><td v-else>Ne</td>
                 <td>{{ row.created_at }}</td>
                 <td>

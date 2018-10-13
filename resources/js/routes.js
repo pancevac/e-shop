@@ -34,7 +34,7 @@ export const router = new VueRouter({
       path: '/users',
       component: require('./views/users/UserList.vue'),
       meta: {
-        auth: true,
+        permission: 'user.view',
         pageTitle: 'Korisnici',
         breadcrumb: [
           {title: 'Korisnik'},
@@ -45,7 +45,7 @@ export const router = new VueRouter({
       path: '/users/create',
       component: require('./views/users/UserCreate'),
       meta: {
-        auth: true,
+        permission: 'user.create',
         pageTitle: 'Kreiranje korisnika',
         breadcrumb: [
           {title: 'Korisnik', link: '/users'},
@@ -57,7 +57,7 @@ export const router = new VueRouter({
       path: '/users/:id/edit',
       component: require('./views/users/UsersEdit'),
       meta: {
-        auth: true,
+        permission: 'user.update',
         pageTitle: 'Izmena korisnika',
         breadcrumb: [
           {title: 'Korisnik', link: '/users'},
@@ -71,7 +71,7 @@ export const router = new VueRouter({
       path: '/brands',
       component: require('./views/brands/BrandList'),
       meta: {
-        auth: true,
+        permission: 'brand.view',
         pageTitle: 'Brendovi',
         breadcrumb: [
           {title: 'Brend'},
@@ -82,7 +82,7 @@ export const router = new VueRouter({
       path: '/brands/create',
       component: require('./views/brands/BrandCreate'),
       meta: {
-        auth: true,
+        permission: 'brand.create',
         pageTitle: 'Kreiranje brenda',
         breadcrumb: [
           {title: 'Brendovi', link: '/brands'},
@@ -94,7 +94,7 @@ export const router = new VueRouter({
       path: '/brands/:id/edit',
       component: require('./views/brands/BrandEdit'),
       meta: {
-        auth: true,
+        permission: 'brand.update',
         pageTitle: 'Izmena brenda',
         breadcrumb: [
           {title: 'Brendovi', link: '/brands'},
@@ -108,7 +108,7 @@ export const router = new VueRouter({
       path: '/categories',
       component: require('./views/categories/CategoryList'),
       meta: {
-        auth: true,
+        permission: 'category.view',
         pageTitle: 'Kategorije',
         breadcrumb: [
           {title: 'Kategorija'}
@@ -119,7 +119,7 @@ export const router = new VueRouter({
       path: '/categories/create',
       component: require('./views/categories/CategoryCreate'),
       meta: {
-        auth: true,
+        permission: 'category.create',
         pageTitle: 'Kreiranje kategorije',
         breadcrumb: [
           {title: 'Kategorija', link: '/categories'},
@@ -131,7 +131,7 @@ export const router = new VueRouter({
       path: '/categories/:id/edit',
       component: require('./views/categories/CategoryEdit'),
       meta: {
-        auth: true,
+        permission: 'category.update',
         pageTitle: 'Izmena kategorije',
         breadcrumb: [
           {title: 'Kategerija', link: '/categories'},
@@ -143,7 +143,7 @@ export const router = new VueRouter({
       path: '/categories/sort',
       component: require('./views/categories/CategorySort'),
       meta: {
-        auth: true,
+        permission: 'category.update',
         pageTitle: 'Struktura kategorija',
         breadcrumb: [
           {title: 'Kategorija', link: '/categories'},
@@ -157,7 +157,7 @@ export const router = new VueRouter({
       path: '/properties',
       component: require('./views/properties/PropertyList'),
       meta: {
-        auth: true,
+        permission: 'property.view',
         pageTitle: 'Osobine',
         breadcrumb: [
           {title: 'Osobina'}
@@ -168,7 +168,7 @@ export const router = new VueRouter({
       path: '/properties/create',
       component: require('./views/properties/PropertyCreate'),
       meta: {
-        auth: true,
+        permission: 'property.create',
         pageTitle: 'Kreiranje osobine',
         breadcrumb: [
           {title: 'Osobina', link: '/properties'},
@@ -180,7 +180,7 @@ export const router = new VueRouter({
       path: '/properties/:id/edit',
       component: require('./views/properties/PropertyEdit'),
       meta: {
-        auth: true,
+        permission: 'property.update',
         pageTitle: 'Izmena osobine',
         breadcrumb: [
           {title: 'Osobina', link: '/properties'},
@@ -194,7 +194,7 @@ export const router = new VueRouter({
       path: '/attributes',
       component: require('./views/attributes/AttributeList'),
       meta: {
-        auth: true,
+        permission: 'attribute.view',
         pageTitle: 'Atributi',
         breadcrumb: [
           {title: 'Atribut'}
@@ -205,7 +205,7 @@ export const router = new VueRouter({
       path: '/attributes/create',
       component: require('./views/attributes/AttributeCreate'),
       meta: {
-        auth: true,
+        permission: 'attribute.create',
         pageTitle: 'Kreiranje atributa',
         breadcrumb: [
           {title: 'Atribut', link: '/attributes'},
@@ -217,7 +217,7 @@ export const router = new VueRouter({
       path: '/attributes/:id/edit',
       component: require('./views/attributes/AttributeEdit'),
       meta: {
-        auth: true,
+        permission: 'attribute.update',
         pageTitle: 'Izmena atributa',
         breadcrumb: [
           {title: 'Atribut', link: '/attributes'},
@@ -231,7 +231,7 @@ export const router = new VueRouter({
       path: '/tags',
       component: require('./views/tags/TagList.vue'),
       meta: {
-        auth: true,
+        permission: 'tag.view',
         pageTitle: 'Tagovi',
         breadcrumb: [
           {title: 'Tag'}
@@ -242,7 +242,7 @@ export const router = new VueRouter({
       path: '/tags/create',
       component: require('./views/tags/TagCreate.vue'),
       meta: {
-        auth: true,
+        permission: 'tag.create',
         pageTitle: 'Kreiranje tagova',
         breadcrumb: [
           {title: 'Tag', link: '/tags'},
@@ -254,7 +254,7 @@ export const router = new VueRouter({
       path: '/tags/:id/edit',
       component: require('./views/tags/TagEdit.vue'),
       meta: {
-        auth: true,
+        permission: 'tag.update',
         pageTitle: 'Izmena tagova',
         breadcrumb: [
           {title: 'Tag', link: '/tags'},
@@ -268,7 +268,7 @@ export const router = new VueRouter({
       path: '/products',
       component: require('./views/products/ProductList.vue'),
       meta: {
-        auth: true,
+        permission: 'product.view',
         pageTitle: 'Proizvodi',
         breadcrumb: [
           {title: 'Proizvod'}
@@ -279,7 +279,7 @@ export const router = new VueRouter({
       path: '/products/create',
       component: require('./views/products/ProductCreate.vue'),
       meta: {
-        auth: true,
+        permission: 'product.create',
         pageTitle: 'Kreiranje proizvoda',
         breadcrumb: [
           {title: 'Proizvod', link: '/products'},
@@ -291,7 +291,7 @@ export const router = new VueRouter({
       path: '/products/:id/edit',
       component: require('./views/products/ProductEdit.vue'),
       meta: {
-        auth: true,
+        permission: 'product.update',
         pageTitle: 'Izmena proizvoda',
         breadcrumb: [
           {title: 'Proizvod', link: '/products'},
@@ -305,7 +305,7 @@ export const router = new VueRouter({
       path: '/permissions',
       component: require('./views/permissions/PermissionList'),
       meta: {
-        auth: true,
+        permission: 'permission.view',
         pageTitle: 'Dozvole',
         breadcrumb: [
           {title: 'Dozvola'}
@@ -316,7 +316,7 @@ export const router = new VueRouter({
       path: '/permissions/create',
       component: require('./views/permissions/PermissionCreate'),
       meta: {
-        auth: true,
+        permission: 'permission.create',
         pageTitle: 'Kreiranje dozvole',
         breadcrumb: [
           {title: 'Dozvola', link: '/permissions'},
@@ -328,7 +328,7 @@ export const router = new VueRouter({
       path: '/permissions/:id/edit',
       component: require('./views/permissions/PermissionEdit'),
       meta: {
-        auth: true,
+        permission: 'permission.update',
         pageTitle: 'Editovanje dozvole',
         breadcrumb: [
           {title: 'Dozvole', link: '/permissions'},
@@ -342,7 +342,7 @@ export const router = new VueRouter({
       path: '/roles',
       component: require('./views/roles/RoleList'),
       meta: {
-        auth: true,
+        permission: 'role.view',
         pageTitle: 'Lista uloga',
         breadcrumb: [
           {title: 'Uloge'}
@@ -353,7 +353,7 @@ export const router = new VueRouter({
       path: '/roles/create',
       component: require('./views/roles/RoleCreate'),
       meta: {
-        auth: true,
+        permission: 'role.create',
         pageTitle: 'Kreiranje uloge',
         breadcrumb: [
           {title: 'Uloga', link: '/roles'},
@@ -365,7 +365,7 @@ export const router = new VueRouter({
       path: '/roles/:id/edit',
       component: require('./views/roles/RoleEdit'),
       meta: {
-        auth: true,
+        permission: 'role.update',
         pageTitle: 'Izmena uloge',
         breadcrumb: [
           {title: 'Uloga', link: '/roles'},
