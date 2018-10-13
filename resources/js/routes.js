@@ -335,6 +335,43 @@ export const router = new VueRouter({
           {title: 'Editovanje dozvole'},
         ]
       }
-    }
+    },
+
+    // Role CRUD
+    {
+      path: '/roles',
+      component: require('./views/roles/RoleList'),
+      meta: {
+        auth: true,
+        pageTitle: 'Lista uloga',
+        breadcrumb: [
+          {title: 'Uloge'}
+        ],
+      }
+    },
+    {
+      path: '/roles/create',
+      component: require('./views/roles/RoleCreate'),
+      meta: {
+        auth: true,
+        pageTitle: 'Kreiranje uloge',
+        breadcrumb: [
+          {title: 'Uloga', link: '/roles'},
+          {title: 'Kreiranje uloge'},
+        ]
+      }
+    },
+    {
+      path: '/roles/:id/edit',
+      component: require('./views/roles/RoleEdit'),
+      meta: {
+        auth: true,
+        pageTitle: 'Izmena uloge',
+        breadcrumb: [
+          {title: 'Uloga', link: '/roles'},
+          {title: 'Izmena uloge'},
+        ]
+      }
+    },
   ]
 });

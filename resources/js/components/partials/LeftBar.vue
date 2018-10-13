@@ -10,6 +10,7 @@
             <ul aria-expanded="false" class="collapse  first-level">
               <li class="sidebar-item"><router-link :to="'/users'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Korisnici </span></router-link></li>
               <li class="sidebar-item"><router-link :to="'/permissions'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Dozvole </span></router-link></li>
+              <li class="sidebar-item"><router-link :to="'/roles'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Uloge </span></router-link></li>
             </ul>
           </li>
 
