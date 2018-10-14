@@ -2,6 +2,8 @@
 /public/hot
 /public/css
 /public/js
+/public/client/js
+/public/client/css
 /public/storage
 /storage/*.key
 /storage/app/public
