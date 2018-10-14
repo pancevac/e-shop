@@ -373,5 +373,42 @@ export const router = new VueRouter({
         ]
       }
     },
+
+    // Menu CRUD
+    {
+      path: '/menus',
+      component: require('./views/menus/MenuList'),
+      meta: {
+        permission: 'menu.view',
+        pageTitle: 'Lista tipova menija',
+        breadcrumb: [
+          {title: 'Tip menija'}
+        ]
+      }
+    },
+    {
+      path: '/menus/create',
+      component: require('./views/menus/MenuCreate'),
+      meta: {
+        permission: 'menu.create',
+        pageTitle: 'Kreiranje tipa menija',
+        breadcrumb: [
+          {title: 'Tip menija', link: '/menus'},
+          {title: 'Kreiranje tipa menija'}
+        ]
+      }
+    },
+    {
+      path: '/menus/:id/edit',
+      component: require('./views/menus/MenuEdit'),
+      meta: {
+        permission: 'menu.update',
+        pageTitle: 'Izmena tipa menija',
+        breadcrumb: [
+          {title: 'Tip menija', link: '/menus'},
+          {title: 'Izmena tipa menija'}
+        ]
+      }
+    },
   ]
 });

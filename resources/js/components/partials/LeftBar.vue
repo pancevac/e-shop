@@ -6,6 +6,13 @@
       <nav class="sidebar-nav">
         <ul id="sidebarnav" class="p-t-30">
           <li class="sidebar-item"> <router-link :to="'/home'" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Početna</span></router-link></li>
+
+          <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Podešavanja </span></a>
+            <ul aria-expanded="false" class="collapse  first-level">
+              <li class="sidebar-item"><router-link :to="'/menus'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Meni </span></router-link></li>
+            </ul>
+          </li>
+
           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Korisici </span></a>
             <ul aria-expanded="false" class="collapse  first-level">
               <li class="sidebar-item"><router-link :to="'/users'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Korisnici </span></router-link></li>
