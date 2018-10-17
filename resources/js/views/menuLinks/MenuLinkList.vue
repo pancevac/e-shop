@@ -41,9 +41,9 @@
                 <td>{{ row.link }}</td>
                 <td v-if="row.visible">Da</td><td v-else>Ne</td>
                 <td>
-                  <button type="button" class="btn btn-cyan btn-sm" @click="editRow(row['id'])">Edit</button>
+                  <button type="button" class="btn btn-cyan btn-sm" @click="editRow(row['id'])">Izmeni</button>
                   <!--<i class="fas fa-pencil-alt" @click="editRow(row['id'])"></i>-->
-                  <button type="button" class="btn btn-danger btn-sm" @click="deleteRow(row['id'])">Delete</button>
+                  <button type="button" class="btn btn-danger btn-sm" @click="deleteRow(row['id'])">Obriši</button>
                   <!--<i class="fas fa-times" @click="deleteRow(row['id'])"></i>-->
                 </td>
               </tr>

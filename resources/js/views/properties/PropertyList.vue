@@ -21,8 +21,8 @@
                 <td v-if="row.publish">Da</td><td v-else>Ne</td>
                 <td v-if="row.categories">[<template v-for="category in row.categories">{{ category.title }},</template>]</td><td v-else>/</td>
                 <td>
-                  <i class="fas fa-pencil-alt" @click="editRow(row.id)"></i>
-                  <i class="fas fa-times" @click="deleteRow(row.id)"></i>
+                  <button type="button" class="btn btn-cyan btn-sm" @click="editRow(row['id'])">Izmeni</button>
+                  <button type="button" class="btn btn-danger btn-sm" @click="deleteRow(row['id'])">Obriši</button>
                 </td>
               </tr>
               </tbody>
