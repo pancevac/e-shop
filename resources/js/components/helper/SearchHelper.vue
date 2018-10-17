@@ -5,7 +5,7 @@
         <div class="card-body">
           <div class="row">
 
-            <div class="col-md-3">
+            <div class="col-md-3" v-show="enableSearchField">
               <input type="text" class="form-control" placeholder="Pretraga" v-model="search.text">
             </div>
 
@@ -34,6 +34,10 @@
       lists: [Object, Array],
       search: Object,
       enableList: Boolean,
+      enableSearchField: {
+        type: Boolean,
+        default: true,
+      }
     },
 
     methods: {

@@ -58,5 +58,8 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('roles', 'Api\RolesController')->except(['show', 'create']);
     // Menu CRUD
     Route::resource('menus', 'Api\MenusController')->except(['show', 'create']);
+    // Menu-link CRUD
+    Route::get('menu-links/lists', 'Api\MenuLinksController@lists');
+    Route::resource('menu-links', 'Api\MenuLinksController')->except(['show', 'create']);
 
 });

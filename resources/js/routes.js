@@ -410,5 +410,45 @@ export const router = new VueRouter({
         ]
       }
     },
+
+    // Menu-link CRUD
+    {
+      path: '/menu-links/:id',
+      component: require('./views/menuLinks/MenuLinkList'),
+      meta: {
+        permission: 'menuLink.view',
+        pageTitle: 'Lista linkova',
+        breadcrumb: [
+          {title: 'Tip menija', link: '/menus'},
+          {title: 'Link'}
+        ]
+      }
+    },
+    {
+      path: '/menu-links/:id/create',
+      component: require('./views/menuLinks/MenuLinkCreate'),
+      meta: {
+        permission: 'menuLink.create',
+        pageTitle: 'Kreiranje linka',
+        breadcrumb: [
+          {title: 'Tip menija', link: '/menus'},
+          {title: 'Link', link: '/menu-links?id=' + this.id},
+          {title: 'Kreiranje linka'}
+        ]
+      }
+    },
+    {
+      path: '/menu-links/:id/edit',
+      component: require('./views/menuLinks/MenuLinkEdit'),
+      meta: {
+        permission: 'menuLink.update',
+        pageTitle: 'Izmena linka',
+        breadcrumb: [
+          {title: 'Tip menija', link: '/menus'},
+          {title: 'Link', link: '/menu-links?id=' + this.id},
+          {title: 'Izmena linka'}
+        ]
+      }
+    }
   ]
 });

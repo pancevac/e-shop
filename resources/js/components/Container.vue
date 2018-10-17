@@ -74,8 +74,11 @@
   }
 </style>
 
-<style scoped>
+<style>
   .expanded {
     margin-left: 0 !important;
+  }
+  .button-add-new {
+    margin-bottom: 10px;
   }
 </style>

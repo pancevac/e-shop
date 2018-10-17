@@ -19,6 +19,7 @@
                 <td>{{ row.title }}</td>
                 <td v-if="row.visible">Da</td><td v-else>Ne</td>
                 <td>
+                  <i class="fas fa-link" @click="goTo(row['id'])"></i>
                   <i class="fas fa-pencil-alt" @click="editRow(row['id'])"></i>
                   <i class="fas fa-times" @click="deleteRow(row['id'])"></i>
                 </td>
@@ -45,7 +46,7 @@
     data() {
       return {
         menus: [],
-        paginate: [],
+        paginate: {},
       }
     },
 
@@ -64,6 +65,10 @@
             this.menus = res.data.menus.data;
             this.paginate = res.data.menus;
           })
+      },
+
+      goTo(id) {
+        this.$router.push('menu-links/' + id);
       },
 
       editRow(id) {
