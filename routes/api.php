@@ -60,6 +60,8 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('menus', 'Api\MenusController')->except(['show', 'create']);
     // Menu-link CRUD
     Route::get('menu-links/lists', 'Api\MenuLinksController@lists');
+    Route::get('menu-links/sort', 'Api\MenuLinksController@sort');
+    Route::post('menu-links/sort/{menu_id}', 'Api\MenuLinksController@saveSort');
     Route::resource('menu-links', 'Api\MenuLinksController')->except(['show', 'create']);
 
 });

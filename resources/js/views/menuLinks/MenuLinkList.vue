@@ -10,6 +10,11 @@
             <button
                 type="button"
                 class="btn btn-cyan btn-sm float-right button-add-new"
+                @click="menuLinkSort()"
+            >Sortiraj</button>
+            <button
+                type="button"
+                class="btn btn-cyan btn-sm float-right button-add-new"
                 @click="addMenuLink()"
             >Novi link</button>
 
@@ -121,6 +126,10 @@
 
       addMenuLink() {
         this.$router.push('/menu-links/' + this.$route.params.id + '/create');
+      },
+
+      menuLinkSort() {
+        this.$router.push('/menu-links/' + this.$route.params.id + '/sort');
       }
     }
   }

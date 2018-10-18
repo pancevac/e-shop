@@ -26,14 +26,14 @@ class MenuLink extends Model
         return $this->hasOne(MenuLink::class, 'id', 'parent');
     }
 
-    public function children()
+    public function childrenMenuLink()
     {
         return $this->hasMany(MenuLink::class, 'parent', 'id');
     }
 
-    public function childrenRecursive()
+    public function children()
     {
-        return $this->children()->with('childrenRecursive');
+        return $this->childrenMenuLink()->with('children');
     }
 
     /****** MUTATOR ******/
@@ -45,6 +45,73 @@ class MenuLink extends Model
         if (request()->get('parent')) {
             $parentMenuLink = self::select('level')->where('id', request()->get('parent'))->first();
             $this->attributes['level'] = $parentMenuLink->level + 1;
+        }
+    }
+
+    public function setLinkAttribute($value)
+    {
+        $value ?
+            $this->attributes['link'] = str_slug($value) :
+            $this->attributes['link'] = str_slug(request('title'));
+    }
+
+    /******** SCOPES *********/
+
+    public function scopeVisible($query)
+    {
+        $query->whereVisible(1);
+    }
+
+    /******** METHODS *********/
+
+    /**
+     * Boot method of model, executed every time menuLink class is initialized.
+     */
+    public static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('childrenMenuLinks', function ($builder) {
+            $builder->with(['children' => function ($query) {
+                $query->visible()->orderBy('order');
+            }]);
+        });
+    }
+
+    /**
+     * Get menu-links for sorting...
+     *
+     * @return mixed
+     */
+    public static function getMenuLinkSort()
+    {
+        return self::where('parent', 0)->visible()->get();
+    }
+
+    /**
+     * Save categories nested structure.
+     *
+     * @param $links
+     * @param int $parent
+     * @param int $level
+     * @param int $order
+     */
+    public static function saveMenuLinkSort($links, $parent = 0, $level = 1, $order = 1)
+    {
+        foreach ($links as $link) {
+
+            if (array_key_exists('children', $link)) {
+
+                self::saveMenuLinkSort($link['children'], $link['id'], $level + 1);
+            }
+
+            MenuLink::where('id', $link['id'])
+                ->update([
+                    'parent' => $parent,
+                    'level' => $level,
+                    'order' => $order,
+                ]);
+
+            $order++;
         }
     }
 }

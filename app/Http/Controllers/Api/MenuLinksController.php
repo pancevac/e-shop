@@ -137,4 +137,32 @@ class MenuLinksController extends Controller
             'menuLinks' => $menuLinks
         ]);
     }
+
+    /**
+     * Return sorted nested structure.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sort()
+    {
+        return response()->json([
+            'menuLinks' => MenuLink::getMenuLinkSort(),
+        ]);
+    }
+
+    /**
+     * Save sorted nested structure and returned updated one.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function saveSort(Request $request)
+    {
+        MenuLink::saveMenuLinkSort($request->get('menuLinks'));
+
+        return response()->json([
+            'menuLinks' => MenuLink::getMenuLinkSort(),
+            'message' => 'Raspored linkova uspešno sačuvan.'
+        ]);
+    }
 }

@@ -449,6 +449,19 @@ export const router = new VueRouter({
           {title: 'Izmena linka'}
         ]
       }
+    },
+    {
+      path: '/menu-links/:id/sort',
+      component: require('./views/menuLinks/MenuLinkSort'),
+      meta: {
+        permission: 'menuLink.update',
+        pageTitle: 'Izmena linka',
+        breadcrumb: [
+          {title: 'Tip menija', link: '/menus'},
+          {title: 'Link', link: '/menu-links?id=' + this.id},
+          {title: 'Sortiranje linkova'}
+        ]
+      }
     }
   ]
 });

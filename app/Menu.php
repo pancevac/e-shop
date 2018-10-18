@@ -43,4 +43,11 @@ class Menu extends Model
             $this->attributes['slug'] = str_slug(request('title'));
         }
     }
+
+    /******** SCOPES *********/
+
+    public function scopeVisible($query)
+    {
+        $query->whereVisible(1);
+    }
 }

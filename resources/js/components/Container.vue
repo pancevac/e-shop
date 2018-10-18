@@ -80,5 +80,6 @@
   }
   .button-add-new {
     margin-bottom: 10px;
+    margin-left: 10px;
   }
 </style>
