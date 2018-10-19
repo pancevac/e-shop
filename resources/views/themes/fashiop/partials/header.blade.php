@@ -43,52 +43,34 @@
           <div class="row w-100">
             <div class="col-lg-7 pr-0">
               <ul class="nav navbar-nav center_nav pull-right">
-                <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item submenu dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a class="nav-link" href="category.html">Shop Category</a>
-                    <li class="nav-item">
-                      <a class="nav-link" href="single-product.html">Product Details</a>
-                    <li class="nav-item">
-                      <a class="nav-link" href="checkout.html">Product Checkout</a>
-                    <li class="nav-item">
-                      <a class="nav-link" href="cart.html">Shopping Cart</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="confirmation.html">Confirmation</a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item submenu dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a class="nav-link" href="blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="single-blog.html">Blog Details</a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item submenu dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a class="nav-link" href="login.html">Login</a>
-                    <li class="nav-item">
-                      <a class="nav-link" href="tracking.html">Tracking</a>
-                    <li class="nav-item">
-                      <a class="nav-link" href="elements.html">Elements</a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="contact.html">Contact</a>
-                </li>
+
+                @if(!empty($mainMenu))
+                  @foreach($mainMenu as $link)
+
+                    @if($link->children->count())
+
+                      <li class="nav-item submenu dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $link->title }}</a>
+                        <ul class="dropdown-menu">
+                          @foreach($link->children as $child)
+
+                            <li class="nav-item {{ request()->is($child->link) ? 'active' : '' }}">
+                              <a class="nav-link" href="{{ url($child->link) }}">{{ $child->title }}</a>
+                            </li>
+
+                          @endforeach
+                        </ul>
+                      </li>
+
+                    @else
+                      <li class="nav-item {{ request()->is($link->link) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url($link->link) }}">{{ $link->title }}</a>
+                      </li>
+                    @endif
+
+                  @endforeach
+                @endif
+
               </ul>
             </div>
 
