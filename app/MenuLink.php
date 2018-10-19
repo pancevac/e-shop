@@ -85,7 +85,7 @@ class MenuLink extends Model
      */
     public static function getMenuLinkSort($menuId)
     {
-        return self::where('menu_id', $menuId)->where('parent', 0)->visible()->get();
+        return self::where('menu_id', $menuId)->where('parent', 0)->visible()->orderBy('order')->get();
     }
 
     /**

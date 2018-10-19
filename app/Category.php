@@ -78,7 +78,7 @@ class Category extends Model
      */
     public static function getCategorySort()
     {
-        return self::where('parent', 0)->published()->get();
+        return self::where('parent', 0)->published()->orderBy('order')->get();
     }
 
     /**
