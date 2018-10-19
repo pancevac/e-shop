@@ -146,7 +146,7 @@ class MenuLinksController extends Controller
     public function sort()
     {
         return response()->json([
-            'menuLinks' => MenuLink::getMenuLinkSort(),
+            'menuLinks' => MenuLink::getMenuLinkSort(request('menu_id')),
         ]);
     }
 
@@ -156,12 +156,12 @@ class MenuLinksController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function saveSort(Request $request)
+    public function saveSort(Request $request, $menuId)
     {
         MenuLink::saveMenuLinkSort($request->get('menuLinks'));
 
         return response()->json([
-            'menuLinks' => MenuLink::getMenuLinkSort(),
+            'menuLinks' => MenuLink::getMenuLinkSort($menuId),
             'message' => 'Raspored linkova uspešno sačuvan.'
         ]);
     }

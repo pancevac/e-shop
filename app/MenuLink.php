@@ -80,11 +80,12 @@ class MenuLink extends Model
     /**
      * Get menu-links for sorting...
      *
+     * @param $menuId
      * @return mixed
      */
-    public static function getMenuLinkSort()
+    public static function getMenuLinkSort($menuId)
     {
-        return self::where('parent', 0)->visible()->get();
+        return self::where('menu_id', $menuId)->where('parent', 0)->visible()->get();
     }
 
     /**
