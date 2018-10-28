@@ -2,11 +2,13 @@
   <div class="f_p_item">
     <div class="f_p_img">
 
-      <lazy-image
-          src="{{ \Imagecache::get($product->image, '215x287')->src }}"
-          alt=""
-          placeholder="{{ asset('images/placeholder.png') }}"
-      ></lazy-image>
+      <div class="lazy-image">
+        <lazy-image
+            src="{{ \Imagecache::get($product->image, '215x287')->src }}"
+            alt=""
+            placeholder="{{ asset('images/placeholder.png') }}"
+        ></lazy-image>
+      </div>
 
       <div class="p_icon">
         <a href="#">

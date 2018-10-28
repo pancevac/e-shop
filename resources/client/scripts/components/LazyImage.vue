@@ -13,7 +13,16 @@
   export default {
     name: "LazyImage",
     props: ['src', 'placeholder', 'alt'],
-    components: { vLazyImage }
+    components: { vLazyImage },
+    mounted() {
+      this.test();
+    },
+    methods: {
+      test() {
+        /*let element = document.getElementsByClassName('lazy-images');
+        console.log(element);*/
+      }
+    }
   }
 </script>
 
@@ -21,6 +30,13 @@
   .v-lazy-image {
     opacity: 0;
     transition: opacity 0.7s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
   }
   .v-lazy-image-loaded {
     opacity: 1;
