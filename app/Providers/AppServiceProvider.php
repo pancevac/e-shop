@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $componentPath = 'themes.' . env('APP_THEME') . '.components';
         Blade::component($componentPath.'.shop.product', 'product');
+        Blade::component($componentPath.'.shop.filter', 'filter');
     }
 
     /**

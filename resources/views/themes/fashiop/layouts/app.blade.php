@@ -25,12 +25,13 @@
 
 <body>
 
+<div id="app">
 <!--================Header Menu Area =================-->
 @include('themes.'. env('APP_THEME') .'.partials.header')
 <!--================Header Menu Area =================-->
 
 <!--================Home Banner Area =================-->
-@include('themes.'. env('APP_THEME') .'.partials.banner')
+{{--@include('themes.'. env('APP_THEME') .'.partials.banner')--}}
 <!--================End Home Banner Area =================-->
 
 <!--================Login Box Area =================-->
@@ -65,6 +66,7 @@
 <script src="vendors/counter-up/jquery.waypoints.min.js"></script>
 <script src="vendors/counter-up/jquery.counterup.js"></script>
 <script src="js/theme.js"></script>--}}
+</div>
 <script src="{{ asset('client/js/main.js') }}"></script>
 </body>
 

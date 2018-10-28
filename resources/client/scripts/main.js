@@ -11,12 +11,14 @@ require('../assets/vendors/owl-carousel/owl.carousel.min');
 require('../assets/js/jquery.ajaxchimp.min');
 require('../assets/vendors/counter-up/jquery.waypoints.min');
 require('../assets/vendors/flipclock/timer');
-require('../assets/vendors/jquery-ui/jquery-ui');
+// require('../assets/vendors/jquery-ui/jquery-ui');  Disabled cuz of broken links
 require('../assets/vendors/counter-up/jquery.counterup');
 require('../assets/js/mail-script');
 require('../assets/js/theme');
 
 window.Vue = require('vue');
+
+Vue.component('range-slider', require('./components/RangeSlider'));
 
 const app = new Vue({
   el: '#app'

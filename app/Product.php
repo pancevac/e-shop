@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\ShopFilterTrait;
 use App\Traits\UploadableImageTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use UploadableImageTrait;
+    use ShopFilterTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,17 @@ class Product extends Model
      * @var array
      */
     protected $appends = ['date', 'time', 'categoriesIds'];
+
+    /**
+     * The attributes that are used for filtering products.
+     *
+     * @var array
+     */
+    protected static $searchable = ['filters', 'price', 'sort', 'paginate'];
+
+    public static $frontPaginate = 10;
+
+    public static $shopPaginate = 10;
 
     /**
      * Boot method (eager load relationships)

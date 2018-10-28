@@ -203,7 +203,7 @@
 	/*----------------------------------------------------*/
     /*  Jquery Ui slider js
     /*----------------------------------------------------*/
-	$( "#slider-range" ).slider({
+	/*$( "#slider-range" ).slider({
       range: true,
       min: 0,
       max: 500,
@@ -213,7 +213,7 @@
       }
     });
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 )+
-      "   $" + $( "#slider-range" ).slider( "values", 1 ) );
+      "   $" + $( "#slider-range" ).slider( "values", 1 ) );*/
 	
 	
 	/*----------------------------------------------------*/

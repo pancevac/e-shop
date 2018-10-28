@@ -27,7 +27,7 @@ class Attribute extends Model
      *
      * @var array
      */
-    protected $appends = ['label'];
+    protected $appends = ['label', 'idWithoutPrefix'];
 
     /**
      * Set property slug, if slug field have value, make slug of it, otherwise make slug of title.
@@ -64,6 +64,16 @@ class Attribute extends Model
     public function getIdAttribute()
     {
         return $this->attributes['id'] = 'attribute.' . $this->attributes['id'];
+    }
+
+    /**
+     * Return attribute ID without any prefix, just int.
+     *
+     * @return array|mixed
+     */
+    public function getIdWithoutPrefixAttribute()
+    {
+        return $this->getOriginal('id');
     }
 
     /**

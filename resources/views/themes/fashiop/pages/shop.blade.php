@@ -1,22 +1,26 @@
 @extends('themes.fashiop.layouts.app')
 
+
 @section('content')
 
+  @include('themes.'. env('APP_THEME') .'.partials.banner')
+
   <section class="cat_product_area section_gap">
+    <form method="GET" id="filters">
     <div class="container-fluid">
       <div class="row flex-row-reverse">
         <div class="col-lg-9">
           <div class="product_top_bar">
             <div class="left_dorp">
-              <select class="sorting">
-                <option value="1">Default sorting</option>
-                <option value="2">Default sorting 01</option>
-                <option value="4">Default sorting 02</option>
+              <select class="sorting" name="sort" onchange="document.getElementById('filters').submit()">
+                <option value="1" @if(request('sort') == 1) selected @endif>Po nazivu</option>
+                <option value="2" @if(request('sort') == 2) selected @endif>Cena rastuća</option>
+                <option value="3" @if(request('sort') == 3) selected @endif>Cena opadajuća</option>
               </select>
-              <select class="show">
-                <option value="1">Show 12</option>
-                <option value="2">Show 14</option>
-                <option value="4">Show 16</option>
+              <select class="show" name="paginate" onchange="document.getElementById('filters').submit()">
+                <option value="10" @if(request('paginate') == 10) selected @endif>Prikazi 10</option>
+                <option value="20" @if(request('paginate') == 20) selected @endif>Prikazi 20</option>
+                <option value="30" @if(request('paginate') == 30) selected @endif>Prikazi 30</option>
               </select>
             </div>
             <div class="right_page ml-auto">
@@ -52,11 +56,11 @@
             </div>
           </div>
           <div class="latest_product_inner row">
-            @for($i = 1; $i < 9; $i++)
+            @foreach($products as $product)
 
-              @product() @endproduct
+              @product(['product' => $product]) @endproduct
 
-            @endfor
+            @endforeach
           </div>
         </div>
         <div class="col-lg-3">
@@ -71,37 +75,12 @@
       </div>
 
       <div class="row">
-        <nav class="cat_page mx-auto" aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#">
-                <i class="fa fa-chevron-left" aria-hidden="true"></i>
-              </a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">01</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">02</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">03</a>
-            </li>
-            <li class="page-item blank">
-              <a class="page-link" href="#">...</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">09</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                <i class="fa fa-chevron-right" aria-hidden="true"></i>
-              </a>
-            </li>
-          </ul>
-        </nav>
+
+        @include('themes.'.env('APP_THEME').'.partials.pagination')
+
       </div>
     </div>
+    </form>
   </section>
 
 @endsection
