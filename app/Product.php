@@ -33,7 +33,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected static $searchable = ['filters', 'price', 'sort', 'paginate'];
+    protected static $searchable = ['filters', 'price', 'sort', 'show'];
 
     public static $frontPaginate = 10;
 

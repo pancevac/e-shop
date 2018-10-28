@@ -96,7 +96,7 @@ trait ShopFilterTrait
         }
     }
 
-    public function scopePaginate($query, $paginate)
+    public function scopeShow($query, $paginate)
     {
         //self::$shopPaginate = $paginate;
     }
