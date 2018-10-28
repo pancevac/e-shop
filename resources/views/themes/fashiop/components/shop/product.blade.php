@@ -1,7 +1,13 @@
 <div class="col-lg-3 col-md-3 col-sm-6">
   <div class="f_p_item">
     <div class="f_p_img">
-      <img class="img-fluid" src="{{ \Imagecache::get($product->image, '215x287')->src }}" alt="">
+
+      <lazy-image
+          src="{{ \Imagecache::get($product->image, '215x287')->src }}"
+          alt=""
+          placeholder="{{ asset('images/placeholder.png') }}"
+      ></lazy-image>
+
       <div class="p_icon">
         <a href="#">
           <i class="lnr lnr-heart"></i>

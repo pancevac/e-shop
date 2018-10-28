@@ -19,6 +19,7 @@ require('../assets/js/theme');
 window.Vue = require('vue');
 
 Vue.component('range-slider', require('./components/RangeSlider'));
+Vue.component('lazy-image', require('./components/LazyImage'));
 
 const app = new Vue({
   el: '#app'

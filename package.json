@@ -28,6 +28,7 @@
         "@riophae/vue-treeselect": "0.0.37",
         "laravel-vue-pagination": "^2.0.1",
         "moment": "^2.22.2",
+        "v-lazy-image": "^1.2.2",
         "vue-ckeditor2": "^2.0.9",
         "vue-draggable-nested-tree": "^2.1.6",
         "vue-multiselect": "^2.1.0",
