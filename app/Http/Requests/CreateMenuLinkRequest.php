@@ -24,6 +24,8 @@ class CreateMenuLinkRequest extends FormRequest
      */
     public function rules()
     {
+        $this->sanitize();
+
         return [
             'title' => 'required',
         ];
@@ -39,5 +41,21 @@ class CreateMenuLinkRequest extends FormRequest
         return [
             'title.required' => 'Ime linka je obavezno!'
         ];
+    }
+
+    /**
+     * Sanitize inputs, if parent field is array (which was returned by multi-select as object),
+     * get only ID from array.
+     */
+    private function sanitize()
+    {
+        $input = $this->all();
+
+        if (isset($input['parent']) && is_array($input['parent'])) {
+
+            $input['parent'] = $input['parent']['id'];
+        }
+
+        $this->replace($input);
     }
 }

@@ -43,6 +43,11 @@
             ></text-field>
 
             <checkbox-field
+                label="Pripada šopu"
+                v-model="menuLink.shop"
+            ></checkbox-field>
+
+            <checkbox-field
                 label="Publikovano"
                 v-model="menuLink.visible"
             ></checkbox-field>
@@ -50,7 +55,7 @@
           </div>
           <div class="border-top">
             <div class="card-body">
-              <button type="button" class="btn btn-primary" @click="submit">Unesi</button>
+              <button type="button" class="btn btn-primary" @click="submit">Izmeni</button>
             </div>
           </div>
         </div>
@@ -71,6 +76,7 @@
           description: null,
           order: null,
           parent: null,
+          shop: false,
           visible: false,
           menu_id: null,
         },

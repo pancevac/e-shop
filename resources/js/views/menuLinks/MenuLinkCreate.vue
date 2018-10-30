@@ -41,6 +41,11 @@
             ></text-field>
 
             <checkbox-field
+                label="Pripada šopu"
+                v-model="menuLink.shop"
+            ></checkbox-field>
+
+            <checkbox-field
                 label="Publikovano"
                 v-model="menuLink.visible"
             ></checkbox-field>
@@ -69,6 +74,7 @@
           description: null,
           order: null,
           parent: null,
+          shop: false,
           visible: false,
           menu_id: this.$route.params.id,
         },
