@@ -68,6 +68,40 @@ class Product extends Model
     }
 
     /**
+     * Return product generated link.
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getLink()
+    {
+        $link = 'shop/';
+        $categories = Category::removeDuplicatesFromCollection($this->categories);
+
+        foreach ($categories as $category) {
+            $link .= $category->slug . '/';
+        }
+
+        return url($link . $this->slug);
+    }
+
+    /**
+     * Get product based on requested url.
+     *
+     * @param $categories
+     * @param $slug
+     * @return mixed
+     */
+    public static function getProductByUrl($categories, $slug)
+    {
+        return self::with('gallery')
+            ->whereHas('categories', function ($query) use ($categories) {
+                $query->whereIn('slug', explode('/', $categories));
+            })
+            ->whereSlug($slug)
+            ->first();
+    }
+
+    /**
      * Set brand slug, if slug field have value, make slug of it, otherwise make slug of title.
      *
      * @param $value

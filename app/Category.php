@@ -110,6 +110,27 @@ class Category extends Model
     }
 
     /**
+     * Avoid repeated categories by removing duplicates from $categories collection.
+     *
+     * @param $categories
+     * @return mixed
+     */
+    public static function removeDuplicatesFromCollection($categories)
+    {
+        return $categories->unique('slug')->unique('parent');
+    }
+
+    /**
+     * Return category generated link.
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getLink()
+    {
+        return url('shop/'.$this->slug);
+    }
+
+    /**
      * Set brand slug, if slug field have value, make slug of it, otherwise make slug of title.
      *
      * @param $value

@@ -27,6 +27,16 @@ return array(
         'height' => 32,
         'method' => 'crop'
     ),
+    'product_image' => array(
+        'width' => 550,
+        'height' => 500,
+        'method' => 'crop',
+    ),
+    '60x60' => array(
+        'width' => 60,
+        'height' => 60,
+        'method' => 'crop',
+     ),
     '80x80' => array(
         'width' => 80,
         'height' => 80,

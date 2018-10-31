@@ -21,4 +21,5 @@ Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/shop/{categories}/{slug}', 'Web\ShopController@product')->where('categories', '.*');
 Route::get('/shop/{category}', 'Web\ShopController@shopCategory');

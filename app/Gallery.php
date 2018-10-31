@@ -22,15 +22,26 @@ class Gallery extends Model
      */
     protected $appends = ['thumbnail'];
 
-    /**
-     * Get the flag label for cached gallery image.
-     *
-     * @return mixed
-     */
+
+    /******** ACCESSORS *********/
+
     public function getThumbnailAttribute()
     {
         return \Imagecache::get($this->attributes['file_path'], '120x90')->src;
     }
+
+    public function getGalleryImageAttribute()
+    {
+        return \Imagecache::get($this->attributes['file_path'], 'product_image')->src;
+    }
+
+    public function getProductThumbnailAttribute()
+    {
+        return \Imagecache::get($this->attributes['file_path'], '60x60')->src;
+    }
+
+
+    /******** Relations *********/
 
     /**
      * Product one-to-many relationship. Each gallery image belongs to one product.

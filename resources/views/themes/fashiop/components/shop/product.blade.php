@@ -19,7 +19,7 @@
         </a>
       </div>
     </div>
-    <a href="#">
+    <a href="{{ $product->getLink() }}">
       <h4>{{ $product->title }}</h4>
     </a>
     <h5>${{ $product->price }}</h5>
