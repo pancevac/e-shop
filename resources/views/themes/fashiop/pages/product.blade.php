@@ -84,15 +84,10 @@
                 <i class="lnr lnr-chevron-down"></i>
               </button>
             </div>
-            <div class="card_area">
-              <a class="main_btn" href="#">Dodaj u korpu</a>
-              <a class="icon_btn" href="#">
-                <i class="lnr lnr lnr-diamond"></i>
-              </a>
-              <a class="icon_btn" href="#">
-                <i class="lnr lnr lnr-heart"></i>
-              </a>
-            </div>
+            <shopping-cart
+                product-url="{{ $product->getLink() }}"
+                page-type="single-product"
+            ></shopping-cart>
           </div>
         </div>
       </div>

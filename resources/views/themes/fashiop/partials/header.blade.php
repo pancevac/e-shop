@@ -101,11 +101,10 @@
 
                 <hr>
 
-                <li class="nav-item">
-                  <a href="#" class="icons">
-                    <i class="lnr lnr lnr-cart"></i>
-                  </a>
-                </li>
+                <shopping-cart-counter
+                    :cart-items-count="{{ \Cart::instance('shoppingCart')->count() }}"
+                    shopping-cart-link="{{ route('shopping-cart.index') }}"
+                ></shopping-cart-counter>
 
                 <hr>
               </ul>

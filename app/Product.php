@@ -2,17 +2,20 @@
 
 namespace App;
 
+use App\Traits\BuyableTrait;
 use App\Traits\ShopFilterTrait;
 use App\Traits\UploadableImageTrait;
 use Actuallymab\LaravelComment\Commentable;
 use Carbon\Carbon;
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Product extends Model implements Buyable
 {
     use UploadableImageTrait;
     use ShopFilterTrait;
     use Commentable;
+    use BuyableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -170,6 +173,12 @@ class Product extends Model
     public function getSelectedAttributesAttribute()
     {
         return $this->attributes['selectedAttributes'] = $this->attributes()->pluck('id');
+    }
+
+    public function getCartProductImageAttribute()
+    {
+        // 147*100
+        return \Imagecache::get($this->image, 'cart_product_image')->src;
     }
 
     /**

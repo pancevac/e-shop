@@ -10,14 +10,11 @@
         ></lazy-image>
       </div>
 
-      <div class="p_icon">
-        <a href="#">
-          <i class="lnr lnr-heart"></i>
-        </a>
-        <a href="#">
-          <i class="lnr lnr-cart"></i>
-        </a>
-      </div>
+      <shopping-cart
+          product-url="{{ $product->getLink() }}"
+          page-type="shop"
+      ></shopping-cart>
+
     </div>
     <a href="{{ $product->getLink() }}">
       <h4>{{ $product->title }}</h4>

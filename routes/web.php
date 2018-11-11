@@ -24,4 +24,11 @@ Auth::routes();
 Route::get('/shop/{categories}/{slug}', 'Web\ShopController@product')->where('categories', '.*');
 Route::get('/shop/{category}', 'Web\ShopController@shopCategory');
 
+// Add product to cart
+Route::post('/shop/{categories}/{slug}/shoppingCart', 'Web\CartsController@ShoppingCartStore')->where('categories', '.*');
+// Add review on product
 Route::post('/shop/{categories}/{slug}', 'Web\CommentsController@store')->where('categories', '.*');
+
+Route::post('/korpa/update', 'Web\CartsController@shoppingCartUpdate');
+Route::post('/korpa/delete', 'Web\CartsController@shoppingCartDelete');
+Route::get('/korpa', 'Web\CartsController@shoppingCart')->name('shopping-cart.index');

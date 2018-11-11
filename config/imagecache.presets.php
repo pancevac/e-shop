@@ -32,6 +32,11 @@ return array(
         'height' => 500,
         'method' => 'crop',
     ),
+    'cart_product_image' => array(
+        'width' => 147,
+        'height' => 100,
+        'method' => 'crop',
+    ),
     '60x60' => array(
         'width' => 60,
         'height' => 60,

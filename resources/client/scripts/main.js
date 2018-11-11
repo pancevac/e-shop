@@ -18,6 +18,7 @@ require('../assets/js/theme');
 
 window.Vue = require('vue');
 
+import { store } from './store/store';
 // Import toast message notifications
 import Toast from '../../js/packages/toast/toast';
 Vue.use(Toast);
@@ -25,7 +26,11 @@ Vue.use(Toast);
 Vue.component('range-slider', require('./components/RangeSlider'));
 Vue.component('lazy-image', require('./components/LazyImage'));
 Vue.component('product-description-area', require('./components/ProductDescription'));
+Vue.component('shopping-cart', require('./components/ShoppingCart'));
+Vue.component('shopping-cart-counter', require('./components/ShoppingCartCounter'));
+Vue.component('cart-items', require('./components/CartItems'));
 
 const app = new Vue({
-  el: '#app'
+  el: '#app',
+  store
 });
