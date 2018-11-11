@@ -9,10 +9,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
+use Actuallymab\LaravelComment\CanComment;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, UploadableImageTrait, HasPermissionTrait;
+    use Notifiable, HasApiTokens, UploadableImageTrait, HasPermissionTrait, CanComment;
 
     /**
      * The attributes that are mass assignable.
@@ -42,6 +43,17 @@ class User extends Authenticatable
         static::addGlobalScope('role', function ($builder) {
             $builder->with('role');
         });
+    }
+
+    /**
+     * Override method of CanComment trait, check if user is admin, if he is,
+     * his comments are automatically approved.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return true;//$this->isSuperAdmin();
     }
 
     /**

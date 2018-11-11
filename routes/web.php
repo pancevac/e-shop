@@ -23,3 +23,5 @@ Auth::routes();
 
 Route::get('/shop/{categories}/{slug}', 'Web\ShopController@product')->where('categories', '.*');
 Route::get('/shop/{category}', 'Web\ShopController@shopCategory');
+
+Route::post('/shop/{categories}/{slug}', 'Web\CommentsController@store')->where('categories', '.*');

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Traits\ShopFilterTrait;
 use App\Traits\UploadableImageTrait;
+use Actuallymab\LaravelComment\Commentable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,7 @@ class Product extends Model
 {
     use UploadableImageTrait;
     use ShopFilterTrait;
+    use Commentable;
 
     /**
      * The attributes that are mass assignable.
@@ -38,6 +40,20 @@ class Product extends Model
     public static $frontPaginate = 10;
 
     public static $shopPaginate = 10;
+
+    /**
+     * Approve rating reviews/comments on this model.
+     *
+     * @var bool
+     */
+    protected $canBeRated = true;
+
+    /**
+     * Approve reviews/comments on this model.
+     *
+     * @var bool
+     */
+    protected $mustBeApproved = true;
 
     /**
      * Boot method (eager load relationships)
@@ -93,7 +109,7 @@ class Product extends Model
      */
     public static function getProductByUrl($categories, $slug)
     {
-        return self::with('gallery')
+        return self::with(['gallery', 'attributes.property', 'comments.commented'])
             ->whereHas('categories', function ($query) use ($categories) {
                 $query->whereIn('slug', explode('/', $categories));
             })

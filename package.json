@@ -34,6 +34,7 @@
         "vue-multiselect": "^2.1.0",
         "vue-router": "^3.0.1",
         "vue-slider-component": "^2.8.0",
+        "vue-star-rating": "^1.6.1",
         "vue-sweetalert2": "^1.5.3",
         "vue-switches": "^2.0.1",
         "vue-toasted": "^1.1.24",

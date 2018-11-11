@@ -7,6 +7,20 @@ export default function (Vue) {
   });
 
   // Options to the toast notification
+  let optionsDefault = {
+    //icon: 'check_circle',
+    action: [
+      {
+        text: 'X',
+        onClick: (e, toastObject) => {
+          toastObject.goAway(0);
+        }
+      }
+    ],
+    duration: 5000
+  };
+
+  // Options to the toast notification
   let optionsSuccess = {
     type: 'success',
     icon: 'check_circle',
@@ -35,6 +49,20 @@ export default function (Vue) {
     ],
     duration: 5000
   };
+
+  // Register the toast with the custom message
+  Vue.toasted.register('toastDefault', (payload) => {
+
+      // if there is no message passed show default message
+      if (!payload.message) {
+        return 'Uspešna akcija!'
+      }
+
+      // if there is a message show it with the message
+      return payload.message
+    },
+    optionsDefault
+  );
 
   // Register the toast with the custom message
   Vue.toasted.register('toastSuccess', (payload) => {
