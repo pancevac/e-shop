@@ -12,16 +12,23 @@ class ShopController extends Controller
     /**
      * Handles displaying shop page with filters and results.
      *
-     * @param $slug
+     * @param $categories
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function shopCategory($slug)
+    public function shopCategory($categories)
     {
         // Get category object
-        $category = Category::withoutGlobalScopes()->with('properties.attributes')->whereSlug($slug)->first();
-        // Return 404 page if there is no category for given category slug in url.
+        $category = Category::getCategoryByUrl($categories);
+
+        // If there is no category for given url, check if last parameter in url is product slug
         if (!$category) {
-            return abort(404);
+            $urlParameters = collect (explode('/', $categories));
+
+            // Take last two parameters which are product slug and product code
+            // and pass it separately to product method
+            $productSlugAndCode = $urlParameters->take(-2);
+
+            return $this->product($categories, $productSlugAndCode->first(), $productSlugAndCode->last());
         }
         // Filter products and return filtered products attributes and price.
         $data = Product::filter($category);
@@ -41,12 +48,13 @@ class ShopController extends Controller
      *
      * @param $categories
      * @param $slug
+     * @param $code
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function product($categories, $slug)
+    public function product($categories, $slug, $code)
     {
         // Retrieve product by dynamic number of categories and product slug.
-        $product = Product::getProductByUrl($categories, $slug);
+        $product = Product::getProductByUrl($categories, $slug, $code);
         // return 404 page if there is no product for given url.
         if (!$product) {
             return abort(404);

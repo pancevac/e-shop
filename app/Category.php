@@ -125,14 +125,37 @@ class Category extends Model
     }
 
     /**
-     * Return category generated link.
+     * Get parent categories of given category in property array
      *
      * @param bool $category
      * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      */
-    public function getLink($category = false)
+    public function getParentCategoriesInCollection($category = false)
     {
-        //
+        if (! $category) {
+
+            $category = $this;
+            $this->categories = collect();
+        }
+
+        if ($category->relationLoaded('parentRecursive') && $category->parentRecursive) {
+
+            $this->getParentCategoriesInCollection($category->parentRecursive);
+        }
+
+        $this->categories->push($category);
+    }
+
+    /**
+     * Return url for category
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getUrl()
+    {
+        $this->getParentCategoriesInCollection();
+
+        return url( $this->categories->pluck('slug')->prepend('shop')->implode('/') );
     }
 
     /**
@@ -148,7 +171,7 @@ class Category extends Model
         // Check if url last parameter is product code,
         // that means url is meant to be for product
         // so return false
-        if (Product::getProductByCode($categories->last())) return false;
+        if (Product::checkProductByCode($categories->last())) return false;
 
         $query = self::query()->withoutGlobalScopes()->with(['parentRecursive', 'properties.attributes']);
 

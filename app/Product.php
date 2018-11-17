@@ -68,7 +68,7 @@ class Product extends Model implements Buyable
         // Eager load categories relationship
         static::addGlobalScope('categories', function ($builder) {
             $builder->with(['categories' => function ($query) {
-                $query->published()->orderBy('parent', 'ASC');
+                $query->withoutGLobalScopes()->published()->orderBy('parent', 'ASC');
             }]);
         });
         // Eager load brand relationship
@@ -93,14 +93,9 @@ class Product extends Model implements Buyable
      */
     public function getLink()
     {
-        $link = 'shop/';
         $categories = Category::removeDuplicatesFromCollection($this->categories);
 
-        foreach ($categories as $category) {
-            $link .= $category->slug . '/';
-        }
-
-        return url($link . $this->slug);
+        return url($categories->pluck('slug')->prepend('shop')->push($this->slug)->push($this->code)->implode('/'));
     }
 
     /**
@@ -110,14 +105,26 @@ class Product extends Model implements Buyable
      * @param $slug
      * @return mixed
      */
-    public static function getProductByUrl($categories, $slug)
+    public static function getProductByUrl($categories, $slug, $code)
     {
-        return self::with(['gallery', 'attributes.property', 'comments.commented'])
+        return self::with(['categories.parentRecursive', 'gallery', 'attributes.property', 'comments.commented'])
             ->whereHas('categories', function ($query) use ($categories) {
                 $query->whereIn('slug', explode('/', $categories));
             })
             ->whereSlug($slug)
+            ->whereCode($code)
             ->first();
+    }
+
+    /**
+     * Check if product exist with given code
+     *
+     * @param $code
+     * @return mixed
+     */
+    public static function checkProductByCode($code)
+    {
+        return self::published()->whereCode($code)->exists();
     }
 
     /**
