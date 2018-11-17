@@ -50,18 +50,6 @@ class MenuLink extends Model
         }
     }
 
-    public function setLinkAttribute($value)
-    {
-        $value ?
-            request('shop') ?
-                $this->attributes['link'] = 'shop/' . str_slug($value) :
-                $this->attributes['link'] = str_slug($value)
-            :
-            request('shop') ?
-                $this->attributes['link'] = 'shop/' . str_slug(request('title')) :
-                $this->attributes['link'] = str_slug(request('title'));
-    }
-
     /******** ACCESSORS *********/
 
     public function getShopAttribute()
