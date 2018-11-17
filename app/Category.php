@@ -2,18 +2,22 @@
 
 namespace App;
 
+use App\Traits\UploadableImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use Lcobucci\JWT\Builder;
 
 class Category extends Model
 {
+
+    use UploadableImageTrait;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'title', 'slug', 'seo_title', 'seo_keywords', 'seo_description', 'order', 'parent', 'level','featured', 'publish'
+        'title', 'slug', 'seo_title', 'seo_keywords', 'seo_description', 'image', 'order', 'parent', 'level','featured', 'publish'
     ];
 
     /**
@@ -123,11 +127,48 @@ class Category extends Model
     /**
      * Return category generated link.
      *
+     * @param bool $category
      * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      */
-    public function getLink()
+    public function getLink($category = false)
     {
-        return url('shop/'.$this->slug);
+        //
+    }
+
+    /**
+     * Get category based on requested url.
+     *
+     * @param $categories
+     * @return mixed
+     */
+    public static function getCategoryByUrl($categories)
+    {
+        $categories = collect (explode('/', $categories));
+
+        // Check if url last parameter is product code,
+        // that means url is meant to be for product
+        // so return false
+        if (Product::getProductByCode($categories->last())) return false;
+
+        $query = self::query()->withoutGlobalScopes()->with(['parentRecursive', 'properties.attributes']);
+
+        if ($categories->count() != 1) {
+            // Remove last element from collection to get parent categories slugs
+            $lastCategory = $categories->pop();
+            // Set parent query
+            $query->ofParent($categories->last());
+            // Push back last elemenet
+            $categories->push($lastCategory);
+        }
+
+        $query->whereSlug($categories->last());
+        $category = $query->first();
+
+        // Abort if number of categories parameters in url did not match the nesting level from table...
+        if ($category->level != $categories->count())
+            return abort(404);
+
+        return $category;
     }
 
     /**
@@ -192,6 +233,19 @@ class Category extends Model
     }
 
     /**
+     * Dynamic scope of parent categories
+     *
+     * @param $query
+     * @param $categorySlug
+     */
+    public function scopeOfParent($query, $categorySlug)
+    {
+        $query->whereHas('parentCategory', function ($parentQuery) use ($categorySlug) {
+            $parentQuery->whereSlug($categorySlug);
+        });
+    }
+
+    /**
      * Parent category relationship
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -209,6 +263,16 @@ class Category extends Model
     public function childrenCategory()
     {
         return $this->hasMany(Category::class, 'parent', 'id');
+    }
+
+    /**
+     * Parent recursive relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function parentRecursive()
+    {
+        return $this->parentCategory()->withoutGlobalScopes()->with('parentRecursive');
     }
 
     /**

@@ -30,6 +30,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('categories/lists', 'Api\CategoriesController@lists');
     Route::get('categories/sort', 'Api\CategoriesController@sort');
     Route::post('categories/order', 'Api\CategoriesController@saveOrder');
+    Route::post('categories/{id}/uploadImage', 'Api\CategoriesController@uploadImage');
     // Properties CRUD
     Route::get('properties/lists', 'Api\PropertiesController@lists');
     Route::post('properties/categories', 'Api\PropertiesController@listsByCategories');

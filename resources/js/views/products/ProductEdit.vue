@@ -129,6 +129,7 @@
                 @input="trigger($event)"
                 :options="categories"
                 label="Kategorije"
+                valueConsistOf="ALL_WITH_INDETERMINATE"
                 :error="error? error.selectedCategories : ''"
             ></tree-select>
 

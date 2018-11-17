@@ -71,6 +71,14 @@
                 v-model="category.publish"
             ></checkbox-field>
 
+            <upload-image-helper
+                :image="category.image"
+                :defaultImage="null"
+                :titleImage="'kategorije'"
+                :error="error ? error.image : ''"
+                @uploadImage="prepareImage($event)"
+            ></upload-image-helper>
+
           </div>
 
           <div class="border-top">
@@ -86,7 +94,11 @@
 </template>
 
 <script>
+  import UploadImageHelper from '../../components/helper/UploadImageHelper';
+
   export default {
+
+    components: { UploadImageHelper },
     data() {
       return {
         category: {},
@@ -128,6 +140,8 @@
       submit() {
         axios.put('/api/categories/' + this.$route.params.id, this.category)
           .then(res => {
+            this.category = res.data.category;
+            this.uploadImage();
             this.$toasted.global.toastSuccess({ message: res.data.message });
             this.$router.push('/categories');
           })
@@ -137,7 +151,30 @@
               message: e.response.data.message
             });
           })
-      }
+      },
+
+      prepareImage(image) {
+        this.category.image = image.src;
+        this.formData = new FormData();
+        this.formData.append('image', image.file);
+        this.$toasted.global.toastSuccess({
+          message: 'Nova slika je importovana.'
+        });
+      },
+
+      uploadImage() {
+        axios.post('api/categories/' + this.$route.params.id + '/uploadImage', this.formData)
+          .then(res => {
+            this.category.image = res.data.image;
+            this.error = null
+          })
+          .catch(e => {
+            this.error = e.response.data.errors;
+            this.$toasted.global.toastError({
+              message: e.response.data.message
+            });
+          })
+      },
     }
   }
 </script>

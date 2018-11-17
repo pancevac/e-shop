@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Category;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UploadImageRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
@@ -35,7 +36,7 @@ class CategoriesController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
-        $category = Category::create($request->all());
+        $category = Category::create($request->except('image'));
         return response()->json([
             'category' => $category,
             'message' => 'Kategorija je uspešno kreirana!'
@@ -70,7 +71,7 @@ class CategoriesController extends Controller
      */
     public function update(CreateCategoryRequest $request, Category $category)
     {
-        $category->update($request->all());
+        $category->update($request->except('image'));
         return response()->json([
             'category' => $category,
             'message' => 'Kategorija je uspešno ažurirana'
@@ -124,6 +125,18 @@ class CategoriesController extends Controller
         return response()->json([
             'categories' => Category::getCategorySort(),
             'message' => 'Raspored kategorija uspešno sačuvan'
+        ]);
+    }
+
+    public function uploadImage(UploadImageRequest $request, $id)
+    {
+        $category = Category::find($id);
+        $category->update([
+            'image' => $category->storeImage('image'),
+        ]);
+
+        return response()->json([
+            'image' => $category->image,
         ]);
     }
 }
