@@ -3,7 +3,7 @@
 
 @section('content')
 
-  @include('themes.'. env('APP_THEME') .'.partials.banner')
+  {{ \Breadcrumbs::render('category', $category) }}
 
   <section class="cat_product_area section_gap">
     <form method="GET" id="filters">

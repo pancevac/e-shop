@@ -2,7 +2,7 @@
 
 @section('content')
 
-  @include('themes.'. env('APP_THEME') .'.partials.banner')
+  {{ \Breadcrumbs::render('product', $product) }}
 
   <!--================Single Product Area =================-->
   <div class="product_image_area">
@@ -59,9 +59,9 @@
                   <span>Category</span> :
                   @foreach($product->categories as $category)
                     @if($loop->last)
-                      <a href="{{ $category->getLink() }}">{{ $category->title }}</a>
+                      <a href="{{ $category->getUrl() }}">{{ $category->title }}</a>
                     @else
-                    <a href="{{ $category->getLink() }}">{{ $category->title }}, </a>
+                    <a href="{{ $category->getUrl() }}">{{ $category->title }}, </a>
                     @endif
                   @endforeach
                 </a>

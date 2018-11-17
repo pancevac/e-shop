@@ -2,7 +2,7 @@
 
 @section('content')
 
-  @include('themes.'. env('APP_THEME') .'.partials.banner')
+  {{ \Breadcrumbs::render('shopping-cart') }}
 
   <section class="cart_area">
     <div class="container">
