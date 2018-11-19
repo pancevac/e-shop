@@ -87,7 +87,7 @@
         <h5>Subtotal</h5>
       </td>
       <td>
-        <h5>$2160.00</h5>
+        <h5>${{ getTotal }}</h5>
       </td>
     </tr>
     <tr class="shipping_area">
@@ -164,7 +164,7 @@
 
     data() {
       return {
-        items: {},
+        items: [],
       }
     },
 
@@ -173,7 +173,18 @@
     },
 
     computed: {
-
+      /**
+       * Return total price
+       */
+      getTotal() {
+        let total = 0;
+        for (var index in this.items) {
+          if (this.items.hasOwnProperty(index)) {
+            total += this.totalPerProduct(index);
+          }
+        }
+        return total;
+      },
     },
 
     methods: {
