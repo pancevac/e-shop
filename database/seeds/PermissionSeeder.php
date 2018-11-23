@@ -21,5 +21,10 @@ class PermissionSeeder extends Seeder
             'alias' => 'Pristup filemanageru',
             'active' => 1,
         ]);
+        \App\Permission::create([
+            'title' => 'admin.panel',
+            'alias' => 'Pristup Admin panelu',
+            'active' => 1,
+        ]);
     }
 }

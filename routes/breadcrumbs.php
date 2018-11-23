@@ -5,6 +5,21 @@
     $trail->push('home', route('home'));
 });
 
+// Login page
+\Breadcrumbs::for('login', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Prijava', route('login'));
+});
+// Register page
+\Breadcrumbs::for('register', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Registracija', route('register'));
+});
+\Breadcrumbs::for('verification', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Verifikacija', route('verification.notice'));
+});
+
 // Shopping cart
 \Breadcrumbs::for('shopping-cart', function ($trail) {
     $trail->parent('home');

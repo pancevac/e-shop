@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 use Actuallymab\LaravelComment\CanComment;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, HasApiTokens, UploadableImageTrait, HasPermissionTrait, CanComment;
 
@@ -54,6 +54,16 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return true;//$this->isSuperAdmin();
+    }
+
+    /**
+     * Return is user a customer
+     *
+     * @return bool
+     */
+    public function isCustomer()
+    {
+        return $this->role_id == 0 ? true : false;
     }
 
     /**

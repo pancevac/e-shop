@@ -44,12 +44,13 @@ class CartsController extends Controller
      * @param Request $request
      * @param $categories
      * @param $slug
+     * @param $code
      * @return \Illuminate\Http\JsonResponse
      */
-    public function shoppingCartStore(Request $request, $categories, $slug)
+    public function shoppingCartStore(Request $request, $categories, $slug, $code)
     {
         // Get product instance
-        $product = Product::getProductByUrl($categories, $slug);
+        $product = Product::getProductByUrl($categories, $slug, $code);
 
         if (!$product) {
             return response()->json([
