@@ -35,14 +35,19 @@
         type: Number,
         default: 1
       },
+      productCode: {
+        type: String,
+      },
     },
 
     data() {
       return {
+        domain: domain,
         cart: {
           product: this.productUrl,
+          productCode: this.productCode,
           qty: this.qty,
-        }
+        },
       }
     },
 
@@ -73,7 +78,13 @@
        * Send request for adding product to wish list
        */
       addToWishList() {
-        //
+        axios.post(this.domain + 'lista-zelja', this.cart)
+          .then(response => {
+            this.$toasted.global.toastDefault({ message: response.data.message });
+          })
+          .catch(e => {
+            this.$toasted.global.toastError({ message: e.response.data.message });
+          })
       },
     }
   }

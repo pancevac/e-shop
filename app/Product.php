@@ -189,6 +189,16 @@ class Product extends Model implements Buyable
     }
 
     /**
+     * Append product link
+     *
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getLinkAttribute()
+    {
+        return $this->getLink();
+    }
+
+    /**
      * Scope published
      *
      * @param $query

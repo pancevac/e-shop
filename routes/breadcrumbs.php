@@ -20,10 +20,14 @@
     $trail->push('Verifikacija', route('verification.notice'));
 });
 
-// Shopping cart
+// Shopping cart and wish-list
 \Breadcrumbs::for('shopping-cart', function ($trail) {
     $trail->parent('home');
     $trail->push('Korpa', route('shopping-cart.index'));
+});
+\Breadcrumbs::for('wish-list', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Lista želja', route('wishList'));
 });
 
 // Shop category

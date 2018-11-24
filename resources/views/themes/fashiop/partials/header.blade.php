@@ -7,12 +7,14 @@
       <div class="float-right">
         <ul class="right_side">
           <li>
-            <a href="login.html">
+            @guest
+            <a href="{{ route('login') }}">
               Login/Register
             </a>
+            @endauth
           </li>
           <li>
-            <a href="#">
+            <a href="{{ route('profile') }}">
               My Account
             </a>
           </li>
@@ -83,18 +85,20 @@
                   </a>
                 </li>
 
+                @auth
                 <hr>
 
                 <li class="nav-item">
-                  <a href="#" class="icons">
+                  <a href="{{ route('profile') }}" class="icons">
                     <i class="fa fa-user" aria-hidden="true"></i>
                   </a>
                 </li>
+                @endauth
 
                 <hr>
 
                 <li class="nav-item">
-                  <a href="#" class="icons">
+                  <a href="{{ route('wishList') }}" class="icons">
                     <i class="fa fa-heart-o" aria-hidden="true"></i>
                   </a>
                 </li>

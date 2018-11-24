@@ -40,6 +40,11 @@ Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('ver
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 /**
+ * Routes for customers
+ */
+Route::get('profil', 'Web\CustomersController@profile')->name('profile')->middleware('verified');
+
+/**
  * Route to shop category
  */
 Route::get('/shop/{categories}', 'Web\ShopController@shopCategory')->where('categories', '.*')->name('shop.category');
@@ -65,3 +70,10 @@ Route::post('/shop/{categories}/{slug}', 'Web\CommentsController@store')->where(
 Route::post('/korpa/update', 'Web\CartsController@shoppingCartUpdate');
 Route::post('/korpa/delete', 'Web\CartsController@shoppingCartDelete');
 Route::get('/korpa', 'Web\CartsController@shoppingCart')->name('shopping-cart.index');
+
+/**
+ * Routes for customer wish-list
+ */
+Route::get('/lista-zelja', 'Web\WishListsController@wishList')->name('wishList')->middleware('verified');
+Route::post('/lista-zelja', 'Web\WishlistsController@addToWishList')->name('wishList.add')->middleware('verified');
+Route::delete('/lista-zelja/{code}', 'Web\WishlistsController@removeFromWishList')->name('wishList.delete')->middleware('verified');

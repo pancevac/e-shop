@@ -13,6 +13,7 @@
       <shopping-cart
           product-url="{{ $product->getLink() }}"
           page-type="shop"
+          product-code="{{ $product->code }}"
       ></shopping-cart>
 
     </div>

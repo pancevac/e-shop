@@ -29,6 +29,7 @@ Vue.component('product-description-area', require('./components/ProductDescripti
 Vue.component('shopping-cart', require('./components/ShoppingCart'));
 Vue.component('shopping-cart-counter', require('./components/ShoppingCartCounter'));
 Vue.component('cart-items', require('./components/CartItems'));
+Vue.component('wish-list-items', require('./components/WishListItems'));
 
 const app = new Vue({
   el: '#app',

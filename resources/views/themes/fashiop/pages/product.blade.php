@@ -87,6 +87,7 @@
             <shopping-cart
                 product-url="{{ $product->getLink() }}"
                 page-type="single-product"
+                product-code="{{ $product->code }}"
             ></shopping-cart>
           </div>
         </div>
