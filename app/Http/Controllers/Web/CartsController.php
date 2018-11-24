@@ -22,8 +22,8 @@ class CartsController extends Controller
         $cartItemsWithModel = [];
 
         // Get associated products and append optimized image dimensions for cart page
-        $products = Product::withoutGlobalScopes()->whereIn('id', $cartItems->pluck('id'))
-            ->get()->each->setAppends(['cartProductImage']);
+        $products = Product::withoutGlobalScopes()->with('categories')->whereIn('id', $cartItems->pluck('id'))
+            ->get()->each->setAppends(['cartProductImage', 'link']);
 
         foreach ($cartItems as $key => $item) {
             // Convert each item object's properties as array

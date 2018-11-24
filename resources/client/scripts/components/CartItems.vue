@@ -16,7 +16,9 @@
       <td>
         <div class="media">
           <div class="d-flex">
-            <img :src="item.model.cartProductImage" alt="">
+            <a :href="item.model.link">
+              <img :src="item.model.cartProductImage" alt="">
+            </a>
           </div>
           <div class="media-body">
             <p>{{ item.name }}</p>
