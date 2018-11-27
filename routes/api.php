@@ -64,5 +64,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('menu-links/sort', 'Api\MenuLinksController@sort');
     Route::post('menu-links/sort/{menu_id}', 'Api\MenuLinksController@saveSort');
     Route::resource('menu-links', 'Api\MenuLinksController')->except(['show', 'create']);
+    // Coupons CRUD
+    Route::resource('coupons', 'Api\CouponsController')->except(['show', 'create']);
 
 });

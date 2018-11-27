@@ -462,6 +462,43 @@ export const router = new VueRouter({
           {title: 'Sortiranje linkova'}
         ]
       }
+    },
+
+    // Coupon
+    {
+      path: '/coupons',
+      component: require('./views/coupons/CouponList'),
+      meta: {
+        permission: 'coupon.view',
+        pageTitle: 'Kuponi',
+        breadcrumb: [
+          {title: 'Kuponi'},
+        ],
+      },
+    },
+    {
+      path: '/coupons/create',
+      component: require('./views/coupons/CouponCreate'),
+      meta: {
+        permission: 'coupon.create',
+        pageTitle: 'Kreiranje kupona',
+        breadcrumb: [
+          {title: 'Kuponi', link: '/coupons'},
+          {title: 'Kreiranje kupona'}
+        ],
+      },
+    },
+    {
+      path: '/coupons/:id/edit',
+      component: require('./views/coupons/CouponEdit'),
+      meta: {
+        permission: 'coupon.update',
+        pageTitle: 'Izmena kupona',
+        breadcrumb: [
+          {title: 'Kuponi', link: '/coupons'},
+          {title: 'Izena kupona'}
+        ],
+      },
     }
   ]
 });

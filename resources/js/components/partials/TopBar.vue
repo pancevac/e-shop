@@ -67,6 +67,7 @@
               <router-link :to="'/permissions/create'" class="dropdown-item" href="#">Dozvole</router-link>
               <router-link :to="'/roles/create'" class="dropdown-item" href="#">Uloge</router-link>
               <router-link :to="'/menus/create'" class="dropdown-item" href="#">Tipa menija</router-link>
+              <router-link :to="'/coupons/create'" class="dropdown-item" href="#">Kupon</router-link>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a>
             </div>

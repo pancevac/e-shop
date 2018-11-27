@@ -28,6 +28,7 @@
             </a>
             <ul aria-expanded="false" class="collapse  first-level">
               <li class="sidebar-item"><router-link :to="'/products'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Proizvodi </span></router-link></li>
+              <li class="sidebar-item"><router-link :to="'/coupons'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Kuponi </span></router-link></li>
               <li class="sidebar-item"><router-link :to="'/brands'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Brendovi </span></router-link></li>
               <li class="sidebar-item"><router-link :to="'/categories'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Kategorije </span></router-link></li>
               <li class="sidebar-item"><router-link :to="'/properties'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Osobine </span></router-link></li>
