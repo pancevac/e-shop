@@ -37,6 +37,7 @@ class EditProductRequest extends FormRequest
             'selectedAttributes' => 'required|array|min:1',
             'brand_id' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:1',
+            'discount' => 'nullable|numeric',
             'publish_at' => 'required|date',
         ];
     }
@@ -60,6 +61,7 @@ class EditProductRequest extends FormRequest
             'price.required' => 'Cena je obavezna',
             'price.numeric' => 'Cena je obavezna',
             'price.min' => 'Cena je obavezna',
+            'discount.numeric' => 'Popust mora biti celobrojan',
             'publish_at.required' => 'Datum publikovanja je obavezan',
             'publish_at.date' => 'Datum publikovanja  nije u ispravnom formatu',
         ];

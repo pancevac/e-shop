@@ -18,8 +18,8 @@ class CreateCouponsTable extends Migration
             $table->string('code')->nullable()->unique();
             $table->integer('discount')->unsigned();
             $table->integer('amount')->default(0);
-            $table->timestamp('publish_at');
-            $table->timestamp('valid_until');
+            $table->timestamp('publish_from')->nullable();
+            $table->timestamp('valid_until')->nullable();
             $table->boolean('publish')->default(false);
             $table->boolean('forever')->default(false);
             $table->timestamps();

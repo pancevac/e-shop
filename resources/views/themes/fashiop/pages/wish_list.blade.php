@@ -9,9 +9,9 @@
       <div class="cart_inner">
         <div class="table-responsive">
 
-          <wish-list-items
+          <wish-list
               :wish-list-items="{{ json_encode($wishListItems) }}"
-          ></wish-list-items>
+          ></wish-list>
 
         </div>
       </div>
@@ -20,7 +20,7 @@
 
 @endsection
 <script>
-  import WishListItems from "../../../../client/scripts/components/WishListItems";
+  import WishListItems from "../../../../client/scripts/components/WishList";
   export default {
     components: {WishListItems}
   }

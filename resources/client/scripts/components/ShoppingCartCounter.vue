@@ -22,13 +22,13 @@
 
     created() {
       // Set initial value of items count in shopping-cart in vuex store...
-      this.$store.dispatch('cart/changeShoppingCartCount', this.cartItemsCount);
+      this.$store.dispatch('cart/changeItemCount', this.cartItemsCount);
     },
 
     computed: {
       // Get currently number of items in cart
       getItemsCount() {
-        let counter = this.$store.getters['cart/getShoppingCartCount'];
+        let counter = this.$store.getters['cart/getItemCount'];
         if (counter > 0) return counter;
       }
     },

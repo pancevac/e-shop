@@ -57,6 +57,12 @@
             ></text-field>
 
             <text-field
+                label="Popust u procentima"
+                v-model="product.discount"
+                :error="error? error.discount : ''"
+            ></text-field>
+
+            <text-field
                 label="Outlet cena"
                 v-model="product.price_outlet"
                 :error="error? error.price_outlet : ''"
@@ -159,6 +165,9 @@
           selectedCategories: [],
           selectedAttributes: [],
           description: null,
+          price: null,
+          price_outlet: null,
+          discount: null,
         },
         brands: [],
         tags: [],

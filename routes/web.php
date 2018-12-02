@@ -67,13 +67,14 @@ Route::post('/shop/{categories}/{slug}', 'Web\CommentsController@store')->where(
 /**
  * Route for updating and deleting products shopping cart
  */
-Route::post('/korpa/update', 'Web\CartsController@shoppingCartUpdate');
-Route::post('/korpa/delete', 'Web\CartsController@shoppingCartDelete');
-Route::get('/korpa', 'Web\CartsController@shoppingCart')->name('shopping-cart.index');
+Route::put('/korpa/{rowId}', 'Web\CartsController@shoppingCartUpdate');
+Route::delete('/korpa/{rowId}', 'Web\CartsController@shoppingCartDelete');
+Route::get('/korpa', 'Web\CartsController@showShoppingCartPage')->name('shopping-cart.index');
+Route::post('/korpa/kupon', 'Web\CartsController@coupon');
 
 /**
  * Routes for customer wish-list
  */
-Route::get('/lista-zelja', 'Web\WishListsController@wishList')->name('wishList')->middleware('verified');
+Route::get('/lista-zelja', 'Web\WishListsController@showWishListPage')->name('wishList')->middleware('verified');
 Route::post('/lista-zelja', 'Web\WishlistsController@addToWishList')->name('wishList.add')->middleware('verified');
 Route::delete('/lista-zelja/{code}', 'Web\WishlistsController@removeFromWishList')->name('wishList.delete')->middleware('verified');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Coupon;
+use App\Http\Requests\StoreCouponRequest;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,12 +11,21 @@ use App\Http\Controllers\Controller;
 class CartsController extends Controller
 {
 
+    public function showShoppingCartPage()
+    {
+        return view('themes.'.env('APP_THEME').'.pages.cart', [
+            'cartItems' => self::getShoppingCartItems(),
+            'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
+            'total' => self::getTotalPrice(),
+        ]);
+    }
+
     /**
      * Return shopping cart items
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return array
      */
-    public function shoppingCart()
+    public static function getShoppingCartItems()
     {
         // Get cart items with associated products
         $cartItems = \Cart::instance('shoppingCart')->content();
@@ -33,9 +44,7 @@ class CartsController extends Controller
             $cartItemsWithModel[$key]['model'] = $products->where('id', $item->id)->first();
         }
 
-        return view('themes.'.env('APP_THEME').'.pages.cart', [
-            'cartItems' => $cartItemsWithModel,
-        ]);
+        return $cartItemsWithModel;
     }
 
     /**
@@ -67,36 +76,111 @@ class CartsController extends Controller
         ]);
     }
 
-    public function shoppingCartUpdate(Request $request)
+    /**
+     * Method for handling updating shopping cart item
+     *
+     * @param Request $request
+     * @param $rowId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function shoppingCartUpdate(Request $request, $rowId)
     {
-        if (!$request->has('rowId')) {
+        if (!$request->has('qty')) {
             return response()->json([
                 'message' => 'Error! Nepoznat proizvod',
             ], 500);
         }
 
         // Update product quantity
-        \Cart::instance('shoppingCart')->update($request->get('rowId'), $request->get('qty', 1));
+        \Cart::instance('shoppingCart')->update($rowId, $request->get('qty', 1));
 
         return response()->json([
             'message' => 'Uspešno izmenjena količina proizvoda!',
+            'cartItems' => self::getShoppingCartItems(),
             'cartItemsCount' => \Cart::instance('shoppingCart')->count(),
+            'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
+            'total' => self::getTotalPrice(),
         ]);
     }
 
-    public function shoppingCartDelete(Request $request)
+    /**
+     * Remove item from shopping cart
+     *
+     * @param $rowId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function shoppingCartDelete($rowId)
     {
-        if (!$request->has('rowId')) {
+        if (!$rowId) {
             return response()->json([
                 'message' => 'Error! Nepoznat proizvod',
             ], 500);
         }
 
-        \Cart::instance('shoppingCart')->remove($request->get('rowId'));
+        \Cart::instance('shoppingCart')->remove($rowId);
 
         return response()->json([
             'message' => 'Proizvod je izbrisan iz korpe!',
+            'cartItems' => self::getShoppingCartItems(),
             'cartItemsCount' => \Cart::instance('shoppingCart')->count(),
+            'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
+            'total' => self::getTotalPrice(),
         ]);
+    }
+
+    /**
+     * Method for checking is coupon valid and if so, putting to session
+     *
+     * @param StoreCouponRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function coupon(StoreCouponRequest $request)
+    {
+        // If already session with coupon, return error
+        if (session()->has('coupon')) {
+            return response()->json([
+                'message' => 'Kupon je već setovan, prvo izbrišite prethodni',
+            ], 404);
+        }
+
+        // Get coupon
+        $coupon = Coupon::getValidCoupon($request->input('coupon'));
+
+        // If no coupon, return error
+        if (!$coupon) {
+            return response()->json([
+                'message' => 'Kupon ne postoji ili je istekao'
+            ], 404);
+        }
+
+        // Decrement coupon amount
+        $coupon->decrement('amount');
+
+        // Put coupon in session
+        session()->put('coupon', $coupon);
+
+        return response()->json([
+            'message' => 'Uspešno iskorišćen kupon',
+            'total' => self::getTotalPrice(),
+        ]);
+    }
+
+    /**
+     * Get shopping cart total price (discount included if coupon is set)
+     *
+     * @return float|int
+     */
+    public static function getTotalPrice()
+    {
+        if (session()->has('coupon')) {
+
+            $coupon = session()->get('coupon');
+
+            $subPrice = \Cart::instance('shoppingCart')->subtotal();
+
+            return $subPrice - ($subPrice * ($coupon->discount / 100));
+        }
+
+        return \Cart::instance('shoppingCart')->subtotal();
     }
 }

@@ -84,11 +84,11 @@
                 <i class="lnr lnr-chevron-down"></i>
               </button>
             </div>
-            <shopping-cart
+            <add-to-cart
                 product-url="{{ $product->getLink() }}"
                 page-type="single-product"
                 product-code="{{ $product->code }}"
-            ></shopping-cart>
+            ></add-to-cart>
           </div>
         </div>
       </div>

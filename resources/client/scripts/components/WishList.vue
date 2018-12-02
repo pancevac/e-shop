@@ -63,31 +63,19 @@
       removeItem(index) {
         let item = this.items[index];
 
-        axios.delete(this.domain + 'lista-zelja/' + item.rowId)
+        axios.delete('/lista-zelja/' + item.rowId)
           .then(response => {
-            // Delete item from items object
-            this.removeFromObject(index);
+
             // Set toast message
             this.$toasted.global.toastDefault({ message: response.data.message });
+
+            // Update items
+            this.items = response.data.wishListItems;
           })
           .catch(e => {
             this.$toasted.global.toastError();
           })
       },
-
-      /**
-       * Remove item from object items...
-       *
-       * @param index
-       */
-      removeFromObject(index) {
-        this.items = Object.keys(this.items).reduce((object, key) => {
-          if (key !== index) {
-            object[key] = this.items[key]
-          }
-          return object
-        }, {});
-      }
 
     },
 

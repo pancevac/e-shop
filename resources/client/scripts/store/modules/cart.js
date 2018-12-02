@@ -2,40 +2,67 @@ export default {
   namespaced: true,
 
   state: {
-    // Count items in cart
-    shoppingCartCount: null,
-    // Count items in wish list
-    wishListCount: null,
+
+    cartItems: null,
+    itemCount: null,
+    subTotalPrice: null,
+    totalPrice: null,
   },
 
   getters: {
 
-    getShoppingCartCount: state => {
-      return state.shoppingCartCount;
+    getCartItems: state => {
+      return state.cartItems;
     },
 
-    getWishListCount: state => {
-      return state.wishListCount;
+    getItemCount: state => {
+      return state.itemCount;
+    },
+
+    getSubTotalPrice: state => {
+      return state.subTotalPrice;
+    },
+
+    getTotalPrice: state => {
+      return state.totalPrice;
     },
   },
 
   mutations: {
 
-    setShoppingCartCount: (state, callback) => {
-      state.shoppingCartCount = callback;
+    setCartItems: (state, callback) => {
+      state.cartItems = callback;
     },
-    setWishListCount: (state, callback) => {
-      state.wishListCount = callback;
+
+    setItemCount: (state, callback) => {
+      state.itemCount = callback;
+    },
+
+    setSubTotalPrice: (state, callback) => {
+      state.subTotalPrice = callback;
+    },
+
+    setTotalPrice: (state, callback) => {
+      state.totalPrice = callback;
     },
   },
 
   actions: {
 
-    changeShoppingCartCount: (context, callback) => {
-      context.commit('setShoppingCartCount', callback);
+    changeCartItems: (context, callback) => {
+      context.commit('setCartItems', callback);
     },
-    changeWishListCount: (context, callback) => {
-      context.commit('setWishListCount', callback);
+
+    changeItemCount: (context, callback) => {
+      context.commit('setItemCount', callback);
+    },
+
+    changeSubTotalPrice: (context, callback) => {
+      context.commit('setSubTotalPrice', callback);
+    },
+
+    changeTotalPrice: (context, callback) => {
+      context.commit('setTotalPrice', callback);
     },
   }
 

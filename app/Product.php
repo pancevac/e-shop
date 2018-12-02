@@ -23,7 +23,22 @@ class Product extends Model implements Buyable
      * @var array
      */
     protected $fillable = [
-        'user_id', 'brand_id', 'title', 'slug', 'code', 'short', 'description', 'image', 'price', 'price_outlet', 'views', 'stock', 'featured', 'publish', 'publish_at'
+        'user_id',
+        'brand_id',
+        'title',
+        'slug',
+        'code',
+        'short',
+        'description',
+        'image',
+        'price',
+        'price_outlet',
+        'discount',
+        'views',
+        'stock',
+        'featured',
+        'publish',
+        'publish_at'
     ];
 
     /**
@@ -139,6 +154,14 @@ class Product extends Model implements Buyable
         }
         else {
             $this->attributes['slug'] = str_slug(request('title'));
+        }
+    }
+
+    public function setDiscountAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['discount'] = $value;
+            $this->attributes['price_outlet'] = $this->price * ((100 - $value) / 100);
         }
     }
 

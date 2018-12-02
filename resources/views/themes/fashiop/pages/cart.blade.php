@@ -9,12 +9,11 @@
       <div class="cart_inner">
         <div class="table-responsive">
 
-          <cart-items
-              :cart-items="{{ json_encode($cartItems) }}"
-              sub-total="{{ \Cart::instance('shoppingCart')->subtotal() }}"
-              tax="{{ \Cart::instance('shoppingCart')->tax() }}"
-              total="{{ \Cart::instance('shoppingCart')->total() }}"
-          ></cart-items>
+          <shopping-cart
+              :cart-items-prop="{{ json_encode($cartItems) }}"
+              sub-total-prop="{{ $subTotal }}"
+              total-prop="{{ $total }}"
+          ></shopping-cart>
 
         </div>
       </div>

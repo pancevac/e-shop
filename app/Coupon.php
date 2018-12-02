@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Coupon extends Model
 {
@@ -10,7 +11,7 @@ class Coupon extends Model
         'code',
         'discount',
         'amount',
-        'publish_at',
+        'publish_from',
         'valid_until',
         'publish',
         'forever',
@@ -25,6 +26,25 @@ class Coupon extends Model
     public function scopePublished($query)
     {
         return $query->wherePublish(true);
+    }
+
+    /**
+     * Determine if coupon is valid and return it if yes
+     *
+     * @param $couponCode
+     * @return mixed
+     */
+    public static function getValidCoupon($couponCode)
+    {
+        return self::published()
+            ->where('amount', '>', 0)
+            ->whereCode($couponCode)
+            ->where([
+                ['publish_from', '<', Carbon::now()],
+                ['valid_until', '>', Carbon::now()],
+            ])
+            ->orWhere('forever', true)
+            ->first();
     }
 
 

@@ -96,7 +96,7 @@
           code: null,
           discount: null,
           amount: null,
-          publish_at: null,
+          publish_from: null,
           valid_until: null,
           publish: false,
           forever: false,
@@ -127,7 +127,7 @@
     methods: {
 
       submit() {
-        this.coupon.publish_at = this.publish_at;
+        this.coupon.publish_from = this.publish_at;
         this.coupon.valid_until = this.valid_until;
 
         axios.post('api/coupons', this.coupon)

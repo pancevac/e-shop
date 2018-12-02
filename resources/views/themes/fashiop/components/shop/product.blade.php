@@ -10,11 +10,11 @@
         ></lazy-image>
       </div>
 
-      <shopping-cart
+      <add-to-cart
           product-url="{{ $product->getLink() }}"
           page-type="shop"
           product-code="{{ $product->code }}"
-      ></shopping-cart>
+      ></add-to-cart>
 
     </div>
     <a href="{{ $product->getLink() }}">

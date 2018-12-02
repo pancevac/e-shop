@@ -10,10 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class WishListsController extends Controller
 {
+
+    public function showWishListPage()
+    {
+        return view('themes.'.env('APP_THEME').'.pages.wish_list', [
+            'wishListItems' => self::getWishListItems(),
+        ]);
+    }
+
     /**
      * Return wish-list items for logged customer
      */
-    public function wishList()
+    public static function getWishListItems()
     {
         // If exist, restore previous wish-list instance from db
         // Note: after getting instance, record from db will be deleted
@@ -39,11 +47,7 @@ class WishListsController extends Controller
             $wishListItemsWithModel[$key]['model'] = $products->where('id', $item->id)->first();
         }
 
-        //dd($wishListItemsWithModel);
-
-        return view('themes.'.env('APP_THEME').'.pages.wish_list', [
-            'wishListItems' => $wishListItemsWithModel,
-        ]);
+        return $wishListItemsWithModel;
     }
 
     /**
@@ -109,6 +113,7 @@ class WishListsController extends Controller
 
         return response()->json([
             'message' => 'Proizvod je uspešno izbrisan iz liste želja.',
+            'wishListItems' => self::getWishListItems(),
         ]);
     }
 }

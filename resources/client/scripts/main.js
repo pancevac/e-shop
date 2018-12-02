@@ -26,10 +26,10 @@ Vue.use(Toast);
 Vue.component('range-slider', require('./components/RangeSlider'));
 Vue.component('lazy-image', require('./components/LazyImage'));
 Vue.component('product-description-area', require('./components/ProductDescription'));
-Vue.component('shopping-cart', require('./components/ShoppingCart'));
+Vue.component('add-to-cart', require('./components/AddToCart'));
 Vue.component('shopping-cart-counter', require('./components/ShoppingCartCounter'));
-Vue.component('cart-items', require('./components/CartItems'));
-Vue.component('wish-list-items', require('./components/WishListItems'));
+Vue.component('shopping-cart', require('./components/ShoppingCart'));
+Vue.component('wish-list', require('./components/WishList'));
 
 const app = new Vue({
   el: '#app',

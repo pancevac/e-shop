@@ -1,23 +1,175 @@
 <template>
-  <div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Proizvod</th>
+      <th scope="col">Cena</th>
+      <th scope="col">Količina</th>
+      <th scope="col">Ukupno</th>
+      <th scope="col">Akcija</th>
+    </tr>
+    </thead>
+    <tbody>
 
-    <div class="p_icon" v-if="pageType === 'shop'">
-      <a href="#" @click.prevent="addToWishList">
-        <i class="lnr lnr-heart"></i>
-      </a>
-      <a href="#" @click.prevent="addToShoppingCart">
-        <i class="lnr lnr-cart"></i>
-      </a>
-    </div>
+    <tr v-for="(item, index) in cartItems">
+      <td>
+        <div class="media">
+          <div class="d-flex">
+            <a :href="item.model.link">
+              <img :src="item.model.cartProductImage" alt="">
+            </a>
+          </div>
+          <div class="media-body">
+            <p>{{ item.name }}</p>
+          </div>
+        </div>
+      </td>
+      <td>
+        <h5>${{ item.price }}</h5>
+      </td>
+      <td>
+        <div class="product_count">
+          <input
+              v-model="cartItems[index].qty"
+              type="text"
+              name="qty"
+              id="qty"
+              maxlength="12"
+              title="Quantity:"
+              class="input-text qty"
+              @keyup.enter="updateShoppingCart(cartItems[index])"
+          >
+          <button type="button" class="increase items-count" @click="increaseQuantity(index)">
+            <i class="lnr lnr-chevron-up"></i>
+          </button>
 
-    <div class="card_area" v-if="pageType === 'single-product'">
-      <a class="main_btn" href="#" @click.prevent="addToShoppingCart">Dodaj u korpu</a>
-      <a class="icon_btn" href="#" @click.prevent="addToWishList">
-        <i class="lnr lnr lnr-heart"></i>
-      </a>
-    </div>
+          <button type="button" class="reduced items-count" @click="reduceQuantity(index)">
+            <i class="lnr lnr-chevron-down"></i>
+          </button>
 
-  </div>
+        </div>
+      </td>
+      <td>
+        <h5>${{ totalPerProduct(index) }}</h5>
+      </td>
+      <td>
+        <a href="#" @click.prevent="removeItem(index)">
+          <i class="lnr lnr-cross-circle"></i>
+        </a>
+      </td>
+    </tr>
+
+    <tr class="bottom_button">
+      <td>
+        <a class="gray_btn" href="#">Nastavite kupovinu</a>
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <div class="cupon_text">
+          <input type="text" placeholder="Coupon Code" v-model="coupon">
+          <a class="main_btn" href="#" @click="submitCoupon">Primeni</a>
+          <!--<a class="gray_btn" href="#">Close Coupon</a>-->
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <h5>Subtotal</h5>
+      </td>
+      <td>
+        <h5>${{ getSubTotalPrice }}</h5>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <h5>Total</h5>
+      </td>
+      <td>
+        <h5>${{ getTotalPrice }}</h5>
+      </td>
+    </tr>
+
+    <tr class="shipping_area">
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <h5>Shipping</h5>
+      </td>
+      <td>
+        <div class="shipping_box">
+          <ul class="list">
+            <li>
+              <a href="#">Flat Rate: $5.00</a>
+            </li>
+            <li>
+              <a href="#">Free Shipping</a>
+            </li>
+            <li>
+              <a href="#">Flat Rate: $10.00</a>
+            </li>
+            <li class="active">
+              <a href="#">Local Delivery: $2.00</a>
+            </li>
+          </ul>
+          <h6>Calculate Shipping
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+          </h6>
+          <select class="shipping_select">
+            <option value="1">Bangladesh</option>
+            <option value="2">India</option>
+            <option value="4">Pakistan</option>
+          </select>
+          <select class="shipping_select">
+            <option value="1">Select a State</option>
+            <option value="2">Select a State</option>
+            <option value="4">Select a State</option>
+          </select>
+          <input type="text" placeholder="Postcode/Zipcode">
+          <a class="gray_btn" href="#">Update Details</a>
+        </div>
+      </td>
+    </tr>
+    <tr class="out_button_area">
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <div class="checkout_btn_inner">
+          <a class="gray_btn" href="#">Continue Shopping</a>
+          <a class="main_btn" href="#">Proceed to checkout</a>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -25,67 +177,151 @@
     name: "ShoppingCart",
 
     props: {
-      pageType: {
-        type: String
+      cartItemsProp: {
+        type: Object,
       },
-      productUrl: {
-        type: String
-      },
-      qty: {
-        type: Number,
-        default: 1
-      },
-      productCode: {
+      subTotalProp: {
         type: String,
       },
+      totalProp: {
+        type: String,
+      }
     },
 
     data() {
       return {
-        domain: domain,
-        cart: {
-          product: this.productUrl,
-          productCode: this.productCode,
-          qty: this.qty,
-        },
+        cartItems: [],
+        subTotal: null,
+        total: null,
+        coupon: null,
       }
+    },
+
+    created() {
+      // Set cart items, sub and total prices
+      this.cartItems = this.cartItemsProp;
+      this.subTotal = this.subTotalProp;
+      this.total = this.totalProp;
+    },
+
+    computed: {
+
+      /**
+       * Retrieve cart items
+       */
+      getCartItems() {
+        return this.cartItems;
+      },
+
+      /**
+       * Retrieve cart items sub-total price
+       */
+      getSubTotalPrice() {
+        return this.subTotal;
+      },
+
+      /**
+       * Retrieve cart items total price
+       */
+      getTotalPrice() {
+        return this.total;
+      },
     },
 
     methods: {
 
+      totalPerProduct(index) {
+        return this.cartItems[index].price * this.cartItems[index].qty;
+      },
+
       /**
-       * Send request for adding product to shopping cart
+       * Increase items quantity, send request to backend
+       *
+       * @param index
        */
-      addToShoppingCart() {
+      increaseQuantity(index) {
+        let item = this.getCartItems[index];
+        item.qty++;
+        this.updateShoppingCart(item);
+      },
 
-        // If loaded page is for single-product, pick selected quantity for product
-        if (this.pageType === 'single-product') {
-          this.cart.qty = document.getElementById('sst').value;
-        }
+      /**
+       * Reduce items quantity, send request to backend
+       *
+       * @param index
+       */
+      reduceQuantity(index) {
+        let item = this.getCartItems[index];
+        item.qty--;
+        this.updateShoppingCart(item);
+      },
 
-        axios.post(this.productUrl + '/shoppingCart', this.cart)
+      /**
+       * Update Shopping cart by sending request to backend
+       *
+       * @param item
+       */
+      updateShoppingCart(item) {
+
+        axios.put('/korpa/' + item.rowId, {qty: item.qty})
           .then(response => {
+
+            // Set success notification
             this.$toasted.global.toastDefault({ message: response.data.message });
-            // Update cart items counter
-            this.$store.dispatch('cart/changeShoppingCartCount', response.data.cartItemsCount);
+
+            // Update vuex store
+            this.$store.dispatch('cart/changeItemCount', response.data.cartItemsCount);
+
+            // Update cartItems
+            this.cartItems = response.data.cartItems;
+            this.subTotal = response.data.subTotal;
+            this.total = response.data.total;
           })
           .catch(e => {
-            this.$toasted.global.toastError();
+            // Error
+            console.log(e);
           })
       },
 
       /**
-       * Send request for adding product to wish list
+       * Remove item from shopping cart
        */
-      addToWishList() {
-        axios.post(this.domain + 'lista-zelja', this.cart)
+      removeItem(index) {
+        let item = this.getCartItems[index];
+        axios.delete('/korpa/' + item.rowId)
           .then(response => {
+
+            // Set success notification
             this.$toasted.global.toastDefault({ message: response.data.message });
+
+            // Update vuex store
+            this.$store.dispatch('cart/changeItemCount', response.data.cartItemsCount);
+
+            // Update cartItems
+            this.cartItems = response.data.cartItems;
+            this.subTotal = response.data.subTotal;
+            this.total = response.data.total;
           })
           .catch(e => {
-            this.$toasted.global.toastError({ message: e.response.data.message });
+
           })
       },
-    }
+
+      /**
+       * Submit coupon and set new total price
+       */
+      submitCoupon() {
+        axios.post('korpa/kupon', {coupon: this.coupon})
+          .then(response => {
+            this.$toasted.global.toastDefault({ message: response.data.message });
+            this.total = response.data.total;
+          })
+          .catch(e => {
+            this.$toasted.global.toastError({ message: e.response.data.errors });
+          })
+      }
+
+
+    },
   }
 </script>

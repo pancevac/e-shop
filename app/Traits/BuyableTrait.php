@@ -38,6 +38,6 @@ trait BuyableTrait
      */
     public function getBuyablePrice($options = null)
     {
-        return $this->price;
+        return $this->discount ? $this->attributes['price_outlet'] : $this->attributes['price'];
     }
 }
