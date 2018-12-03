@@ -43,6 +43,8 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
  * Routes for customers
  */
 Route::get('profil', 'Web\CustomersController@profile')->name('profile')->middleware('verified');
+Route::post('profil', 'Web\CustomersController@updateProfile')->name('profile.update')->middleware('verified');
+Route::post('change-password', 'Web\CustomersController@changePassword')->name('profile.change_password')->middleware('verified');
 
 /**
  * Route to shop category
@@ -78,3 +80,8 @@ Route::post('/korpa/kupon', 'Web\CartsController@coupon');
 Route::get('/lista-zelja', 'Web\WishListsController@showWishListPage')->name('wishList')->middleware('verified');
 Route::post('/lista-zelja', 'Web\WishlistsController@addToWishList')->name('wishList.add')->middleware('verified');
 Route::delete('/lista-zelja/{code}', 'Web\WishlistsController@removeFromWishList')->name('wishList.delete')->middleware('verified');
+
+/**
+ * Routes for checkout page
+ */
+Route::get('/checkout', 'Web\CheckoutsController@checkoutPage');

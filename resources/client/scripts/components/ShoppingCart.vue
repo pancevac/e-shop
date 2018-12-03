@@ -71,7 +71,7 @@
       </td>
       <td>
         <div class="cupon_text">
-          <input type="text" placeholder="Coupon Code" v-model="coupon">
+          <input type="text" placeholder="Coupon Code" v-model="coupon" style="margin-left: 150px; margin-right: 10px;">
           <a class="main_btn" href="#" @click="submitCoupon">Primeni</a>
           <!--<a class="gray_btn" href="#">Close Coupon</a>-->
         </div>
@@ -88,7 +88,7 @@
         <h5>Subtotal</h5>
       </td>
       <td>
-        <h5>${{ getSubTotalPrice }}</h5>
+        <h5>${{ formatPrice(getSubTotalPrice) }}</h5>
       </td>
     </tr>
 
@@ -103,54 +103,11 @@
         <h5>Total</h5>
       </td>
       <td>
-        <h5>${{ getTotalPrice }}</h5>
+        <h5>${{ formatPrice(getTotalPrice) }}</h5>
       </td>
     </tr>
 
-    <tr class="shipping_area">
-      <td>
 
-      </td>
-      <td>
-
-      </td>
-      <td>
-        <h5>Shipping</h5>
-      </td>
-      <td>
-        <div class="shipping_box">
-          <ul class="list">
-            <li>
-              <a href="#">Flat Rate: $5.00</a>
-            </li>
-            <li>
-              <a href="#">Free Shipping</a>
-            </li>
-            <li>
-              <a href="#">Flat Rate: $10.00</a>
-            </li>
-            <li class="active">
-              <a href="#">Local Delivery: $2.00</a>
-            </li>
-          </ul>
-          <h6>Calculate Shipping
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-          </h6>
-          <select class="shipping_select">
-            <option value="1">Bangladesh</option>
-            <option value="2">India</option>
-            <option value="4">Pakistan</option>
-          </select>
-          <select class="shipping_select">
-            <option value="1">Select a State</option>
-            <option value="2">Select a State</option>
-            <option value="4">Select a State</option>
-          </select>
-          <input type="text" placeholder="Postcode/Zipcode">
-          <a class="gray_btn" href="#">Update Details</a>
-        </div>
-      </td>
-    </tr>
     <tr class="out_button_area">
       <td>
 
@@ -173,6 +130,8 @@
 </template>
 
 <script>
+  import accounting from 'accounting';
+
   export default {
     name: "ShoppingCart",
 
@@ -319,7 +278,17 @@
           .catch(e => {
             this.$toasted.global.toastError({ message: e.response.data.errors });
           })
-      }
+      },
+
+      /**
+       * Format price euro.
+       *
+       * @param value
+       */
+      formatPrice(value) {
+        return accounting.formatMoney(value, '', 2, '.', ',')
+      },
+
 
 
     },

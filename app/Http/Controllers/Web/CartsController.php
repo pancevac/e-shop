@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Web;
 use App\Coupon;
 use App\Http\Requests\StoreCouponRequest;
 use App\Product;
+use App\Traits\ShoppingCartTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CartsController extends Controller
 {
+    use ShoppingCartTrait;
 
     public function showShoppingCartPage()
     {
@@ -18,33 +20,6 @@ class CartsController extends Controller
             'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
             'total' => self::getTotalPrice(),
         ]);
-    }
-
-    /**
-     * Return shopping cart items
-     *
-     * @return array
-     */
-    public static function getShoppingCartItems()
-    {
-        // Get cart items with associated products
-        $cartItems = \Cart::instance('shoppingCart')->content();
-
-        $cartItemsWithModel = [];
-
-        // Get associated products and append optimized image dimensions for cart page
-        $products = Product::withoutGlobalScopes()->with('categories')->whereIn('id', $cartItems->pluck('id'))
-            ->get()->each->setAppends(['cartProductImage', 'link']);
-
-        foreach ($cartItems as $key => $item) {
-            // Convert each item object's properties as array
-            // We do this cuz shopping-cart package override laravel's toArray() method which remove eager loaded associated model.
-            // We bypass this with transforming item object properties into array.
-            $cartItemsWithModel[$key] = get_object_vars($item);
-            $cartItemsWithModel[$key]['model'] = $products->where('id', $item->id)->first();
-        }
-
-        return $cartItemsWithModel;
     }
 
     /**
@@ -136,13 +111,6 @@ class CartsController extends Controller
      */
     public function coupon(StoreCouponRequest $request)
     {
-        // If already session with coupon, return error
-        if (session()->has('coupon')) {
-            return response()->json([
-                'message' => 'Kupon je već setovan, prvo izbrišite prethodni',
-            ], 404);
-        }
-
         // Get coupon
         $coupon = Coupon::getValidCoupon($request->input('coupon'));
 
@@ -154,7 +122,7 @@ class CartsController extends Controller
         }
 
         // Decrement coupon amount
-        $coupon->decrement('amount');
+        //$coupon->decrement('amount');
 
         // Put coupon in session
         session()->put('coupon', $coupon);
@@ -163,24 +131,5 @@ class CartsController extends Controller
             'message' => 'Uspešno iskorišćen kupon',
             'total' => self::getTotalPrice(),
         ]);
-    }
-
-    /**
-     * Get shopping cart total price (discount included if coupon is set)
-     *
-     * @return float|int
-     */
-    public static function getTotalPrice()
-    {
-        if (session()->has('coupon')) {
-
-            $coupon = session()->get('coupon');
-
-            $subPrice = \Cart::instance('shoppingCart')->subtotal();
-
-            return $subPrice - ($subPrice * ($coupon->discount / 100));
-        }
-
-        return \Cart::instance('shoppingCart')->subtotal();
     }
 }

@@ -30,6 +30,7 @@ Vue.component('add-to-cart', require('./components/AddToCart'));
 Vue.component('shopping-cart-counter', require('./components/ShoppingCartCounter'));
 Vue.component('shopping-cart', require('./components/ShoppingCart'));
 Vue.component('wish-list', require('./components/WishList'));
+Vue.component('notification', require('./components/Notification'));
 
 const app = new Vue({
   el: '#app',

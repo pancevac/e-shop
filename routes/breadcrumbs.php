@@ -48,3 +48,9 @@
     $trail->parent('category', $product->categories->sortByDesc('level')->first());
     $trail->push($product->title, $product->getLink());
 });
+
+// Subscriber profile
+\Breadcrumbs::for('profile', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Nalog', route('profile'));
+});

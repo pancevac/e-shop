@@ -47,7 +47,18 @@
 @include('themes.'. env('APP_THEME') .'.partials.footer')
 <!--================ End footer Area  =================-->
 
-
+@if(session()->has('message'))
+  <notification
+    message="{{ session()->get('message') }}"
+    type="success"
+  ></notification>
+@endif
+  @if(session()->has('error'))
+    <notification
+      message="{{ session()->get('error') }}"
+      type="error"
+    ></notification>
+  @endif
 
 
 <!-- Optional JavaScript -->

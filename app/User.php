@@ -116,4 +116,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Role::class);
     }
+
+    /**
+     * Define relationship for customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
+    }
 }
