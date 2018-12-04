@@ -17,6 +17,18 @@ class Coupon extends Model
         'forever',
     ];
 
+    // Relations
+
+    /**
+     * The orders that belong to coupon
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /**
      * Scope published
      *

@@ -290,4 +290,14 @@ class Product extends Model implements Buyable
     {
         return $this->hasMany(Gallery::class);
     }
+
+    /**
+     * The orders that belong to product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }

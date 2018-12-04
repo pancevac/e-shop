@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="vendors/jquery-ui/jquery-ui.css">--}}
   <!-- main css -->
   <link rel="stylesheet" href="{{ asset('client/css/style.css') }}">
+  @yield('styles')
   {{--<link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">--}}
 </head>

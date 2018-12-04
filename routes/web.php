@@ -85,3 +85,4 @@ Route::delete('/lista-zelja/{code}', 'Web\WishlistsController@removeFromWishList
  * Routes for checkout page
  */
 Route::get('/checkout', 'Web\CheckoutsController@checkoutPage');
+Route::post('/checkout', 'Web\CheckoutsController@charge');
