@@ -31,7 +31,7 @@ Vue.component('shopping-cart-counter', require('./components/ShoppingCartCounter
 Vue.component('shopping-cart', require('./components/ShoppingCart'));
 Vue.component('wish-list', require('./components/WishList'));
 Vue.component('notification', require('./components/Notification'));
-Vue.component('checkout-form', require('./components/CheckoutForm'));
+Vue.component('order-box', require('./components/OrderBox'));
 
 const app = new Vue({
   el: '#app',

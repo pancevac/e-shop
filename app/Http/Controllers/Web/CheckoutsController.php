@@ -35,11 +35,15 @@ class CheckoutsController extends Controller
 
     /**
      * Handle charging
+     *
      * @param ChargeRequest $request
+     * @return void
      */
     public function charge(ChargeRequest $request)
     {
         dd($request->all());
+
+        // TODO try charge, save order, erase cart session...
     }
 
     /**
