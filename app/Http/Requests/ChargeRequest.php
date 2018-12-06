@@ -33,7 +33,7 @@ class ChargeRequest extends FormRequest
             'country' => 'required',
             //'postal_code' => 'required|numeric',
             'address1' => 'required',
-            'stripe_token' => 'required',
+            'stripe_token' => 'required|json',
         ];
     }
 

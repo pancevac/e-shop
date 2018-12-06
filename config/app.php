@@ -153,6 +153,7 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
         Devfactory\Imagecache\ImagecacheServiceProvider::class,
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -214,6 +215,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Imagecache' => Devfactory\Imagecache\Facades\ImagecacheFacade::class,
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
 
     ],
 

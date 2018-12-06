@@ -9,6 +9,7 @@
         "actuallymab/laravel-comment": "^0.6.1",
         "artesaos/seotools": "^0.12.1",
         "barryvdh/laravel-cors": "^0.11.2",
+        "cartalyst/stripe-laravel": "^9.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.2",
         "devfactory/imagecache": "^3.0",
         "doctrine/dbal": "^2.8",

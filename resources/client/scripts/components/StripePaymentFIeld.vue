@@ -22,7 +22,7 @@
       return {
         complete: false,
         errorMessage: null,
-        stripeKey: 'pk_test_Ge7h7S3eGHbiOcgf5wrpfbUD',
+        stripeKey: 'pk_test_5FAtwwh0ZcPmbyvtGMwSKkVB',
         stripeOptions: {
           // see https://stripe.com/docs/stripe.js#element-options for details
           hidePostalCode: true,

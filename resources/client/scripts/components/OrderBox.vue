@@ -94,7 +94,7 @@
       },
 
       response(token) {
-        document.getElementById('stripeToken').value = token.id;
+        document.getElementById('stripeToken').value = JSON.stringify(token);
         this.submitPaymentForm();
       },
 

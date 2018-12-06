@@ -19,7 +19,7 @@ trait ShoppingCartTrait
      *
      * @return array
      */
-    public static function getShoppingCartItems()
+    public function getShoppingCartItems()
     {
         // Get cart items with associated products
         $cartItems = \Cart::instance('shoppingCart')->content();
@@ -46,7 +46,7 @@ trait ShoppingCartTrait
      *
      * @return float|int
      */
-    public static function getTotalPrice()
+    public function getTotalPrice()
     {
         if (session()->has('coupon')) {
 
@@ -66,7 +66,7 @@ trait ShoppingCartTrait
         return \Cart::instance('shoppingCart')->subtotal();
     }
 
-    public static function getDiscountPrice()
+    public function getDiscountPrice()
     {
         if (session()->has('coupon')) {
 
@@ -76,7 +76,19 @@ trait ShoppingCartTrait
                 return $subTotal + ($cartItem->qty * $cartItem->price);
             }, 0);
 
-            return $subTotal - self::getTotalPrice();
+            return $subTotal - $this->getTotalPrice();
         }
+    }
+
+    public function getPricePerProduct($shoppingCartItem)
+    {
+        $subTotal = $shoppingCartItem['price'] * $shoppingCartItem['qty'];
+
+        if (session()->has('coupon')) {
+            $coupon = session()->get('coupon');
+            return $subTotal - ($subTotal * ($coupon->discount / 100));
+        }
+
+        return $subTotal;
     }
 }

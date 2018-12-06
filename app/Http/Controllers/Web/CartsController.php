@@ -13,12 +13,21 @@ class CartsController extends Controller
 {
     use ShoppingCartTrait;
 
+    /**
+     * Return shopping cart if isn't empty
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function showShoppingCartPage()
     {
+        if (\Cart::instance('shoppingCart')->count == 0) {
+            return redirect()->back()->with('message', 'Morate dodati minimum jedan proizvod kako biste nastavili dalje');
+        }
+
         return view('themes.'.env('APP_THEME').'.pages.cart', [
-            'cartItems' => self::getShoppingCartItems(),
+            'cartItems' => $this->getShoppingCartItems(),
             'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
-            'total' => self::getTotalPrice(),
+            'total' => $this->getTotalPrice(),
         ]);
     }
 
@@ -71,10 +80,10 @@ class CartsController extends Controller
 
         return response()->json([
             'message' => 'Uspešno izmenjena količina proizvoda!',
-            'cartItems' => self::getShoppingCartItems(),
+            'cartItems' => $this->getShoppingCartItems(),
             'cartItemsCount' => \Cart::instance('shoppingCart')->count(),
             'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
-            'total' => self::getTotalPrice(),
+            'total' => $this->getTotalPrice(),
         ]);
     }
 
@@ -96,10 +105,10 @@ class CartsController extends Controller
 
         return response()->json([
             'message' => 'Proizvod je izbrisan iz korpe!',
-            'cartItems' => self::getShoppingCartItems(),
+            'cartItems' => $this->getShoppingCartItems(),
             'cartItemsCount' => \Cart::instance('shoppingCart')->count(),
             'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
-            'total' => self::getTotalPrice(),
+            'total' => $this->getTotalPrice(),
         ]);
     }
 
@@ -129,7 +138,7 @@ class CartsController extends Controller
 
         return response()->json([
             'message' => 'Uspešno iskorišćen kupon',
-            'total' => self::getTotalPrice(),
+            'total' => $this->getTotalPrice(),
         ]);
     }
 }
