@@ -66,5 +66,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('menu-links', 'Api\MenuLinksController')->except(['show', 'create']);
     // Coupons CRUD
     Route::resource('coupons', 'Api\CouponsController')->except(['show', 'create']);
+    // Orders CRUD
+    Route::resource('orders', 'Api\OrdersController')->except(['show', 'create', 'store']);
 
 });

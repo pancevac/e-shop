@@ -13,6 +13,7 @@
               :cart-items-prop="{{ json_encode($cartItems) }}"
               sub-total-prop="{{ $subTotal }}"
               total-prop="{{ $total }}"
+              :coupon-prop="{{ $coupon ? $coupon->toJson() : null }}"
           ></shopping-cart>
 
         </div>

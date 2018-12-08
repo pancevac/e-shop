@@ -499,6 +499,31 @@ export const router = new VueRouter({
           {title: 'Izena kupona'}
         ],
       },
+    },
+
+    // Orders
+    {
+      path: '/orders',
+      component: require('./views/orders/OrderList'),
+      meta: {
+        permission: 'order.view',
+        pageTitle: 'Narudžbine',
+        breadcrumb: [
+          {title: 'Narudžbine'},
+        ],
+      },
+    },
+    {
+      path: '/orders/:id/edit',
+      component: require('./views/orders/OrderPreview'),
+      meta: {
+        permission: 'order.update',
+        pageTitle: 'Pregled narudžbine',
+        breadcrumb: [
+          {title: 'Narudžbine', link: '/orders'},
+          {title: 'Pregled narudžbine'},
+        ],
+      },
     }
   ]
 });

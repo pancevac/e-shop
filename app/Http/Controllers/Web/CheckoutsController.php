@@ -24,7 +24,7 @@ class CheckoutsController extends Controller
      */
     public function checkoutPage()
     {
-        if (\Cart::instance('shoppingCart')->count == 0) {
+        if (\Cart::instance('shoppingCart')->count() == 0) {
             return redirect()->back()->with('message', 'Morate uneti makar jedan proizvod u korpu kako biste nastavili kupovinu');
         }
 
@@ -60,19 +60,19 @@ class CheckoutsController extends Controller
         } catch (CardErrorException $e) {
 
             // If fails, create order with failed status and return error
-            $order->makeOrder('failed', $e->getMessage());
+            $order->makeOrder($request, 'failed', $e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
 
         } catch (\Exception $e) {
 
             // If fails, create order with failed status and return error
-            $order->makeOrder('failed', $e->getMessage());
+            $order->makeOrder($request, 'failed', $e->getMessage());
             Log::error('Error with charging card: '.$e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
 
         // Save order into db
-        $order->makeOrder();
+        $order->makeOrder($request);
 
         // Send order mail to customer
         Mail::send(new OrderShipped($order));

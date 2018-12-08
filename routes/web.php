@@ -25,7 +25,7 @@ Route::get('/admin', function () {
  * Routes for login
  */
 Route::get('/prijava', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('/prijava', 'Auth\LoginController@login');
+Route::post('/prijava', 'Auth\LoginController@login')->name('login.post');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 /**
  * Routes for register

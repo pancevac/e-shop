@@ -45,24 +45,25 @@ class Order extends Model
     /**
      * Method for creating order
      *
+     * @param $request
      * @param string $status
      * @param null $error
      */
-    public function makeOrder($status = 'success', $error = null)
+    public function makeOrder($request, $status = 'success', $error = null)
     {
-        $this->transaction_identifier = json_decode(request()->input('stripe_token'))->card->id;
+        $this->transaction_identifier = json_decode($request->input('stripe_token'))->card->id;
         $this->customer_id = auth()->check() ? auth()->user()->customer->getKey() : null;
         $this->coupon_id = session()->has('coupon') ? session()->get('coupon')->id : null;
-        $this->first_name = request()->input('first_name');
-        $this->last_name = request()->input('last_name');
-        $this->email = request()->input('email');
-        $this->address1 = request()->input('address1');
-        $this->address2 = request()->input('address2');
-        $this->country = request()->input('country');
-        $this->city = request()->input('city');
-        $this->postal_code = request()->input('postal_code');
-        $this->phone = request()->input('phone');
-        $this->note = request()->input('note');
+        $this->first_name = $request->input('first_name');
+        $this->last_name = $request->input('last_name');
+        $this->email = $request->input('email');
+        $this->address1 = $request->input('address1');
+        $this->address2 = $request->input('address2');
+        $this->country = $request->input('country');
+        $this->city = $request->input('city');
+        $this->postal_code = $request->input('postal_code');
+        $this->phone = $request->input('phone');
+        $this->note = $request->input('note');
         $this->is_paid = false; // Posle staviti true ako se plati preko kartice
         $this->is_delivered = false;
         $this->total_price = $this->getTotalPrice();

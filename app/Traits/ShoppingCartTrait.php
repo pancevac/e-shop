@@ -42,6 +42,22 @@ trait ShoppingCartTrait
     }
 
     /**
+     * Return shopping cart subtotal price (without discounts)
+     *
+     * @return mixed
+     */
+    public function getSubtotalPrice()
+    {
+        $content = session()->get('cart')['shoppingCart'];
+
+        $subTotal = $content->reduce(function ($subTotal, CartItem $cartItem) {
+            return $subTotal + ($cartItem->qty * $cartItem->price);
+        }, 0);
+
+        return $subTotal;
+    }
+
+    /**
      * Get shopping cart total price (discount included if coupon is set)
      *
      * @return float|int
@@ -63,7 +79,7 @@ trait ShoppingCartTrait
             return $subTotal - ($subTotal * ($coupon->discount / 100));
         }
 
-        return \Cart::instance('shoppingCart')->subtotal();
+        return $this->getSubtotalPrice();
     }
 
     public function getDiscountPrice()

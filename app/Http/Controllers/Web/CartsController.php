@@ -20,14 +20,15 @@ class CartsController extends Controller
      */
     public function showShoppingCartPage()
     {
-        if (\Cart::instance('shoppingCart')->count == 0) {
+        if (\Cart::instance('shoppingCart')->count() == 0) {
             return redirect()->back()->with('message', 'Morate dodati minimum jedan proizvod kako biste nastavili dalje');
         }
 
         return view('themes.'.env('APP_THEME').'.pages.cart', [
             'cartItems' => $this->getShoppingCartItems(),
-            'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
+            'subTotal' => $this->getSubtotalPrice(),
             'total' => $this->getTotalPrice(),
+            'coupon' => session()->get('coupon') ?: null,
         ]);
     }
 
@@ -82,7 +83,7 @@ class CartsController extends Controller
             'message' => 'Uspešno izmenjena količina proizvoda!',
             'cartItems' => $this->getShoppingCartItems(),
             'cartItemsCount' => \Cart::instance('shoppingCart')->count(),
-            'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
+            'subTotal' => $this->getSubtotalPrice(),
             'total' => $this->getTotalPrice(),
         ]);
     }
@@ -107,7 +108,7 @@ class CartsController extends Controller
             'message' => 'Proizvod je izbrisan iz korpe!',
             'cartItems' => $this->getShoppingCartItems(),
             'cartItemsCount' => \Cart::instance('shoppingCart')->count(),
-            'subTotal' => \Cart::instance('shoppingCart')->subtotal(),
+            'subTotal' => $this->getSubtotalPrice(),
             'total' => $this->getTotalPrice(),
         ]);
     }
@@ -139,6 +140,7 @@ class CartsController extends Controller
         return response()->json([
             'message' => 'Uspešno iskorišćen kupon',
             'total' => $this->getTotalPrice(),
+            'coupon' => $coupon,
         ]);
     }
 }

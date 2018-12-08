@@ -92,6 +92,21 @@
       </td>
     </tr>
 
+    <tr v-if="getAppliedCoupon">
+      <td>
+
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <h5>Popust {{ getAppliedCoupon.discount }}% ({{ getAppliedCoupon.code }})</h5>
+      </td>
+      <td>
+        <h5>-${{ formatPrice(getSubTotalPrice - getTotalPrice) }}</h5>
+      </td>
+    </tr>
+
     <tr>
       <td>
 
@@ -144,7 +159,10 @@
       },
       totalProp: {
         type: String,
-      }
+      },
+      couponProp: {
+        type: Object,
+      },
     },
 
     data() {
@@ -153,6 +171,7 @@
         subTotal: null,
         total: null,
         coupon: null,
+        appliedCoupon: null,
       }
     },
 
@@ -161,6 +180,7 @@
       this.cartItems = this.cartItemsProp;
       this.subTotal = this.subTotalProp;
       this.total = this.totalProp;
+      this.appliedCoupon = this.couponProp;
     },
 
     computed: {
@@ -184,6 +204,13 @@
        */
       getTotalPrice() {
         return this.total;
+      },
+
+      /**
+       * Retrieve applied coupon
+       */
+      getAppliedCoupon() {
+        return this.appliedCoupon;
       },
     },
 
@@ -274,6 +301,7 @@
           .then(response => {
             this.$toasted.global.toastDefault({ message: response.data.message });
             this.total = response.data.total;
+            this.appliedCoupon = response.data.coupon;
           })
           .catch(e => {
             this.$toasted.global.toastError({ message: e.response.data.errors });

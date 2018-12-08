@@ -15,28 +15,39 @@
       @guest
       <div class="returning_customer">
         <div class="check_title">
-          <h2>Returning Customer?
-            <a href="#">Click here to login</a>
+          <h2>Naša ste stalna mušterija?
+            <a href="{{ route('login') }}">Kliknite ovde da biste ste prijavili</a>
           </h2>
         </div>
-        <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed
-          to the Billing & Shipping section.</p>
-        <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+        <p>Imate napravljen korisnički nalog na našem sajtu? Molimo ispod unesite kredencijale za prijavu, ako ste nova mušterija, molimo
+          nastavite sa popunjavanjem sekcije za nastavak kupovine.</p>
+        <form class="row contact_form" action="{{ route('login.post') }}" method="POST" novalidate="novalidate">
+          {{ csrf_field() }}
           <div class="col-md-6 form-group p_star">
-            <input type="text" class="form-control" id="name" name="name" value=" ">
-            <span class="placeholder" data-placeholder="Username or Email"></span>
+            <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
+            <span class="placeholder" data-placeholder="Email adresa"></span>
+
+            @if ($errors->has('email'))
+              <strong style="color: red">{{ $errors->first('email') }}</strong>
+            @endif
+
           </div>
           <div class="col-md-6 form-group p_star">
-            <input type="password" class="form-control" id="password" name="password" value="">
-            <span class="placeholder" data-placeholder="Password"></span>
+            <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}">
+            <span class="placeholder" data-placeholder="Lozinka"></span>
+
+            @if ($errors->has('password'))
+              <strong style="color: red">{{ $errors->first('password') }}</strong>
+            @endif
+
           </div>
           <div class="col-md-12 form-group">
-            <button type="submit" value="submit" class="btn submit_btn">Send Message</button>
+            <button type="submit" value="submit" class="btn submit_btn">Prijavite se</button>
             <div class="creat_account">
-              <input type="checkbox" id="f-option" name="selector">
-              <label for="f-option">Remember me</label>
+              <input type="checkbox" id="f-option" name="name" {{ old('remember') ? 'checked' : '' }}>
+              <label for="f-option">Zapamti me</label>
             </div>
-            <a class="lost_pass" href="#">Lost your password?</a>
+            <a class="lost_pass" href="#">Zaboravili ste lozinku?</a>
           </div>
         </form>
       </div>
@@ -53,10 +64,7 @@
 
                 <div class="col-md-6 form-group p_star">
                   <input
-                      value="@if(old('first_name')) {{ old('first_name') }}
-                        @elseif($user && $user->customer)
-                          {{ $user->customer->first_name }}
-                        @endif"
+                      value="@if(old('first_name')){{ old('first_name') }}@elseif($user && $user->customer){{ $user->customer->first_name }}@endif"
                       type="text"
                       class="form-control"
                       id="first"
@@ -70,10 +78,7 @@
                 </div>
                 <div class="col-md-6 form-group p_star">
                   <input
-                      value="@if(old('last_name')) {{ old('last_name') }}
-                      @elseif($user && $user->customer)
-                      {{ $user->customer->last_name }}
-                      @endif"
+                      value="@if(old('last_name')){{ old('last_name') }}@elseif($user && $user->customer){{ $user->customer->last_name }}@endif"
                       type="text"
                       class="form-control"
                       id="last"
@@ -88,10 +93,7 @@
                 </div>
                 <div class="col-md-6 form-group p_star">
                   <input
-                      value="@if(old('phone')) {{ old('phone') }}
-                      @elseif($user && $user->customer)
-                      {{ $user->customer->phone }}
-                      @endif"
+                      value="@if(old('phone')){{ old('phone') }}@elseif($user && $user->customer){{ $user->customer->phone }}@endif"
                       type="text"
                       class="form-control"
                       id="phone"
@@ -106,10 +108,7 @@
                 </div>
                 <div class="col-md-6 form-group p_star">
                   <input
-                      value="@if(old('email')) {{ old('email') }}
-                      @elseif($user)
-                      {{ $user->email }}
-                      @endif"
+                      value="@if(old('email')){{ old('email') }}@elseif($user){{ $user->email }}@endif"
                       type="text"
                       class="form-control"
                       id="email"
@@ -131,10 +130,7 @@
                 </div>
                 <div class="col-md-12 form-group p_star">
                   <input
-                      value="@if(old('address1')) {{ old('address1') }}
-                      @elseif($user && $user->customer)
-                      {{ $user->customer->address1 }}
-                      @endif"
+                      value="@if(old('address1')){{ old('address1') }}@elseif($user && $user->customer){{ $user->customer->address1 }}@endif"
                       type="text"
                       class="form-control"
                       id="add1"
@@ -149,10 +145,7 @@
                 </div>
                 <div class="col-md-12 form-group p_star">
                   <input
-                      value="@if(old('address2')) {{ old('address2') }}
-                      @elseif($user && $user->customer)
-                      {{ $user->customer->address2 }}
-                      @endif"
+                      value="@if(old('address2')){{ old('address2') }}@elseif($user && $user->customer){{ $user->customer->address2 }}@endif"
                       type="text"
                       class="form-control"
                       id="add2"
@@ -167,10 +160,7 @@
                 </div>
                 <div class="col-md-12 form-group p_star">
                   <input
-                      @if(old('city')) {{ old('city') }}
-                      @elseif($user && $user->customer)
-                      {{ $user->customer->city }}
-                      @endif
+                      @if(old('city')){{ old('city') }}@elseif($user && $user->customer){{ $user->customer->city }}@endif
                       type="text"
                       class="form-control"
                       id="city"
@@ -185,10 +175,7 @@
                 </div>
                 <div class="col-md-12 form-group">
                   <input
-                      value="@if(old('postal_code')) {{ old('postal_code') }}
-                      @elseif($user && $user->customer)
-                      {{ $user->customer->postal_code }}
-                      @endif"
+                      value="@if(old('postal_code')){{ old('postal_code') }}@elseif($user && $user->customer){{ $user->customer->postal_code }}@endif"
                       type="text"
                       class="form-control"
                       id="postal_code"
@@ -211,8 +198,7 @@
                       id="message"
                       rows="1"
                       placeholder="Napišite napomenu ovde"
-                  >
-                    @if(old('note')) {{ old('note') }} @endif
+                  >@if(old('note')) {{ old('note') }} @endif
                   </textarea>
 
                   @if ($errors->has('note'))
