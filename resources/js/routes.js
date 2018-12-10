@@ -524,6 +524,31 @@ export const router = new VueRouter({
           {title: 'Pregled narudžbine'},
         ],
       },
+    },
+
+    // Customers
+    {
+      path: '/customers',
+      component: require('./views/customers/CustomerList'),
+      meta: {
+        permission: 'customer.view',
+        pageTitle: 'Kupci',
+        breadcrumb: [
+          {title: 'Kupci'},
+        ],
+      },
+    },
+    {
+      path: '/customers/:id/edit',
+      component: require('./views/customers/CustomerEdit'),
+      meta: {
+        permission: 'customer.update',
+        pageTitle: 'Izmena kupca',
+        breadcrumb: [
+          {title: 'Kupci', link: '/customers'},
+          {title: 'Izmena kupca'},
+        ],
+      },
     }
   ]
 });
