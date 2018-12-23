@@ -54,3 +54,13 @@
     $trail->parent('home');
     $trail->push('Nalog', route('profile'));
 });
+
+// Customer orders
+\Breadcrumbs::for('orders', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Narudžbine', route('orders'));
+});
+\Breadcrumbs::for('order', function ($trail, $order) {
+    $trail->parent('orders');
+    $trail->push('Narudžbina', route('orders.show', ['order' => $order->id]));
+});

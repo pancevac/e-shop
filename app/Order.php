@@ -97,4 +97,30 @@ class Order extends Model
         $orderInstance->products()->sync($syncProducts);
 
     }
+
+    /**
+     * Get order with relations
+     *
+     * @return Order
+     */
+    public function getOrder()
+    {
+        return $this->load([
+            'customer',
+            'coupon',
+            'products' => function ($query) {
+            // Load products without it's autoload relations
+            $query->withoutGlobalScopes();
+        }]);
+    }
+
+    /**
+     * Generate order link
+     *
+     * @return string
+     */
+    public function getLink()
+    {
+        return route('orders.show', ['order' => $this->getKey()]);
+    }
 }

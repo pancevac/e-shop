@@ -46,7 +46,7 @@ class CheckoutsController extends Controller
      * Handle charging
      *
      * @param ChargeRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return Order|\Illuminate\Http\RedirectResponse
      */
     public function submitCheckout(ChargeRequest $request)
     {
@@ -88,10 +88,18 @@ class CheckoutsController extends Controller
         // Delete shopping cart items from session
         \Cart::instance('shoppingCart')->destroy();
 
-        dd('radi');
-        // TODO call successfully paid method and display bought items
+        // set flash session for showing thank-you message for purchase
+        session()->flash('first_view', true);
+
+        // Return order info
+        return view('themes.'.env('APP_THEME').'.pages.successful-purchase', [
+            'order' => $order->getOrder(),
+        ]);
     }
 
+    /**
+     * Charge user
+     */
     protected function charge()
     {
         $stripe = new Stripe();
@@ -133,5 +141,18 @@ class CheckoutsController extends Controller
 
         return $loggedCustomer;
 
+    }
+
+    /**
+     * Show successful order info
+     *
+     * @param Order $order
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showOrder(Order $order)
+    {
+        return view('themes.'.env('APP_THEME').'.pages.successful-purchase', [
+            'order' => $order->getOrder(),
+        ]);
     }
 }

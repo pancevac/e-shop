@@ -13,7 +13,8 @@ const mix = require('laravel-mix');
 
 // Server side
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css')
+   .copy('resources/js/dist/css/style.min.css', 'public/css/style.min.css');
 
 // Client side
 mix.js('resources/client/scripts/main.js', 'public/client/js')

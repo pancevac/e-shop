@@ -13,6 +13,8 @@
 
 Route::get('/', 'Web\HomeController@index')->name('home');
 
+Route::get('dev/{order}', 'Web\CheckoutsController@showOrder');
+
 Route::get('/admin', function () {
     return view('layouts/admin-app');
 });
@@ -86,3 +88,9 @@ Route::delete('/lista-zelja/{code}', 'Web\WishlistsController@removeFromWishList
  */
 Route::get('/checkout', 'Web\CheckoutsController@checkoutPage')->name('checkout');
 Route::post('/checkout', 'Web\CheckoutsController@submitCheckout')->name('checkout.post');
+
+/**
+ * Routes for orders
+ */
+Route::get('/narudzbine', 'Web\CustomersController@orders')->name('orders');
+Route::get('/narudzbina/{order}', 'Web\CustomersController@showOrder')->name('orders.show');
