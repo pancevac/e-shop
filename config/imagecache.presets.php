@@ -72,5 +72,10 @@ return array(
         'height' => 287,
         'method' => 'crop',
     ),
+    'home_widget' => array(
+        'width' => 552,
+        'height' => 222,
+        'method' => 'crop',
+    ),
 
 );

@@ -135,8 +135,8 @@
       </td>
       <td>
         <div class="checkout_btn_inner">
-          <a class="gray_btn" href="#">Continue Shopping</a>
-          <a class="main_btn" href="#">Proceed to checkout</a>
+          <a class="gray_btn" :href="previousUrl">Nastavite kupovinu</a>
+          <a class="main_btn" :href="checkout">Idite na plaćanje</a>
         </div>
       </td>
     </tr>
@@ -162,6 +162,12 @@
       },
       couponProp: {
         type: Object,
+      },
+      previousUrl: {
+        type: String,
+      },
+      checkout: {
+        type: String,
       },
     },
 
@@ -314,7 +320,7 @@
        * @param value
        */
       formatPrice(value) {
-        return accounting.formatMoney(value, '', 2, '.', ',')
+        return accounting.formatMoney(value, '', 2, '.', ',');
       },
 
 

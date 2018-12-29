@@ -27,7 +27,7 @@ trait ShoppingCartTrait
         $cartItemsWithModel = [];
 
         // Get associated products and append optimized image dimensions for cart page
-        $products = Product::withoutGlobalScopes()->with('categories')->whereIn('id', $cartItems->pluck('id'))
+        $products = Product::withoutGlobalScopes()->whereIn('id', $cartItems->pluck('id'))
             ->get()->each->setAppends(['cartProductImage', 'link']);
 
         foreach ($cartItems as $key => $item) {

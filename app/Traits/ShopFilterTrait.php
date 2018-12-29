@@ -9,18 +9,16 @@
 namespace App\Traits;
 
 
-use Illuminate\Support\Facades\DB;
-
 trait ShopFilterTrait
 {
-    protected static function filter($category = false)
+
+    public function filter($category = false)
     {
-        //dd(request()->all());
-        // Initialize query builder of model
-        $query = self::query();
+        // Initialize query builder of model that trait uses
+        $query = $this->newQuery();
         foreach (request()->all() as $key => $attribute) {
 
-            if (in_array($key, self::$searchable)) {
+            if (in_array($key, $this->searchable)) {
 
                 $query->$key($attribute);
             }
@@ -32,15 +30,15 @@ trait ShopFilterTrait
 
         // Get min-max price ranges
         $minPrice = 0;
-        $maxPrice = $category ? self::getMaxPrice($category) : self::query()->max('price');
+        $maxPrice = $category ? $this->getMaxPrice($category) : $this->query()->max('price');
 
         // Get slider selected price ranges
-        $minPriceSelected = (int) self::isPriceInRequest() ? request('price')[0] : 0;
-        $maxPriceSelected = (int) self::isPriceInRequest() ? request('price')[1] : $maxPrice;
+        $minPriceSelected = (int) $this->isPriceInRequest() ? request('price')[0] : 0;
+        $maxPriceSelected = (int) $this->isPriceInRequest() ? request('price')[1] : $maxPrice;
 
 
         return [
-            'products' => $query->paginate(self::$shopPaginate),
+            'products' => $query->paginate($this->shopPaginate),
             'attributesIds' => request()->get('filters'),
             'minPrice' => (int) $minPrice,
             'maxPrice' => (int) $maxPrice,
@@ -98,17 +96,17 @@ trait ShopFilterTrait
 
     public function scopeShow($query, $paginate)
     {
-        //self::$shopPaginate = $paginate;
+        //$this->$shopPaginate = $paginate;
     }
 
-    public static function isPriceInRequest()
+    public function isPriceInRequest()
     {
         return request('price') && count(request('price')) == 2;
     }
 
-    public static function getMaxPrice($category)
+    public function getMaxPrice($category)
     {
-        return self::query()->CategoryFilter($category)->max('price');
+        return $this->query()->CategoryFilter($category)->max('price');
     }
 
 

@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-lg-3  col-md-6 col-sm-6">
         <div class="single-footer-widget">
-          <h6 class="footer_title">About Us</h6>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
+          <h6 class="footer_title">O nama</h6>
+          <p>Ovaj sajt je izgradjen u svrhu završnog rada visoke ICT škole. Ovaj sajt nije trenutno nije namenjen za produkciju</p>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="single-footer-widget">
           <h6 class="footer_title">Newsletter</h6>
-          <p>Stay updated with our latest trends</p>
+          <p>Prijavite se na naš newsletter</p>
           <div id="mc_embed_signup">
             <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
                   method="get" class="subscribe_form relative">
@@ -80,7 +80,7 @@
     </div>
     <div class="row footer-bottom d-flex justify-content-between align-items-center">
       <p class="col-lg-12 footer-text text-center"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+        Copyright &copy;{{ \Illuminate\Support\Carbon::now()->year }} All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
       </p>
     </div>

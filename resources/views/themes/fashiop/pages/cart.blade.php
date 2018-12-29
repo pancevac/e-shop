@@ -13,7 +13,9 @@
               :cart-items-prop="{{ json_encode($cartItems) }}"
               sub-total-prop="{{ $subTotal }}"
               total-prop="{{ $total }}"
-              :coupon-prop="{{ $coupon ? $coupon->toJson() : null }}"
+              coupon-prop="{{ $coupon ? $coupon->toJson() : null }}"
+              previous-url="{{ url()->previous() }}"
+              checkout="{{ route('checkout') }}"
           ></shopping-cart>
 
         </div>

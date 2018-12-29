@@ -53,11 +53,11 @@ class Product extends Model implements Buyable
      *
      * @var array
      */
-    protected static $searchable = ['filters', 'price', 'sort', 'show'];
+    protected $searchable = ['filters', 'price', 'sort', 'show'];
 
-    public static $frontPaginate = 10;
+    public $frontPaginate = 10;
 
-    public static $shopPaginate = 10;
+    public $shopPaginate = 10;
 
     /**
      * Approve rating reviews/comments on this model.
@@ -222,13 +222,25 @@ class Product extends Model implements Buyable
     }
 
     /**
-     * Scope published
+     * Scope, filter only published
      *
      * @param $query
+     * @return mixed
      */
     public function scopePublished($query)
     {
-        $query->where('publish', 1);
+        return $query->where('publish', 1);
+    }
+
+    /**
+     * Scope, filter only featured
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeFeatured($query)
+    {
+        return $query->where('featured', 1);
     }
 
     /**

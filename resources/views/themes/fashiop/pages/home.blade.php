@@ -8,27 +8,13 @@
   <section class="hot_deals_area section_gap">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-6">
-          <div class="hot_deal_box">
-            <img class="img-fluid" src="img/product/hot_deals/deal1.jpg" alt="">
-            <div class="content">
-              <h2>Hot Deals of this Month</h2>
-              <p>shop now</p>
-            </div>
-            <a class="hot_deal_link" href="#"></a>
-          </div>
-        </div>
 
-        <div class="col-lg-6">
-          <div class="hot_deal_box">
-            <img class="img-fluid" src="img/product/hot_deals/deal1.jpg" alt="">
-            <div class="content">
-              <h2>Hot Deals of this Month</h2>
-              <p>shop now</p>
-            </div>
-            <a class="hot_deal_link" href="#"></a>
-          </div>
-        </div>
+        @foreach($widgets as $widget)
+
+          @home_widget(['widget' => $widget]) @endhome_widget
+
+        @endforeach
+
       </div>
     </div>
   </section>
@@ -70,31 +56,11 @@
         </div>
         <div class="row">
 
-          @for($i = 1; $i > 10; $i++)
+          @foreach($products as $product)
 
-            <h1>Test</h1>
+            @home_product(['product' => $product, 'loop' => $loop]) @endhome_product
 
-            <div class="col col{{ $i }}">
-              <div class="f_p_item">
-                <div class="f_p_img">
-                  <img class="img-fluid" src="img/product/feature-product/f-p-{{ $i }}.jpg" alt="">
-                  <div class="p_icon">
-                    <a href="#">
-                      <i class="lnr lnr-heart"></i>
-                    </a>
-                    <a href="#">
-                      <i class="lnr lnr-cart"></i>
-                    </a>
-                  </div>
-                </div>
-                <a href="#">
-                  <h4>Long Sleeve TShirt</h4>
-                </a>
-                <h5>$150.00</h5>
-              </div>
-            </div>
-
-          @endfor
+          @endforeach
 
         </div>
 

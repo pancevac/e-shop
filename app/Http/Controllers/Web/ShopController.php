@@ -31,7 +31,8 @@ class ShopController extends Controller
             return $this->product($categories, $productSlugAndCode->first(), $productSlugAndCode->last());
         }
         // Filter products and return filtered products attributes and price.
-        $data = Product::filter($category);
+        $product = new Product();
+        $data = $product->filter($category);
         $products = $data['products'];
         $properties = $category->properties;
 

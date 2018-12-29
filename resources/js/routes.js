@@ -549,6 +549,43 @@ export const router = new VueRouter({
           {title: 'Izmena kupca'},
         ],
       },
-    }
+    },
+
+    // Widgets
+    {
+      path: '/widgets',
+      component: require('./views/widgets/WidgetList'),
+      meta: {
+        permission: 'widget.view',
+        pageTitle: 'Widžeti',
+        breadcrumb: [
+          {title: 'Widžeti'},
+        ],
+      },
+    },
+    {
+      path: '/widgets/create',
+      component: require('./views/widgets/WidgetCreate'),
+      meta: {
+        permission: 'widget.create',
+        pageTitle: 'Kreiranje Widžeta',
+        breadcrumb: [
+          {title: 'Widžeti', link: '/widgets'},
+          {title: 'Kreiranje Widžeta'}
+        ]
+      }
+    },
+    {
+      path: '/widgets/:id/edit',
+      component: require('./views/widgets/WidgetsEdit'),
+      meta: {
+        permission: 'widget.update',
+        pageTitle: 'Izmena Widžeta',
+        breadcrumb: [
+          {title: 'Widžeti', link: '/widgets'},
+          {title: 'Izmena Widžeta'}
+        ]
+      }
+    },
   ]
 });

@@ -2,19 +2,31 @@
 
 namespace App\Http\Controllers\Web;
 
-use Carbon\Carbon;
+use App\Product;
+use App\Widget;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+    /**
+     * Show site home page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        /*//dd(Carbon::parse('25-10-2018') > Carbon::now());
-        if ('2018-10-25' < Carbon::now()->format('Y-m-d')) {
-            dd('radi');
-        }
-        dd('ne radi');*/
-        return view('themes.'.env('APP_THEME').'.pages.home');
+        // Get home widgets
+        $homeWidgets = Widget::getHomeWidgets();
+
+        // Get latest featured products
+        $productInstance = new Product();
+        $featuredProducts = $productInstance->withoutGlobalScopes(['brand', 'attributes'])
+            ->published()->orderByDesc('updated_at')->take($productInstance->frontPaginate)->get();
+
+        return view('themes.'.env('APP_THEME').'.pages.home', [
+            'products' => $featuredProducts,
+            'widgets' => $homeWidgets,
+        ]);
     }
 }

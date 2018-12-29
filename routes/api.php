@@ -70,5 +70,8 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('orders', 'Api\OrdersController')->except(['show', 'create', 'store']);
     // Customers CRUD
     Route::resource('customers', 'Api\CustomersController')->except(['show', 'create', 'store']);
+    // Widgets CRUD
+    Route::resource('widgets', 'Api\WidgetsController')->except(['show', 'create']);
+    Route::post('widgets/{id}/uploadImage', 'Api\WidgetsController@uploadImage');
 
 });
