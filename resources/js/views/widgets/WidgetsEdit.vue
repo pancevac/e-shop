@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-body">
 
-            <h4>Novi widget</h4>
+            <h4>Izmena widgeta</h4>
 
             <text-field
                     label="Naziv"
@@ -36,7 +36,7 @@
 
           <div class="border-top">
             <div class="card-body">
-              <button type="button" class="btn btn-primary" @click="submit">Unesi</button>
+              <button type="button" class="btn btn-primary" @click="submit">Izmeni</button>
             </div>
           </div>
 

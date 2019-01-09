@@ -73,5 +73,8 @@ Route::middleware('auth:api')->group(function () {
     // Widgets CRUD
     Route::resource('widgets', 'Api\WidgetsController')->except(['show', 'create']);
     Route::post('widgets/{id}/uploadImage', 'Api\WidgetsController@uploadImage');
+    // Banners CRUD
+    Route::resource('banners', 'Api\BannersController')->except(['show', 'create']);
+    Route::post('banners/{banner}/uploadImage', 'Api\BannersController@uploadImage');
 
 });

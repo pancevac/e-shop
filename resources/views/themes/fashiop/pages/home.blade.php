@@ -2,7 +2,7 @@
 
 @section('content')
 
-  @include('themes.'.env('APP_THEME').'.partials.homeBanner')
+  @include('themes.'.env('APP_THEME').'.partials.homeBanner', $banner)
 
   <!--================Hot Deals Area =================-->
   <section class="hot_deals_area section_gap">

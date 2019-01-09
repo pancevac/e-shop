@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Banner;
 use App\Product;
 use App\Widget;
 use Illuminate\Http\Request;
@@ -16,6 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Get home main banner
+        $homeBanner = Banner::getBanner();
+
         // Get home widgets
         $homeWidgets = Widget::getHomeWidgets();
 
@@ -27,6 +31,7 @@ class HomeController extends Controller
         return view('themes.'.env('APP_THEME').'.pages.home', [
             'products' => $featuredProducts,
             'widgets' => $homeWidgets,
+            'banner' => $homeBanner,
         ]);
     }
 }

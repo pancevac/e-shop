@@ -10,6 +10,7 @@
           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Podešavanja </span></a>
             <ul aria-expanded="false" class="collapse  first-level">
               <li class="sidebar-item"><router-link :to="'/menus'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Meni </span></router-link></li>
+              <li class="sidebar-item"><router-link :to="'/banners'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Baneri </span></router-link></li>
             </ul>
           </li>
 

@@ -587,5 +587,42 @@ export const router = new VueRouter({
         ]
       }
     },
+
+    // Banners
+    {
+      path: '/banners',
+      component: require('./views/banners/BannerList'),
+      meta: {
+        permission: 'banner.view',
+        pageTitle: 'Baneri',
+        breadcrumb: [
+          {title: 'Baneri'},
+        ]
+      }
+    },
+    {
+      path: '/banners/create',
+      component: require('./views/banners/BannerCreate'),
+      meta: {
+        permission: 'banner.create',
+        pageTitle: 'Kreiranje banera',
+        breadcrumb: [
+          {title: 'Baneri', link: '/banners'},
+          {title: 'Kreiranje banera'}
+        ]
+      }
+    },
+    {
+      path: '/banners/:id/edit',
+      component: require('./views/banners/BannerEdit'),
+      meta: {
+        permission: 'banner.update',
+        pageTitle: 'Izmena banera',
+        breadcrumb: [
+          {title: 'Banneri', link: '/banners'},
+          {title: 'Izmena Banera'}
+        ]
+      }
+    }
   ]
 });
