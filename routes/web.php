@@ -66,7 +66,7 @@ Route::post('/shop/{categories}/{slug}/{code}/shoppingCart', 'Web\CartsControlle
 /**
  * Route to add review on product
  */
-Route::post('/shop/{categories}/{slug}', 'Web\CommentsController@store')->where('categories', '.*');
+Route::post('/shop/{categories}/{slug}/{code}', 'Web\CommentsController@store')->where('categories', '.*');
 
 /**
  * Route for updating and deleting products shopping cart

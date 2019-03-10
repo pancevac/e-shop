@@ -18,14 +18,13 @@ class CommentsController extends Controller
      * @param $productSlug
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CreateCommentRequest $request, $categories, $productSlug)
+    public function store(CreateCommentRequest $request, $categories, $productSlug, $code)
     {
         // Get reviewed product
-        $product = Product::getProductByUrl($categories, $productSlug);
+        $product = Product::getProductByUrl($categories, $productSlug, $code);
 
         if ($product) {
-            // $user = Auth::user();
-            $user = User::find(3);
+            $user = auth()->user();
             $user->comment($product, $request->message, $request->rating ?: false);
 
             session()->flash('success', 'Uspešno ostavljen utisak, čeka se na odobrenje.');
