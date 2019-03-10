@@ -64,11 +64,11 @@
 
         </div>
 
-        <div class="row">
+        {{--<div class="row">
 
-          @include('themes.'.env('APP_THEME').'.partials.pagination')
+          {{ $products->links('themes.'.env('APP_THEME').'.partials.pagination') }}
 
-        </div>
+        </div>--}}
       </div>
     </div>
   </section>

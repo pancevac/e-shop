@@ -1,29 +1,52 @@
-<nav class="cat_page mx-auto" aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-      </a>
-    </li>
-    <li class="page-item active">
-      <a class="page-link" href="#">01</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">02</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">03</a>
-    </li>
-    <li class="page-item blank">
-      <a class="page-link" href="#">...</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">09</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
+
+@if ($paginator->hasPages())
+
+  <nav class="cat_page mx-auto" aria-label="Page navigation example">
+    <ul class="pagination">
+
+      @if (! $paginator->onFirstPage())
+
+      <li class="page-item">
+        <a class="page-link" href="{{ $paginator->previousPageUrl() }}">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </a>
+      </li>
+
+      @endif
+
+      @foreach($elements as $element)
+
+          {{-- "Three Dots" Separator --}}
+          @if (is_string($element))
+            <li class="disabled" aria-disabled="true">
+              <span>{{ $element }}</span>
+            </li>
+          @endif
+
+          @if (is_array($element))
+
+            @foreach ($element as $page => $url)
+              @if ($page == $paginator->currentPage())
+                <li class="page-item active" aria-current="page"><a class="page-link">{{ $page }}</a></li>
+              @else
+                <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+              @endif
+            @endforeach
+
+          @endif
+
+        @endforeach
+
+        {{-- Next Page Link --}}
+        @if ($paginator->hasMorePages())
+          <li class="page-item">
+            <a class="page-link" href="{{ $paginator->nextPageUrl() }}">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </a>
+          </li>
+        @endif
+
+    </ul>
+  </nav>
+
+@endif
