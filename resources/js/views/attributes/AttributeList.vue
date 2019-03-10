@@ -30,8 +30,8 @@
                 <td>{{ row.property.title }}</td>
                 <td v-if="row.publish">Da</td><td v-else>Ne</td>
                 <td>
-                  <button type="button" class="btn btn-cyan btn-sm" @click="editRow(row['id'])">Izmeni</button>
-                  <button type="button" class="btn btn-danger btn-sm" @click="deleteRow(row['id'])">Obriši</button>
+                  <button type="button" class="btn btn-cyan btn-sm" @click="editRow(row['idWithoutPrefix'])">Izmeni</button>
+                  <button type="button" class="btn btn-danger btn-sm" @click="deleteRow(row['idWithoutPrefix'])">Obriši</button>
                 </td>
               </tr>
               </tbody>
