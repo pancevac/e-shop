@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 // Client side
 mix.js('resources/client/scripts/main.js', 'public/client/js')
-  .sass('resources/client/assets/scss/style.scss', 'public/client/css');
+  .sass('resources/client/styles/scss/main.scss', 'public/client/css')
+  .sass('resources/client/styles/scss/bootstrap.scss', 'public/client/css');
 
 mix.browserSync('http://localhost:8000');

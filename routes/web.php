@@ -19,6 +19,10 @@ Route::get('/admin', function () {
     return view('layouts/admin-app');
 });
 
+Route::get('theme', function () {
+    return view('pages.product');
+});
+
 //Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

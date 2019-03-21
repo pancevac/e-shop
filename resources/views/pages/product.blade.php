@@ -6,17 +6,25 @@
     <div class="product-quick-view">
       <div class="row align-items-center">
         <div class="col-lg-6">
-          <div class="quick-view-carousel-details">
-            <div class="item" style="background: url(img/q1.jpg);">
 
-            </div>
-            <div class="item" style="background: url(img/q1.jpg);">
+          <gallery
+            inline-template
+          >
+            <carousel
+              class="quick-view-carousel-details"
+              items=1
+              :loop="true"
+              :dots="true"
+            >
+              <img class="item" src="{{ asset('img/q1.jpg') }}">
+              <img class="item" src="{{ asset('img/q1.jpg') }}">
+              <img class="item" src="{{ asset('img/q1.jpg') }}">
 
-            </div>
-            <div class="item" style="background: url(img/q1.jpg);">
 
-            </div>
-          </div>
+            </carousel>
+          </gallery>
+
+
         </div>
         <div class="col-lg-6">
           <div class="quick-view-content">

@@ -1,4 +1,4 @@
-<header class="default-header">
+<header class="default-header" style="z-index: 999">
   <nav class="navbar navbar-expand-lg  navbar-light">
     <div class="container">
       <a class="navbar-brand" href="index.html">
