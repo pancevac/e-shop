@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'view' => 'themes.' . env('APP_THEME') . '.partials.banner',
+    'view' => 'partials/breadcrumbs',
 
     /*
     |--------------------------------------------------------------------------

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+  {{ \Breadcrumbs::render('product', $product) }}
+@endsection
+
 @section('content')
 
   <div class="container">

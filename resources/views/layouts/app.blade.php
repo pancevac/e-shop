@@ -39,7 +39,7 @@
 
   @include('partials.nav')
 
-  @include('partials.breadcrumb')
+  @yield('breadcrumbs')
 
   @yield('content')
 
