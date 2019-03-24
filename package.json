@@ -29,6 +29,7 @@
         "accounting": "^0.4.1",
         "jquery-sticky": "^1.0.4",
         "laravel-vue-pagination": "^2.0.1",
+        "linearicons": "^1.0.1",
         "moment": "^2.22.2",
         "v-lazy-image": "^1.2.2",
         "vue-ckeditor2": "^2.0.9",

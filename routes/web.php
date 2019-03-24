@@ -98,3 +98,11 @@ Route::post('/checkout', 'Web\CheckoutsController@submitCheckout')->name('checko
  */
 Route::get('/narudzbine', 'Web\CustomersController@orders')->name('orders');
 Route::get('/narudzbina/{order}', 'Web\CustomersController@showOrder')->name('orders.show');
+
+Route::get('product/{code}', function (\Illuminate\Http\Request $request) {
+    $product = \App\Product::whereCode($request->code)->first();
+    $product->gallery->each->append(['gallery_image', 'product_thumbnail']);
+    return view('pages.product', [
+        'product' => $product,
+    ]);
+});
