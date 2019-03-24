@@ -136,6 +136,6 @@
     </div>
   </div>
 
-  @include('partials.most_seach')
+  @include('partials.most_search')
 
 @endsection

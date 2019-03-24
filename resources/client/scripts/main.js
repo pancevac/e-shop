@@ -4,7 +4,7 @@ require('./theme');
 require('./vendor/index');
 
 import 'jquery-sticky';
-// import 'jquery-nice-select';
+// import 'jquery-nice-select/js/jquery.nice-select.js';
 import Toast from '../../js/packages/toast/toast';
 import { store } from './store/store';
 

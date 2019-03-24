@@ -22,3 +22,16 @@ mix.js('resources/client/scripts/main.js', 'public/client/js')
   .sass('resources/client/styles/scss/bootstrap.scss', 'public/client/css');
 
 mix.browserSync('http://localhost:8000');
+
+// Added jquery selector support
+mix.webpackConfig(webpack => {
+  return {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+      })
+    ]
+  };
+});
