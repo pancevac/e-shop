@@ -20,7 +20,8 @@ Route::get('/admin', function () {
 });
 
 Route::get('theme', function () {
-    return view('pages.product');
+    $products = \App\Product::all();
+    return view('pages.shop', compact('products'));
 });
 
 //Auth::routes();

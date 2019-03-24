@@ -1,6 +1,3 @@
-<template>
-  <a @click.prevent="addToShoppingCart" class="view-btn color-2"><span>Dodaj u korpu</span></a>
-</template>
 
 <script>
   export default {
@@ -8,9 +5,7 @@
     name: "AddToCart",
 
     props: {
-      /*pageType: {
-        type: String
-      },*/
+
       productUrl: {
         type: String
       },
@@ -41,12 +36,11 @@
        */
       addToShoppingCart() {
 
-        // If loaded page is for single-product, pick selected quantity for product
-        /*if (this.pageType === 'single-product') {
-          this.cart.qty = document.getElementById('sst').value;
-        }*/
+        let quantity = document.getElementById('product-quantity');
 
-        this.cart.qty = document.getElementById('product-quantity').value;
+        if (quantity) {
+          this.cart.qty = quantity.value;
+        }
 
         axios.post(this.productUrl + '/shoppingCart', this.cart)
           .then(response => {

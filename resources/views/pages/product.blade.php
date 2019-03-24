@@ -60,12 +60,24 @@
                 <add-to-cart
                   product-url="{{ $product->getLink() }}"
                   product-code="{{ $product->code }}"
-                ></add-to-cart>
+                  inline-template
+                >
+                  <a @click.prevent="addToShoppingCart" class="view-btn color-2">
+                    <span>Dodaj u korpu</span>
+                  </a>
+                </add-to-cart>
+
                 <a href="#" class="like-btn"><span class="lnr lnr-layers"></span></a>
+
                 <add-to-wish-list
                     product-url="{{ $product->getLink() }}"
                     product-code="{{ $product->code }}"
-                ></add-to-wish-list>
+                    inline-template
+                >
+                  <a href="" @click.prevent="addToWishList" class="like-btn">
+                    <span class="lnr lnr-heart"></span>
+                  </a>
+                </add-to-wish-list>
               </div>
             </div>
           </div>

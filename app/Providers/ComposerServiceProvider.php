@@ -21,18 +21,8 @@ class ComposerServiceProvider extends ServiceProvider
             MainMenuComposer::class
         );
         View::composer(
-            'themes.'.env('APP_THEME').'.partials.shop.categories',
+            'partials.shop.categories',
             CategoryComposer::class
         );
-    }
-
-    /**
-     * Register services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 }

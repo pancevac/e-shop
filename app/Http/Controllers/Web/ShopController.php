@@ -36,7 +36,7 @@ class ShopController extends Controller
         $products = $data['products'];
         $properties = $category->properties;
 
-        return view('themes.'.env('APP_THEME').'.pages.shop', [
+        return view('pages.shop', [
             'data' => $data,
             'products' => $products,
             'category' => $category,
@@ -63,7 +63,7 @@ class ShopController extends Controller
         // Append gallery for product
         $product->gallery->each->append(['gallery_image', 'product_thumbnail']);
 
-        return view('themes.'.env('APP_THEME').'.pages.product', [
+        return view('pages.product', [
             'product' => $product
         ]);
     }

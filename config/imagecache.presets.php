@@ -77,5 +77,10 @@ return array(
         'height' => 222,
         'method' => 'crop',
     ),
+    'product_widget' => [
+      'width' => 370,
+      'height' => 395,
+      'method' => 'crop',
+    ],
 
 );

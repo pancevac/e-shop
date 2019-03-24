@@ -1,6 +1,3 @@
-<template>
-  <a @click.prevent="addToWishList" class="like-btn"><span class="lnr lnr-heart"></span></a>
-</template>
 
 <script>
   export default {

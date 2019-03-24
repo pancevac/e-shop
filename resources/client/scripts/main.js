@@ -4,6 +4,7 @@ require('./theme');
 require('./vendor/index');
 
 import 'jquery-sticky';
+// import 'jquery-nice-select';
 import Toast from '../../js/packages/toast/toast';
 import { store } from './store/store';
 
@@ -13,6 +14,8 @@ Vue.component('add-to-cart', require('./components/AddToCart'));
 Vue.component('add-to-wish-list', require('./components/AddToWishList'));
 Vue.component('product-reviews', require('./components/comments'));
 Vue.component('product-gallery', require('./components/ProductGallery'));
+Vue.component('lazy-image', require('./components/LazyImage'));
+Vue.component('range-slider', require('./components/RangeSlider'));
 
 Vue.use(Toast);
 

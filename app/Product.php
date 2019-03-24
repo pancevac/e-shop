@@ -211,6 +211,12 @@ class Product extends Model implements Buyable
         return \Imagecache::get($this->image, 'cart_product_image')->src;
     }
 
+    public function getProductWidgetAttribute()
+    {
+        // 370*395
+        return \Imagecache::get($this->image, 'product_widget')->src;
+    }
+
     /**
      * Append product link
      *
