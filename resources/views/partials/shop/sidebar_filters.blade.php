@@ -6,8 +6,6 @@
 
   @include('partials.shop.properties')
 
-  @include('partials.shop.price_filter')
-
   </form>
 
 </div>

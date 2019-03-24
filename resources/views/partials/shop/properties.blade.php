@@ -41,4 +41,6 @@
 
   @endif
 
+  @include('partials.shop.price_filter')
+
 </div>
