@@ -80,6 +80,7 @@ Route::put('/korpa/{rowId}', 'Web\CartsController@shoppingCartUpdate');
 Route::delete('/korpa/{rowId}', 'Web\CartsController@shoppingCartDelete');
 Route::get('/korpa', 'Web\CartsController@showShoppingCartPage')->name('shopping-cart.index');
 Route::post('/korpa/kupon', 'Web\CartsController@coupon');
+Route::post('/korpa/ukloni-kupon', 'Web\CartsController@decoupon');
 
 /**
  * Routes for customer wish-list

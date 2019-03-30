@@ -37,6 +37,14 @@
 
 <div id="app">
 
+  <cart-state
+      :cart-items-prop="{{ getCartItems(true) }}"
+      cart-count-prop="{{ getCartItemsCount() }}"
+      cart-total-price-prop="{{ getTotalPrice(true) }}"
+      cart-subtotal-price-prop="{{ getSubtotalPrice(true) }}"
+      @if (session()->has('coupon')) :coupon-prop="{{ session()->get('coupon') }}" @endif
+  ></cart-state>
+
   @include('partials.nav')
 
   @yield('breadcrumbs')

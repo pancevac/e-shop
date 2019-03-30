@@ -7,6 +7,9 @@ export default {
     itemCount: null,
     subTotalPrice: null,
     totalPrice: null,
+    discountPrice: null,
+    coupon: null,
+
   },
 
   getters: {
@@ -26,6 +29,15 @@ export default {
     getTotalPrice: state => {
       return state.totalPrice;
     },
+
+    getDiscountPrice: state => {
+      return state.subTotalPrice - state.totalPrice;
+    },
+
+    getCoupon: state => {
+      return state.coupon;
+    },
+
   },
 
   mutations: {
@@ -45,6 +57,10 @@ export default {
     setTotalPrice: (state, callback) => {
       state.totalPrice = callback;
     },
+
+    setCoupon: (state, callback) => {
+      state.coupon = callback;
+    },
   },
 
   actions: {
@@ -63,6 +79,10 @@ export default {
 
     changeTotalPrice: (context, callback) => {
       context.commit('setTotalPrice', callback);
+    },
+
+    changeCoupon: (context, callback) => {
+      context.commit('setCoupon', callback);
     },
   }
 

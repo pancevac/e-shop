@@ -8,7 +8,7 @@
 // Login page
 \Breadcrumbs::for('login', function ($trail) {
     $trail->parent('home');
-    $trail->push('Prijava', route('login'));
+    $trail->push('Prijava/Registracija', route('login'));
 });
 // Register page
 \Breadcrumbs::for('register', function ($trail) {

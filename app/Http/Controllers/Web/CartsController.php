@@ -24,7 +24,7 @@ class CartsController extends Controller
             return redirect()->back()->with('message', 'Morate dodati minimum jedan proizvod kako biste nastavili dalje');
         }
 
-        return view('themes.'.env('APP_THEME').'.pages.cart', [
+        return view('pages.cart', [
             'cartItems' => $this->getShoppingCartItems(),
             'subTotal' => $this->getSubtotalPrice(),
             'total' => $this->getTotalPrice(),
@@ -55,10 +55,7 @@ class CartsController extends Controller
         // Add product to shopping cart
         \Cart::instance('shoppingCart')->add($product, $request->get('qty', 1));
 
-        return response()->json([
-            'message' => 'Proizvod je uspešno dodat u korpu!',
-            'cartItemsCount' => \Cart::instance('shoppingCart')->count(),
-        ]);
+        return $this->getCartStatus('Proizvod je uspešno dodat u korpu!');
     }
 
     /**
@@ -79,13 +76,7 @@ class CartsController extends Controller
         // Update product quantity
         \Cart::instance('shoppingCart')->update($rowId, $request->get('qty', 1));
 
-        return response()->json([
-            'message' => 'Uspešno izmenjena količina proizvoda!',
-            'cartItems' => $this->getShoppingCartItems(),
-            'cartItemsCount' => \Cart::instance('shoppingCart')->count(),
-            'subTotal' => $this->getSubtotalPrice(),
-            'total' => $this->getTotalPrice(),
-        ]);
+        return $this->getCartStatus('Uspešno izmenjena količina proizvoda!');
     }
 
     /**
@@ -104,13 +95,7 @@ class CartsController extends Controller
 
         \Cart::instance('shoppingCart')->remove($rowId);
 
-        return response()->json([
-            'message' => 'Proizvod je izbrisan iz korpe!',
-            'cartItems' => $this->getShoppingCartItems(),
-            'cartItemsCount' => \Cart::instance('shoppingCart')->count(),
-            'subTotal' => $this->getSubtotalPrice(),
-            'total' => $this->getTotalPrice(),
-        ]);
+        return $this->getCartStatus('Proizvod je izbrisan iz korpe!');
     }
 
     /**
@@ -132,15 +117,24 @@ class CartsController extends Controller
         }
 
         // Decrement coupon amount
-        //$coupon->decrement('amount');
+        $coupon->decrement('amount');
 
         // Put coupon in session
         session()->put('coupon', $coupon);
 
-        return response()->json([
-            'message' => 'Uspešno iskorišćen kupon',
-            'total' => $this->getTotalPrice(),
-            'coupon' => $coupon,
-        ]);
+        return $this->getCartStatus('Uspešno iskorišćen kupon.');
+    }
+
+    /**
+     * Remove applied coupon from session.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function decoupon(Request $request)
+    {
+        session()->forget('coupon');
+
+        return $this->getCartStatus('Uklonili ste kupon!');
     }
 }

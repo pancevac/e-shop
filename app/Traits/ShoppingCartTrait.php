@@ -15,11 +15,33 @@ use Gloudemans\Shoppingcart\CartItem;
 trait ShoppingCartTrait
 {
     /**
-     * Return shopping cart items
+     * Cart items array
      *
-     * @return array
+     * @array
      */
-    public function getShoppingCartItems()
+    protected $cartItems = [];
+
+    /**
+     * Hide attributes before transforming product class into JSON.
+     *
+     * @var array
+     */
+    protected $hiddenProductAttributes = [
+        'id',
+        'user_id',
+        'short',
+        'description',
+        'featured',
+        'publish_at',
+        'publish',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Initialize shopping cart
+     */
+    public function init()
     {
         // Get cart items with associated products
         $cartItems = \Cart::instance('shoppingCart')->content();
@@ -28,7 +50,9 @@ trait ShoppingCartTrait
 
         // Get associated products and append optimized image dimensions for cart page
         $products = Product::withoutGlobalScopes()->whereIn('id', $cartItems->pluck('id'))
-            ->get()->each->setAppends(['cartProductImage', 'link']);
+            ->get()->each
+            ->setAppends(['cartProductImage', 'link'])
+            ->makeHidden($this->hiddenProductAttributes);
 
         foreach ($cartItems as $key => $item) {
             // Convert each item object's properties as array
@@ -38,11 +62,22 @@ trait ShoppingCartTrait
             $cartItemsWithModel[$key]['model'] = $products->where('id', $item->id)->first();
         }
 
-        return $cartItemsWithModel;
+        $this->cartItems = $cartItemsWithModel;
     }
 
     /**
-     * Return shopping cart subtotal price (without discounts)
+     * Return shopping cart items as array or as json
+     *
+     * @param bool $asJson
+     * @return false|string
+     */
+    public function getShoppingCartItems(bool $asJson  = false)
+    {
+        return $asJson ? json_encode($this->cartItems) : $this->cartItems;
+    }
+
+    /**
+     * Return shopping cart subtotal price (without discounts) as array or json
      *
      * @return mixed
      */
@@ -106,5 +141,45 @@ trait ShoppingCartTrait
         }
 
         return $subTotal;
+    }
+
+    /**
+     * Return number of items in cart.
+     *
+     * @return int
+     */
+    public function getCartCount(): int
+    {
+        return \Cart::instance('shoppingCart')->count();
+    }
+
+    /**
+     * Return refreshed cart status as JSON
+     *
+     * @param string $withMessage
+     * @param bool $asJson
+     * @param array $append
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCartStatus(string $withMessage, bool $asJson = true, array $append = [])
+    {
+        // Init(refresh) cart state before returning status
+        $this->init();
+
+        $response = [
+            'message' => $withMessage,
+            'cartItems' => $this->getShoppingCartItems(),
+            'cartItemsCount' => $this->getCartCount(),
+            'subtotalPrice' => $this->getSubtotalPrice(),
+            'totalPrice' => $this->getTotalPrice(),
+            'coupon' => session()->get('coupon')
+        ];
+
+        if (! empty($append)) {
+            // Append response array
+            $response = array_merge($response, $append);
+        }
+
+        return response()->json($response);
     }
 }
