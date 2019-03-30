@@ -13,9 +13,10 @@ class ShopController extends Controller
      * Handles displaying shop page with filters and results.
      *
      * @param $categories
+     * @param Product $product
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function shopCategory($categories)
+    public function shopCategory($categories, Product $product)
     {
         // Get category object
         $category = Category::getCategoryByUrl($categories);
@@ -31,7 +32,6 @@ class ShopController extends Controller
             return $this->product($categories, $productSlugAndCode->first(), $productSlugAndCode->last());
         }
         // Filter products and return filtered products attributes and price.
-        $product = new Product();
         $data = $product->filter($category);
         $products = $data['products'];
         $properties = $category->properties;

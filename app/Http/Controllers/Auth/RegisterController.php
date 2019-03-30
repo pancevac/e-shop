@@ -77,6 +77,6 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('themes.fashiop.pages.auth.register');
+        return view('auth.login');
     }
 }

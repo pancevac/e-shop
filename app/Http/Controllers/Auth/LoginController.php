@@ -45,7 +45,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('themes.fashiop.pages.auth.login');
+        return view('auth.login');
     }
 
     /**
