@@ -42,3 +42,23 @@ function getCartItemsCount() {
 
     return app('shoppingCart')->getCartCount();
 }
+
+/**
+ * Return discount value.
+ *
+ * @return mixed
+ */
+function getDiscount() {
+
+    return app('shoppingCart')->getDiscountPrice();
+}
+
+/**
+ * Return discount value.
+ *
+ * @return mixed
+ */
+function getPricePerProduct($cartItem) {
+
+    return app('shoppingCart')->getPricePerProduct($cartItem);
+}

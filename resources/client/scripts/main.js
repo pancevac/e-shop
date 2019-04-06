@@ -16,12 +16,10 @@ Vue.component('product-reviews', require('./components/comments'));
 Vue.component('product-gallery', require('./components/ProductGallery'));
 Vue.component('lazy-image', require('./components/LazyImage'));
 Vue.component('range-slider', require('./components/RangeSlider'));
-
 Vue.component('cart-state', require('./components/CartState'));
-
 Vue.component('cart-page', require('./components/CartPage'));
-
 Vue.component('wish-list', require('./components/WishList'));
+Vue.component('check-box', require('./components/CheckBox'));
 
 Vue.use(Toast);
 

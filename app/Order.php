@@ -7,11 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-
-    use ShoppingCartTrait;
-
-    // Relations
-
     /**
      * The customer that belong to order
      *
@@ -66,7 +61,7 @@ class Order extends Model
         $this->note = $request->input('note');
         $this->is_paid = false; // Posle staviti true ako se plati preko kartice
         $this->is_delivered = false;
-        $this->total_price = $this->getTotalPrice();
+        $this->total_price = getTotalPrice();
         $this->status = $status;
         $this->error = $error;
 
@@ -85,11 +80,11 @@ class Order extends Model
     {
         $syncProducts = [];
 
-        foreach ($this->getShoppingCartItems() as $shoppingCartItem) {
+        foreach (getCartItems() as $item) {
 
-            $syncProducts[$shoppingCartItem['id']] = [
-                'qty' => $shoppingCartItem['qty'],
-                'price' => $this->getPricePerProduct($shoppingCartItem),
+            $syncProducts[$item['id']] = [
+                'qty' => $item['qty'],
+                'price' => getPricePerProduct($item),
             ];
         }
 

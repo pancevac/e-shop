@@ -64,3 +64,9 @@
     $trail->parent('orders');
     $trail->push('Narudžbina', route('orders.show', ['order' => $order->id]));
 });
+
+// Checkout page
+\Breadcrumbs::for('checkout', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Checkout', route('checkout'));
+});

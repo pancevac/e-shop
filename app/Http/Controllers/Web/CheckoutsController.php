@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Mail;
 
 class CheckoutsController extends Controller
 {
-    use ShoppingCartTrait;
-
     /**
      * Show checkout page if isn't empty
      *
@@ -28,16 +26,13 @@ class CheckoutsController extends Controller
             return redirect()->back()->with('message', 'Morate uneti makar jedan proizvod u korpu kako biste nastavili kupovinu');
         }
 
-        $cartItems = $this->getShoppingCartItems();
-        $subTotal = \Cart::instance('shoppingCart')->subtotal();
-
         $user = auth()->check() ? $this->collectLoggedCustomerInfo() : null;
 
-        return view('themes.'.env('APP_THEME').'.pages.checkout', [
-            'cartItems' => $cartItems,
-            'subTotal' => $subTotal,
-            'total' => $this->getTotalPrice(),
-            'discount' => $this->getDiscountPrice(),
+        return view('pages.checkout', [
+            'cartItems' => getCartItems(),
+            'subTotal' => getSubtotalPrice(),
+            'total' => getTotalPrice(),
+            'discount' => getDiscount(),
             'user' => $user,
         ]);
     }
@@ -46,13 +41,11 @@ class CheckoutsController extends Controller
      * Handle charging
      *
      * @param ChargeRequest $request
+     * @param Order $order
      * @return Order|\Illuminate\Http\RedirectResponse
      */
-    public function submitCheckout(ChargeRequest $request)
+    public function submitCheckout(ChargeRequest $request, Order $order)
     {
-        // Get new instance of order model
-        $order = new Order();
-
         try {
             // Try to charge
             $this->charge();
@@ -92,7 +85,7 @@ class CheckoutsController extends Controller
         session()->flash('first_view', true);
 
         // Return order info
-        return view('themes.'.env('APP_THEME').'.pages.successful-purchase', [
+        return view('pages.successful-purchase', [
             'order' => $order->getOrder(),
         ]);
     }
@@ -102,15 +95,14 @@ class CheckoutsController extends Controller
      */
     protected function charge()
     {
-        $stripe = new Stripe();
-        $stripe->charges()->create([
-            'amount' => $this->getTotalPrice(),
+        (new Stripe())->charges()->create([
+            'amount' => getTotalPrice(),
             'currency' => 'usd',
             'description' => 'Order',
             'source' => json_decode(request()->input('stripe_token'))->id,
             'metadata' => [
                 'contents' => [],
-                'quantity' => \Cart::instance('shoppingCart')->count(),
+                'quantity' => getCartItemsCount(),
                 'discount' => session()->has('coupon') ? session()->get('coupon')->discount : null,
             ]
         ]);
@@ -151,7 +143,7 @@ class CheckoutsController extends Controller
      */
     public function showOrder(Order $order)
     {
-        return view('themes.'.env('APP_THEME').'.pages.successful-purchase', [
+        return view('pages.successful-purchase', [
             'order' => $order->getOrder(),
         ]);
     }

@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css"/>--}}
   <link rel="stylesheet" href="{{ asset('client/css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('client/css/main.css') }}">
+  @yield('styles')
 </head>
 <body>
 
@@ -67,6 +68,8 @@
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>--}}
 <script src="{{ asset('client/js/main.js') }}"></script>
+
+@yield('scripts')
 
 </body>
 </html>
