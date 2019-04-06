@@ -13,7 +13,7 @@ class WishListsController extends Controller
 
     public function showWishListPage()
     {
-        return view('themes.'.env('APP_THEME').'.pages.wish_list', [
+        return view('pages.wish_list', [
             'wishListItems' => self::getWishListItems(),
         ]);
     }

@@ -21,6 +21,8 @@ Vue.component('cart-state', require('./components/CartState'));
 
 Vue.component('cart-page', require('./components/CartPage'));
 
+Vue.component('wish-list', require('./components/WishList'));
+
 Vue.use(Toast);
 
 const app = new Vue({
