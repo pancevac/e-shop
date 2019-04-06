@@ -69,7 +69,7 @@ trait ShoppingCartTrait
      * Return shopping cart items as array or as json
      *
      * @param bool $asJson
-     * @return false|string
+     * @return array|string
      */
     public function getShoppingCartItems(bool $asJson  = false)
     {
@@ -83,13 +83,9 @@ trait ShoppingCartTrait
      */
     public function getSubtotalPrice()
     {
-        $content = session()->get('cart')['shoppingCart'];
-
-        $subTotal = $content->reduce(function ($subTotal, CartItem $cartItem) {
-            return $subTotal + ($cartItem->qty * $cartItem->price);
+        return array_reduce($this->getShoppingCartItems(), function ($subTotal, array $cartItem) {
+            return $subTotal + ($cartItem['qty'] * $cartItem['price']);
         }, 0);
-
-        return $subTotal;
     }
 
     /**
@@ -103,13 +99,7 @@ trait ShoppingCartTrait
 
             $coupon = session()->get('coupon');
 
-            //$subPrice = \Cart::instance('shoppingCart')->subtotal();
-
-            $content = session()->get('cart')['shoppingCart'];
-
-            $subTotal = $content->reduce(function ($subTotal, CartItem $cartItem) {
-                return $subTotal + ($cartItem->qty * $cartItem->price);
-            }, 0);
+            $subTotal = $this->getSubtotalPrice();
 
             return $subTotal - ($subTotal * ($coupon->discount / 100));
         }
@@ -117,20 +107,27 @@ trait ShoppingCartTrait
         return $this->getSubtotalPrice();
     }
 
+    /**
+     * Get discount value.
+     *
+     * @return float|int|mixed
+     */
     public function getDiscountPrice()
     {
         if (session()->has('coupon')) {
 
-            $content = session()->get('cart')['shoppingCart'];
-
-            $subTotal = $content->reduce(function ($subTotal, CartItem $cartItem) {
-                return $subTotal + ($cartItem->qty * $cartItem->price);
-            }, 0);
+            $subTotal = $this->getSubtotalPrice();
 
             return $subTotal - $this->getTotalPrice();
         }
     }
 
+    /**
+     * Return price multiple by quantity and with coupon discount per product.
+     *
+     * @param $shoppingCartItem
+     * @return float|int
+     */
     public function getPricePerProduct($shoppingCartItem)
     {
         $subTotal = $shoppingCartItem['price'] * $shoppingCartItem['qty'];
