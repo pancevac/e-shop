@@ -83,7 +83,7 @@
             @component('components.checkout.text-field', [
               'id' => 'first',
               'name' => 'first_name',
-              'value' => old('first_name') ? old('first_name') : $user && $user->customer ? $user->customer->first_name : '',
+              'value' => old('first_name') ? old('first_name') : (($user && $user->customer) ? $user->customer->first_name : ''),
               'wrapperClass' => 'col-lg-6',
               'placeholder' => 'Ime',
               'required' => true,
@@ -93,7 +93,7 @@
             @component('components.checkout.text-field', [
               'id' => 'last',
               'name' => 'last_name',
-              'value' => old('last_name') ? old('last_name') : $user && $user->customer ? $user->customer->last_name : '',
+              'value' => old('last_name') ? old('last_name') : (($user && $user->customer) ? $user->customer->last_name : ''),
               'wrapperClass' => 'col-lg-6',
               'placeholder' => 'Prezime',
               'required' => true,
@@ -103,7 +103,7 @@
             @component('components.checkout.text-field', [
               'id' => 'phone',
               'name' => 'phone',
-              'value' => old('phone') ? old('phone') : $user && $user->customer ? $user->customer->phone : '',
+              'value' => old('phone') ? old('phone') : (($user && $user->customer) ? $user->customer->phone : ''),
               'wrapperClass' => 'col-lg-6',
               'placeholder' => 'Broj telefona',
               'required' => true,
@@ -122,10 +122,10 @@
 
             <div class="col-lg-12">
               <div class="sorting">
-                <select>
-                  <option value="1">Drzava*</option>
-                  <option value="1">Srbija</option>
-                  <option value="1">Makedonija</option>
+                <select name="country">
+                  <option value="">Drzava*</option>
+                  <option value="Srbija">Srbija</option>
+                  <option value="Makedonija">Makedonija</option>
                 </select>
               </div>
             </div>
@@ -133,7 +133,7 @@
             @component('components.checkout.text-field', [
               'id' => 'address1',
               'name' => 'address1',
-              'value' => old('address1') ? old('address1') : $user && $user->customer ? $user->customer->address1 : '',
+              'value' => old('address1') ? old('address1') : (($user && $user->customer) ? $user->customer->address1 : ''),
               'wrapperClass' => 'col-lg-12',
               'placeholder' => 'Adresa 1',
               'required' => true,
@@ -143,7 +143,7 @@
             @component('components.checkout.text-field', [
               'id' => 'address2',
               'name' => 'address2',
-              'value' => old('address2') ? old('address2') : $user && $user->customer ? $user->customer->address2 : '',
+              'value' => old('address2') ? old('address2') : (($user && $user->customer) ? $user->customer->address2 : ''),
               'wrapperClass' => 'col-lg-12',
               'placeholder' => 'Adresa 2',
             ])
@@ -152,7 +152,7 @@
             @component('components.checkout.text-field', [
               'id' => 'city',
               'name' => 'city',
-              'value' => old('city') ? old('city') : $user && $user->customer ? $user->customer->city : '',
+              'value' => old('city') ? old('city') : (($user && $user->customer) ? $user->customer->city : ''),
               'wrapperClass' => 'col-lg-12',
               'placeholder' => 'Opština/Grad',
               'required' => true,
@@ -162,7 +162,7 @@
             @component('components.checkout.text-field', [
               'id' => 'postal_code',
               'name' => 'postal_code',
-              'value' => old('postal_code') ? old('postal_code') : $user && $user->customer ? $user->customer->postal_code : '',
+              'value' => old('postal_code') ? old('postal_code') : (($user && $user->customer) ? $user->customer->postal_code : ''),
               'wrapperClass' => 'col-lg-12',
               'placeholder' => 'Poštanski broj/ZIP',
               'required' => true,

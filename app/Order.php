@@ -61,6 +61,7 @@ class Order extends Model
         $this->note = $request->input('note');
         $this->is_paid = false; // Posle staviti true ako se plati preko kartice
         $this->is_delivered = false;
+        $this->subtotal_price = getSubtotalPrice();
         $this->total_price = getTotalPrice();
         $this->status = $status;
         $this->error = $error;
@@ -117,5 +118,18 @@ class Order extends Model
     public function getLink()
     {
         return route('orders.show', ['order' => $this->getKey()]);
+    }
+
+    /**
+     * Get discount value from saved order.
+     *
+     * @param bool $negativeDecimal
+     * @return float|int|mixed
+     */
+    public function getDiscount($negativeDecimal = false)
+    {
+        $discount = $this->subtotal_price - $this->total_price;
+
+        return $negativeDecimal ? $discount : abs($discount);
     }
 }

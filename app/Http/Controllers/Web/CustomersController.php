@@ -96,7 +96,7 @@ class CustomersController extends Controller
             return redirect('/');
         }
 
-        return view('themes.'.env('APP_THEME').'.pages.successful-purchase', [
+        return view('pages.successful-purchase', [
             'order' => $order->getOrder(),
         ]);
     }
