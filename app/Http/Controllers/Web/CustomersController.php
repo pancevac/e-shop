@@ -44,7 +44,7 @@ class CustomersController extends Controller
         $customer->update($request->except('email'));
         $user->update($request->only('email'));
 
-        return redirect()->back()->with('message', 'Uspešno ažuriran nalog');
+        return redirect()->back()->with('success', 'Uspešno ažuriran nalog');
     }
 
     /**

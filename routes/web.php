@@ -15,10 +15,6 @@ Route::get('/', 'Web\HomeController@index')->name('home');
 
 Route::get('dev/{order}', 'Web\CheckoutsController@showOrder');
 
-Route::get('log', function () {
-    auth()->login(\App\User::find(1));
-});
-
 Route::get('/admin', function () {
     return view('layouts/admin-app');
 });

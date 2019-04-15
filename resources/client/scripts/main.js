@@ -20,6 +20,7 @@ Vue.component('cart-state', require('./components/CartState'));
 Vue.component('cart-page', require('./components/CartPage'));
 Vue.component('wish-list', require('./components/WishList'));
 Vue.component('check-box', require('./components/CheckBox'));
+Vue.component('notification', require('./components/Notification'));
 
 Vue.use(Toast);
 

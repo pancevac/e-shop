@@ -46,6 +46,8 @@
       @if (session()->has('coupon')) :coupon-prop="{{ session()->get('coupon') }}" @endif
   ></cart-state>
 
+  @include('partials.notification')
+
   @include('partials.nav')
 
   @yield('breadcrumbs')
