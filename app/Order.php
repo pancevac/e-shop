@@ -132,4 +132,16 @@ class Order extends Model
 
         return $negativeDecimal ? $discount : abs($discount);
     }
+
+    /**
+     * Get total amount of products for given order.
+     *
+     * @return int
+     */
+    public function getCountProductsAttribute()
+    {
+        return $this->products->reduce(function (int $quantity, Product $product) {
+            return $quantity + $product->pivot->qty;
+        });
+    }
 }

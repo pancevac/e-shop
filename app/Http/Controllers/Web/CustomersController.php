@@ -23,7 +23,7 @@ class CustomersController extends Controller
         // Get logged user with customer relationship
         $user = auth()->user()->load('customer');
 
-        return view('themes.fashiop.pages.profile', [
+        return view('pages.profile', [
             'user' => $user,
         ]);
     }
@@ -38,9 +38,11 @@ class CustomersController extends Controller
     {
         // Retrieve customer model
         $customer = Customer::where('user_id', auth()->id())->first();
+        $user = User::where('id', auth()->id());
 
         // Update customer
-        $customer->update($request->all());
+        $customer->update($request->except('email'));
+        $user->update($request->only('email'));
 
         return redirect()->back()->with('message', 'Uspešno ažuriran nalog');
     }
@@ -79,7 +81,7 @@ class CustomersController extends Controller
             ->where('customer_id', auth()->user()->customer->id)
             ->get();
 
-        return view('themes.'.env('APP_THEME').'.pages.orders', [
+        return view('pages.orders', [
             'orders' => $orders,
         ]);
     }
