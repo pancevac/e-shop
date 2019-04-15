@@ -23,12 +23,14 @@ class HomeController extends Controller
         // Get home widgets
         $homeWidgets = Widget::getHomeWidgets();
 
+        //dd($homeWidgets);
+
         // Get latest featured products
         $productInstance = new Product();
         $featuredProducts = $productInstance->withoutGlobalScopes(['brand', 'attributes'])
             ->published()->orderByDesc('updated_at')->take($productInstance->frontPaginate)->get();
 
-        return view('themes.'.env('APP_THEME').'.pages.home', [
+        return view('pages.home', [
             'products' => $featuredProducts,
             'widgets' => $homeWidgets,
             'banner' => $homeBanner,

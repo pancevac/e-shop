@@ -82,5 +82,26 @@ return array(
       'height' => 395,
       'method' => 'crop',
     ],
+    'home_product' => [
+        'width' => 255,
+        'height' => 271,
+        'method' => 'crop',
+    ],
+    // Home
+    '690x229' => [
+        'width' => 690,
+        'height' => 271,
+        'method' => 'resize'
+    ],
+    '310x221' => [
+        'width' => 310,
+        'height' => 221,
+        'method' => 'resize',
+    ],
+    '310x895' => [
+        'width' => 310,
+        'height' => 895,
+        'method' => 'resize',
+    ],
 
 );

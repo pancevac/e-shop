@@ -28,6 +28,7 @@ class CreateWidgetRequest extends FormRequest
             'button_text' => 'required|string',
             'link' => 'required',
             'active' => 'boolean',
+            'order' => 'integer',
         ];
     }
 
@@ -40,6 +41,7 @@ class CreateWidgetRequest extends FormRequest
             'button_text.string' => 'Ime teksta dugmeta mora biti u tekstualnom formatu',
             'link.required' => 'Link je obavezan',
             'active.boolean' => 'Checkbox active nije ispravnog formata',
+            'order.integer' => 'Redosled mora biti broj.',
         ];
     }
 }

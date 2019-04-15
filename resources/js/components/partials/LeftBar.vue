@@ -11,6 +11,7 @@
             <ul aria-expanded="false" class="collapse  first-level">
               <li class="sidebar-item"><router-link :to="'/menus'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Meni </span></router-link></li>
               <li class="sidebar-item"><router-link :to="'/banners'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Baneri </span></router-link></li>
+              <li class="sidebar-item"><router-link :to="'/widgets'" href="#" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Widžeti </span></router-link></li>
             </ul>
           </li>
 

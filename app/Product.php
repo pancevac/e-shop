@@ -55,7 +55,7 @@ class Product extends Model implements Buyable
      */
     protected $searchable = ['filters', 'price', 'sort', 'show'];
 
-    public $frontPaginate = 10;
+    public $frontPaginate = 4;
 
     public $shopPaginate = 10;
 
@@ -215,6 +215,12 @@ class Product extends Model implements Buyable
     {
         // 370*395
         return \Imagecache::get($this->image, 'product_widget')->src;
+    }
+
+    public function getHomeProductAttribute()
+    {
+        // 255*271
+        return \Imagecache::get($this->image, 'home_product')->src;
     }
 
     /**
