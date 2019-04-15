@@ -27,6 +27,12 @@
                     :error="error? error.link : ''"
             ></text-field>
 
+            <text-field
+                label="Redosled"
+                v-model="widget.order"
+                :error="error? error.order : ''"
+            ></text-field>
+
             <checkbox-field
                     label="Aktivan"
                     v-model="widget.active"
@@ -77,6 +83,7 @@
           title: null,
           button_text: null,
           link: null,
+          order: null,
         },
         error: null,
       }

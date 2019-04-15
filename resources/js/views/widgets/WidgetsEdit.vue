@@ -18,13 +18,19 @@
                     label="Tekst dugmeta"
                     :required=true
                     v-model="widget.button_text"
-                    :error="error? error.order : ''"
+                    :error="error? error.button_text : ''"
             ></text-field>
 
             <text-field
                     label="Link"
                     v-model="widget.link"
-                    :error="error? error.additional : ''"
+                    :error="error? error.link : ''"
+            ></text-field>
+
+            <text-field
+                label="Redosled"
+                v-model="widget.order"
+                :error="error? error.order : ''"
             ></text-field>
 
             <checkbox-field

@@ -12,6 +12,7 @@
                 <th scope="col">Naziv</th>
                 <th scope="col">Link</th>
                 <th scope="col">Tip</th>
+                <th scope="col">Redosled</th>
                 <th scope="col">Aktivno</th>
                 <th scope="col">Akcija</th>
               </tr>
@@ -21,6 +22,7 @@
                 <td>{{ row.title }}</td>
                 <td>{{ row.link }}</td>
                 <td>{{ row.type }}</td>
+                <td>{{ row.order }}</td>
                 <td v-if="row.active">Da</td><td v-else>Ne</td>
                 <td>
                   <button type="button" class="btn btn-cyan btn-sm" @click="editRow(row['id'])">Izmeni</button>

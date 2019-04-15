@@ -14,7 +14,7 @@ class Widget extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'button_text', 'link', 'image', 'type', 'active'];
+    protected $fillable = ['title', 'button_text', 'link', 'image', 'type', 'order', 'active'];
 
     /**
      * Get latest active widgets for home page
@@ -22,9 +22,9 @@ class Widget extends Model
      * @param int $take
      * @return mixed
      */
-    public static function getHomeWidgets($take = 2)
+    public static function getHomeWidgets($take = 4)
     {
-        return self::active()->type('home')->orderByDesc('updated_at')->take($take)->get();
+        return self::active()->type('home')->orderBy('order')->take($take)->get();
     }
 
     /**
