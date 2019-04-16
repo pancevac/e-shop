@@ -50,6 +50,6 @@ class VerificationController extends Controller
     {
         return $request->user()->hasVerifiedEmail()
             ? redirect($this->redirectPath())
-            : view('themes.fashiop.pages.auth.verify');
+            : view('auth.verify');
     }
 }

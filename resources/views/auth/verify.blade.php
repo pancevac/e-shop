@@ -1,24 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+    <section class="sample-text-area">
+        <div class="container">
+            <h3 class="text-heading">Vaš nalog nije verifikovan</h3>
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
-
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}">{{ __('click here to request another') }}</a>.
+            @if (session('resent'))
+                <div class="alert alert-success" role="alert">
+                    Novi verifikacioni kod je poslat na vašu email adresu.
                 </div>
-            </div>
+            @endif
+
+            <p class="sample-text">
+                Pre nastavka, proverite da li je na vašu email adresu stigao verifikacioni kod.
+            </p>
+            <p class="sample-text">
+                Ako niste primili email, <a href="{{ route('verification.resend') }}">kliknite ovde da pošaljete novi zahtev.</a>
+            </p>
         </div>
-    </div>
-</div>
+    </section>
+
+    @include('partials.most_search')
 @endsection
