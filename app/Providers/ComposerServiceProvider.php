@@ -17,7 +17,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(
-            'themes.'.env('APP_THEME').'.partials.header',
+            'partials.nav',
             MainMenuComposer::class
         );
         View::composer(

@@ -10,28 +10,43 @@
 
       <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
         <ul class="navbar-nav">
-          <li><a href="index.html#home">Home</a></li>
-          <li><a href="index.html#service">Service</a></li>
-          <li><a href="index.html#feature">feature</a></li>
-          <li><a href="index.html#price">price</a></li>
-          <li><a href="index.html#faq">Faq</a></li>
-          <!-- Dropdown -->
-          <li class="dropdown">
-            <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-              Pages
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="category.html">Category</a>
-              <a class="dropdown-item" href="single.html">Single</a>
-              <a class="dropdown-item" href="cart.html">Cart</a>
-              <a class="dropdown-item" href="checkout.html">Checkout</a>
-              <a class="dropdown-item" href="confermation.html">Confermation</a>
-              <a class="dropdown-item" href="login.html">Login</a>
-              <a class="dropdown-item" href="tracking.html">Tracking</a>
-              <a class="dropdown-item" href="generic.html">Generic</a>
-              <a class="dropdown-item" href="elements.html">Elements</a>
-            </div>
-          </li>
+
+          @foreach($mainMenu as $menu)
+
+            @if ($menu->children->count())
+
+              <li class="dropdown">
+                <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  {{ $menu->title }}
+                </a>
+                <div class="dropdown-menu">
+
+                  @foreach($menu->children as $children)
+                    <a class="dropdown-item" href="{{ url($children->link) }}">{{ $children->title }}</a>
+                  @endforeach
+
+                </div>
+              </li>
+
+            @else
+              <li><a href="{{ url($menu->link) }}">{{ $menu->title }}</a></li>
+            @endif
+
+          @endforeach
+
+          {{-- Login --}}
+            @guest
+              <li><a href="{{ route('login') }}">Prijava</a></li>
+            @else
+              <li class="dropdown">
+                <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">{{ auth()->user()->name }}</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{{ route('profile') }}">Moj profil</a>
+                  <a class="dropdown-item" href="{{ route('logout') }}">Odjavite se</a>
+                </div>
+              </li>
+            @endguest
+
         </ul>
       </div>
     </div>
