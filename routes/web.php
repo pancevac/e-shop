@@ -51,7 +51,8 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
  */
 Route::get('profil', 'Web\CustomersController@profile')->name('profile')->middleware('verified');
 Route::post('profil', 'Web\CustomersController@updateProfile')->name('profile.update')->middleware('verified');
-Route::post('change-password', 'Web\CustomersController@changePassword')->name('profile.change_password')->middleware('verified');
+Route::get('profil/izmena-lozinke', 'Web\CustomersController@showChangePasswordForm')->name('profile.change_password')->middleware('verified');
+Route::post('profil/izmena-lozinke/submit', 'Web\CustomersController@changePassword')->name('profile.change_password.submit')->middleware('verified');
 
 /**
  * Route to shop category

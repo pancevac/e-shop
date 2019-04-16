@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidateOldPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChangeCustomerPassword extends FormRequest
@@ -24,7 +25,7 @@ class ChangeCustomerPassword extends FormRequest
     public function rules()
     {
         return [
-            'password_old' => 'required|min:5',
+            'password_old' => ['required', 'min:5', new ValidateOldPassword()],
             'password' => 'required|confirmed|min:5',
         ];
     }

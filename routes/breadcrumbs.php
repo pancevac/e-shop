@@ -55,6 +55,11 @@
     $trail->push('Nalog', route('profile'));
 });
 
+\Breadcrumbs::for('change_password', function ($trail) {
+    $trail->parent('profile');
+    $trail->push('Izmena lozinke', route('profile.change_password'));
+});
+
 // Customer orders
 \Breadcrumbs::for('orders', function ($trail) {
     $trail->parent('home');

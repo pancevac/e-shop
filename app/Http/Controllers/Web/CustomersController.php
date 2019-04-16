@@ -47,6 +47,11 @@ class CustomersController extends Controller
         return redirect()->back()->with('success', 'Uspešno ažuriran nalog');
     }
 
+    public function showChangePasswordForm()
+    {
+        return view('pages.change_password');
+    }
+
     /**
      * Method for changing customer password
      *
@@ -55,19 +60,13 @@ class CustomersController extends Controller
      */
     public function changePassword(ChangeCustomerPassword $request)
     {
-        // Check if entered old password match current password of logged user
-        if (Hash::check($request->input('password_old'), auth()->user()->getAuthPassword())) {
+        // Get user model instance and update password
+        $user = User::find(auth()->id());
 
-            // Get user model instance and update password
-            $user = User::find(auth()->user()->getAuthIdentifier());
-            // TODO check for password bug, won't log in after changes
-            $user->password = Hash::make($request->input('password'));
-            $user->save();
+        $user->password = $request->get('password');
+        $user->save();
 
-            return redirect()->back()->with('message', 'Uspešno promenjena lozinka');
-        }
-
-        return redirect()->back()->with('error', 'Stara lozinka je netačna');
+        return redirect()->back()->with('success', 'Uspešno promenjena lozinka');
     }
 
     /**

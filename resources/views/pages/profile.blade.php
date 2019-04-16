@@ -13,8 +13,6 @@
 
         @csrf
 
-        <input type="hidden" id="stripeToken" name="stripe_token" value="">
-
         <div class="row">
           <div class="col-lg-8 col-md-6">
             <h3 class="billing-title mt-20 mb-10">Moj profil</h3>
@@ -121,6 +119,9 @@
               <button class="view-btn color-2 mt-20" style="margin-left: 15px">
                 <span>Izmeni</span>
               </button>
+              <a class="view-btn color-2 mt-20" href="{{ route('profile.change_password') }}" style="margin-left: 15px">
+                <span>Izmeni lozinku</span>
+              </a>
 
             </div>
 

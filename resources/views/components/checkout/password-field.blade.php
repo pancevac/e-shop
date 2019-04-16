@@ -1,7 +1,7 @@
 <div class="{{ isset($wrapperClass) && $wrapperClass ? $wrapperClass : '' }}">
   <input
       value="{{ isset($value) && $value ? $value : '' }}"
-      type="text"
+      type="password"
       class="{{ isset($fieldClass) && $fieldClass ? $fieldClass : 'common-input' }}"
       id="{{ $id }}"
       name="{{ $name }}"
