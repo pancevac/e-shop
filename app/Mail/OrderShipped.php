@@ -39,6 +39,6 @@ class OrderShipped extends Mailable
         return $this->from('test@mail.com')
             ->to($this->order->email, $this->order->first_name)
             ->subject('Vaša narudžbina')
-            ->markdown('themes.'.env('APP_THEME').'.emails.orders.order_shipped');
+            ->markdown('emails.orders.order_shipped');
     }
 }
