@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a095f776f2b6a71bddd96cf225b23db8",
+    "content-hash": "49c8efc5f318e78616d02781f68b8720",
     "packages": [
         {
             "name": "actuallymab/laravel-comment",
@@ -70,21 +70,21 @@
         },
         {
             "name": "artesaos/seotools",
-            "version": "v0.12.1",
+            "version": "v0.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/artesaos/seotools.git",
-                "reference": "96499c7d8d3eaa3e495f20d7fb4f135b2c8b9dc9"
+                "reference": "d52b1a23221693ddcde7d1a1141d44cb23023067"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/artesaos/seotools/zipball/96499c7d8d3eaa3e495f20d7fb4f135b2c8b9dc9",
-                "reference": "96499c7d8d3eaa3e495f20d7fb4f135b2c8b9dc9",
+                "url": "https://api.github.com/repos/artesaos/seotools/zipball/d52b1a23221693ddcde7d1a1141d44cb23023067",
+                "reference": "d52b1a23221693ddcde7d1a1141d44cb23023067",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "5.0.* || 5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.*",
-                "illuminate/support": "5.0.* || 5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.*",
+                "illuminate/config": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.* || 5.8.*",
+                "illuminate/support": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.* || 5.8.*",
                 "php": ">=7.0"
             },
             "require-dev": {
@@ -132,7 +132,7 @@
                 "seotools",
                 "webmaster"
             ],
-            "time": "2018-09-09T20:48:44+00:00"
+            "time": "2019-03-08T15:39:06+00:00"
         },
         {
             "name": "asm89/stack-cors",
