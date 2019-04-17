@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Requests\ChargeRequest;
 use App\Mail\OrderShipped;
 use App\Order;
+use App\Traits\SEO;
 use App\Traits\ShoppingCartTrait;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use Cartalyst\Stripe\Stripe;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Mail;
 
 class CheckoutsController extends Controller
 {
+    use SEO;
+
     /**
      * Show checkout page if isn't empty
      *
@@ -25,6 +28,8 @@ class CheckoutsController extends Controller
         if (\Cart::instance('shoppingCart')->count() == 0) {
             return redirect()->back()->with('message', 'Morate uneti makar jedan proizvod u korpu kako biste nastavili kupovinu');
         }
+
+        $this->seoDefault('Checkout');
 
         $user = auth()->check() ? $this->collectLoggedCustomerInfo() : null;
 
@@ -83,6 +88,9 @@ class CheckoutsController extends Controller
 
         // set flash session for showing thank-you message for purchase
         session()->flash('first_view', true);
+
+        // Set SEO optimization
+        $this->seoDefault('Uspešna kupovina');
 
         // Return order info
         return view('pages.successful-purchase', [
@@ -143,6 +151,9 @@ class CheckoutsController extends Controller
      */
     public function showOrder(Order $order)
     {
+        // Set SEO optimization
+        $this->seoDefault('Porudžbina ID:' . $order->getKey());
+
         return view('pages.successful-purchase', [
             'order' => $order->getOrder(),
         ]);

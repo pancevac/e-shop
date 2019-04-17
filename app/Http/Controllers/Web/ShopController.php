@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Web;
 
 use App\Category;
 use App\Product;
+use App\Traits\SEO;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ShopController extends Controller
 {
+    use SEO;
+
     /**
      * Handles displaying shop page with filters and results.
      *
@@ -31,6 +34,10 @@ class ShopController extends Controller
 
             return $this->product($categories, $productSlugAndCode->first(), $productSlugAndCode->last());
         }
+
+        // Seo optimization
+        $this->seoCategory($category);
+
         // Filter products and return filtered products attributes and price.
         $data = $product->filter($category);
         $products = $data['products'];
@@ -62,6 +69,9 @@ class ShopController extends Controller
         }
         // Append gallery for product
         $product->gallery->each->append(['gallery_image', 'product_thumbnail']);
+
+        // Set seo optimization.
+        $this->seoProduct($product);
 
         return view('pages.product', [
             'product' => $product

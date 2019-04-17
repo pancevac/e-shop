@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Web;
 use App\Coupon;
 use App\Http\Requests\StoreCouponRequest;
 use App\Product;
+use App\Traits\SEO;
 use App\Traits\ShoppingCartTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CartsController extends Controller
 {
-    use ShoppingCartTrait;
+    use ShoppingCartTrait, SEO;
 
     /**
      * Return shopping cart if isn't empty
@@ -20,6 +21,9 @@ class CartsController extends Controller
      */
     public function showShoppingCartPage()
     {
+        // Set SEO optimization
+        $this->seoDefault('Korpa');
+
         if (\Cart::instance('shoppingCart')->count() == 0) {
             return redirect()->back()->with('message', 'Morate dodati minimum jedan proizvod kako biste nastavili dalje');
         }

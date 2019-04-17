@@ -4,15 +4,24 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Requests\AddToWishList;
 use App\Product;
+use App\Traits\SEO;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class WishListsController extends Controller
 {
+    use SEO;
 
+    /**
+     * Return wish list page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showWishListPage()
     {
+        $this->seoDefault('Lista želja');
+
         return view('pages.wish_list', [
             'wishListItems' => self::getWishListItems(),
         ]);

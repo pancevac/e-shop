@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Web;
 
 use App\Banner;
 use App\Product;
+use App\Traits\SEO;
 use App\Widget;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+    use SEO;
+
     /**
      * Show site home page.
      *
@@ -17,13 +20,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Set seo for home page
+        $this->seoHome();
+
         // Get home main banner
         $homeBanner = Banner::getBanner();
 
         // Get home widgets
         $homeWidgets = Widget::getHomeWidgets();
-
-        //dd($homeWidgets);
 
         // Get latest featured products
         $productInstance = new Product();

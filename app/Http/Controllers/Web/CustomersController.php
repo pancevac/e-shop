@@ -6,6 +6,7 @@ use App\Customer;
 use App\Http\Requests\ChangeCustomerPassword;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Order;
+use App\Traits\SEO;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 
 class CustomersController extends Controller
 {
+    use SEO;
+
     /**
      * Return logged customer
      *
@@ -20,6 +23,9 @@ class CustomersController extends Controller
      */
     public function profile()
     {
+        // Set SEO
+        $this->seoDefault('Moj profil');
+
         // Get logged user with customer relationship
         $user = auth()->user()->load('customer');
 
@@ -47,8 +53,15 @@ class CustomersController extends Controller
         return redirect()->back()->with('success', 'Uspešno ažuriran nalog');
     }
 
+    /**
+     * Return change password page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showChangePasswordForm()
     {
+        $this->seoDefault('Izmena lozinke');
+
         return view('pages.change_password');
     }
 
@@ -76,6 +89,8 @@ class CustomersController extends Controller
      */
     public function orders()
     {
+        $this->seoDefault('Moje porudžbine.');
+
         $orders = Order::with('products')
             ->where('customer_id', auth()->user()->customer->id)
             ->get();
@@ -93,6 +108,8 @@ class CustomersController extends Controller
      */
     public function showOrder(Order $order)
     {
+        $this->seoDefault('Porudžina ID: ' . $order->getKey());
+
         if ($order->customer_id != auth()->user()->customer->id) {
             return redirect('/');
         }

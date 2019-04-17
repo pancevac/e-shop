@@ -9,16 +9,10 @@
   <meta name="domain" content="{{ url('/') }}">
   <!-- Favicon-->
   <link rel="shortcut icon" href="img/fav.png">
-  <!-- Author Meta -->
-  <meta name="author" content="CodePixar">
-  <!-- Meta Description -->
-  <meta name="description" content="">
-  <!-- Meta Keyword -->
-  <meta name="keywords" content="">
   <!-- meta character set -->
   <meta charset="UTF-8">
-  <!-- Site Title -->
-  <title>Shop</title>
+
+  {!! SEO::generate() !!}
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
   <!--
