@@ -136,6 +136,10 @@
     </div>
   </div>
 
-  @include('partials.most_search')
+  @if (isset($relatedProducts) && $relatedProducts->count())
+    @include('partials.related_products')
+  @else
+    @include('partials.top_sales')
+  @endif
 
 @endsection

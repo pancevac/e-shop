@@ -70,11 +70,15 @@ class ShopController extends Controller
         // Append gallery for product
         $product->gallery->each->append(['gallery_image', 'product_thumbnail']);
 
+        // Get related products
+        $relatedProducts = $product->getRelated();
+
         // Set seo optimization.
         $this->seoProduct($product);
 
         return view('pages.product', [
-            'product' => $product
+            'product' => $product,
+            'relatedProducts' => $relatedProducts
         ]);
     }
 }

@@ -8,7 +8,9 @@ use App\Traits\UploadableImageTrait;
 use Actuallymab\LaravelComment\Commentable;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Product extends Model implements Buyable
 {
@@ -129,6 +131,27 @@ class Product extends Model implements Buyable
             ->whereSlug($slug)
             ->whereCode($code)
             ->first();
+    }
+
+    /**
+     * Return products that are related by common categories.
+     *
+     * @return Collection
+     */
+    public function getRelated()
+    {
+        if (! $this->relationLoaded('categories')) {
+            $this->load('categories');
+        }
+
+        return $this->withoutGlobalScopes(['brand', 'attributes'])
+            ->whereHas('categories', function (Builder $relation) {
+                $relation->whereIn('id', $this->categories->map->id->toArray());
+            })
+            ->where('id', '<>', $this->id)
+            ->inRandomOrder()
+            ->take(12)
+            ->get();
     }
 
     /**

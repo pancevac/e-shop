@@ -20,5 +20,5 @@
         </div>
     </section>
 
-    @include('partials.most_search')
+    @include('partials.top_sales')
 @endsection
