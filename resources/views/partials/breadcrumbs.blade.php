@@ -16,7 +16,7 @@
                 <i class="fa fa-caret-right" aria-hidden="true"></i>
               </a>
             @else
-              <a href="">{{ ucfirst($breadcrumb->title) }}</a>
+              <a>{{ ucfirst($breadcrumb->title) }}</a>
             @endif
           @endforeach
 

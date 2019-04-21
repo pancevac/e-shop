@@ -31,7 +31,7 @@ class EditProductRequest extends FormRequest
             ],
             'code' => [
                 'required',
-                Rule::unique('products')->ignore($this->code),
+                Rule::unique('products')->ignore($this->id),
             ],
             'selectedCategories' => 'required|array|min:1',
             'selectedAttributes' => 'required|array|min:1',

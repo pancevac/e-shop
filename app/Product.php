@@ -180,6 +180,14 @@ class Product extends Model implements Buyable
         }
     }
 
+    /**
+     * Set product code as slug.
+     */
+    public function setCodeAttribute($value)
+    {
+        $this->attributes['code'] = str_slug($value);
+    }
+
     public function setDiscountAttribute($value)
     {
         if ($value) {

@@ -3,8 +3,8 @@
     <label>{{ label }} <span v-if="required">*</span></label>
 
     <ckeditor
-        v-model="content"
         :config="config"
+        :value="value"
         @input="$emit('input', $event)"
     ></ckeditor>
 
@@ -20,7 +20,6 @@
     components: { Ckeditor },
     data() {
       return {
-        content: this.value,
         config: {
           toolbar: [
             [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'Image', 'Link', 'Unlink', 'Source' ],

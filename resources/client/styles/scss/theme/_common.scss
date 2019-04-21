@@ -82,7 +82,7 @@
 		background: #f9fafc;
 		.title {
 			h6 {
-			
+
 			}
 			span {
 				color: #cccccc;
@@ -204,7 +204,7 @@
 		background: #f9fafc;
 		.title {
 			h6 {
-			
+
 			}
 			span {
 				color: #cccccc;
@@ -1260,7 +1260,7 @@
 	}
 	.col-first {
 		margin-top: 20px;
-		width: 38%;
+		//width: 38%;
 		padding-right: 15px;
 		@include media-breakpoint-down(md) {
 			width: 40%;
@@ -1299,10 +1299,10 @@
 .filter-bar {
 	padding: 0px 20px 10px 20px;
 	background: #f9fafc;
-		
+
 	a,i{
 		color:$black;
-	}	
+	}
 }
 
 .main-categories{

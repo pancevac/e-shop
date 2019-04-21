@@ -12,5 +12,5 @@
       @if($checked) checked="checked" @endif
       onclick="document.getElementById('filters').submit();"
   >
-  <label for="apple">{{ $label }}<span>(29)</span></label>
+  <label for="apple">{{ $label }}</label>
 </li>
