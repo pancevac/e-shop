@@ -7,25 +7,25 @@
 
   **Ime:** {{ $order->first_name }}
 
-  **Ukupno:** ${{ \Cart::instance('shoppingCart')->subtotal() }}
+  **Ukupno:** {{ currency($order->subtotal_price) }}
 
 @if(session()->has('coupon'))
-  **Popust:** -${{ number_format($order->getDiscountPrice(), 2) }}
+  **Popust:** {{ currency($order->getDiscount()) }}
 @endif
 
-  **Sveukupno:** ${{ number_format($order->total_price, 2) }}
+  **Sveukupno:** {{ currency($order->total_price) }}
 
   **Kupljeni proizvodi**
 
   @foreach ($order->products as $product)
     Proizvod: {{ $product->title }} <br>
     Količina: {{ $product->pivot->qty }} <br>
-    Cena: ${{ number_format($product->pivot->price, 2)}} <br><hr>
+    Cena: {{ currency($product->pivot->price) }} <br><hr>
   @endforeach
 
   {{--@component('mail::button', ['url' => config('app.url'), 'color' => 'green'])--}}
   @if($order->user)
-    @component('mail::button')
+    @component('mail::button', ['url' => $order->getLink()])
       Pogledajte porudžbinu
     @endcomponent
   @endif

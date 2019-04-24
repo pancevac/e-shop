@@ -195,24 +195,24 @@
                   <div class="list-row d-flex justify-content-between">
                     <div>{{ $item['name'] }}</div>
                     <div>x {{ $item['qty'] }}</div>
-                    <div>${{ $item['price'] * $item['qty'] }}</div>
+                    <div>{{ currency(getPricePerProduct($item)) }}</div>
                   </div>
 
                 @endforeach
 
                 <div class="list-row d-flex justify-content-between">
                   <h6>Ukupno</h6>
-                  <div>${{ getSubtotalPrice() }}</div>
+                  <div>{{ getSubtotalPrice(true) }}</div>
                 </div>
                 @if (getDiscount())
                   <div class="list-row d-flex justify-content-between">
                     <h6>Popust</h6>
-                    <div>${{ getDiscount() }}</div>
+                    <div>- {{ getDiscount(true) }}</div>
                   </div>
                 @endif
                 <div class="list-row d-flex justify-content-between">
                   <h6>Sveukupno</h6>
-                  <div class="total">${{ getTotalPrice() }}</div>
+                  <div class="total">{{ getTotalPrice(true) }}</div>
                 </div>
 
                 <check-box inline-template>

@@ -24,7 +24,7 @@
           </tr>
           <tr>
             <td>Ukupno</td>
-            <td>: USD {{ $order->total_price }}</td>
+            <td>: {{ currency($order->total_price) }}</td>
           </tr>
           <tr>
             <td>Način plaćanja</td>
@@ -95,23 +95,23 @@
                 <div class="list-row d-flex justify-content-between">
                   <div><a href="{{ $product->getLink() }}">{{ $product->title }}</a></div>
                   <div>x {{ $product->pivot->qty }}</div>
-                  <div>${{ $product->pivot->price }}</div>
+                  <div>{{ currency($product->pivot->price) }}</div>
                 </div>
 
               @endforeach
 
               <div class="list-row d-flex justify-content-between">
                 <h6>Ukupno</h6>
-                <div>${{ $order->subtotal_price }}</div>
+                <div>{{ currency($order->subtotal_price) }}</div>
               </div>
               @if ($order->getDiscount())
                 <div class="list-row d-flex justify-content-between">
                   <h6>Popust</h6>
-                  <div>${{ $order->getDiscount(true) }}</div>
+                  <div>- {{ currency($order->getDiscount()) }}</div>
                 </div>
                 <div class="list-row border-bottom-0 d-flex justify-content-between">
-                  <h6>Total</h6>
-                  <div class="total">${{ $order->total_price }}</div>
+                  <h6>Sveukupno</h6>
+                  <div class="total">{{ currency($order->total_price) }}</div>
                 </div>
               @endif
             </div>

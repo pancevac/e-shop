@@ -39,6 +39,6 @@
     <a href="{{ $product->getLink() }}">
       <h5>{{ $product->title }}</h5>
     </a>
-    <h3>${{ $product->price }}</h3>
+    <h3>{{ currency($product->price) }}</h3>
   </div>
 </div>

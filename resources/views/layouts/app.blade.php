@@ -38,6 +38,7 @@
       cart-total-price-prop="{{ getTotalPrice(true) }}"
       cart-subtotal-price-prop="{{ getSubtotalPrice(true) }}"
       @if (session()->has('coupon')) :coupon-prop="{{ session()->get('coupon') }}" @endif
+      @if (session()->has('coupon')) cart-total-discount-prop="{{ getDiscount(true) }}" @endif
   ></cart-state>
 
   @include('partials.notification')

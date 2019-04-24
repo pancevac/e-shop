@@ -31,7 +31,7 @@ export default {
     },
 
     getDiscountPrice: state => {
-      return state.subTotalPrice - state.totalPrice;
+      return state.discountPrice;
     },
 
     getCoupon: state => {
@@ -58,6 +58,10 @@ export default {
       state.totalPrice = callback;
     },
 
+    setDiscountPrice: (state, callback) => {
+      state.discountPrice = callback;
+    },
+
     setCoupon: (state, callback) => {
       state.coupon = callback;
     },
@@ -79,6 +83,10 @@ export default {
 
     changeTotalPrice: (context, callback) => {
       context.commit('setTotalPrice', callback);
+    },
+
+    changeDiscountPrice: (context, callback) => {
+      context.commit('setDiscountPrice', callback);
     },
 
     changeCoupon: (context, callback) => {

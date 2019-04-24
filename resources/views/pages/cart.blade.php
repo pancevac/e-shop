@@ -48,7 +48,7 @@
 
         <div v-if="getCoupon" class="subtotal-area d-flex align-items-center justify-content-end">
           <div class="title text-uppercase">Cena</div>
-          <div class="subtotal">$@{{ formatPrice(getSubTotalPrice) }}</div>
+          <div class="subtotal">@{{ getSubTotalPrice }}</div>
         </div>
 
         <div v-if="getCoupon" class="subtotal-area d-flex align-items-center justify-content-end">
@@ -56,12 +56,12 @@
             Popust (@{{ getCoupon.code }})
             <a href="#" @click.prevent="removeCoupon">Ukloni kupon</a>
           </div>
-          <div class="subtotal">-$@{{ formatPrice(getSubTotalPrice - getTotalPrice) }}</div>
+          <div class="subtotal">-@{{ getDiscountPrice }}</div>
         </div>
 
         <div class="subtotal-area d-flex align-items-center justify-content-end">
           <div class="title text-uppercase">Ukupna cena</div>
-          <div class="subtotal">$@{{ formatPrice(getTotalPrice) }}</div>
+          <div class="subtotal">@{{ getTotalPrice }}</div>
         </div>
       </div>
     </cart-page>

@@ -22,13 +22,20 @@
               <h3 class="head">{!! $product->title !!}</h3>
               <div class="price d-flex align-items-center">
                 <span class="lnr lnr-tag"></span>
-                <span class="ml-10">
-                  @if($product->price_outlet)
-                    {{ $product->price_outlet }}
-                  @else
-                    {{ $product->price }}
-                  @endif
-                </span>
+
+                @if ($product->price_outlet)
+                  <span class="ml-10">
+                    {{ currency($product->price_outlet) }}
+                  </span>
+                  <div style="text-decoration: line-through; font-size: 16px; margin-left: 5px;">
+                    {{ currency($product->price) }}
+                  </div>
+                @else
+                  <span class="ml-10">
+                    {{ currency($product->price) }}
+                  </span>
+                @endif
+
               </div>
               <div class="category">Kategorija:
                 @foreach($product->categories as $category)

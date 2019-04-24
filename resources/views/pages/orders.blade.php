@@ -26,7 +26,7 @@
                 <div class="list-row d-flex justify-content-between">
                   <div><a href="{{ $order->getLink() }}">{{ $order->getKey() }}</a></div>
                   <div>x {{ $order->countProducts }}</div>
-                  <div>${{ $order->total_price }}</div>
+                  <div>{{ currency($order->total_price) }}</div>
                 </div>
 
               @endforeach

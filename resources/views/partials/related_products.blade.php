@@ -12,7 +12,7 @@
             <a href="{{ $product->getLink() }}"><img src="{{ asset($product->image) }}" alt=""></a>
             <div class="desc">
               <a href="{{ $product->getLink() }}" class="title">{{ $product->title }}</a>
-              <div class="price"><span class="lnr lnr-tag"></span> ${{ $product->price }}</div>
+              <div class="price"><span class="lnr lnr-tag"></span> {{ currency($product->price) }}</div>
             </div>
           </div>
         </div>

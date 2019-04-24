@@ -10,8 +10,8 @@
       'cartCountProp',
       'cartTotalPriceProp',
       'cartSubtotalPriceProp',
-      'couponProp'
-      //'cartTotalDiscountProp',
+      'couponProp',
+      'cartTotalDiscountProp',
     ],
 
     created() {
@@ -21,7 +21,7 @@
       this.$store.dispatch('cart/changeSubTotalPrice', this.cartSubtotalPriceProp);
       this.$store.dispatch('cart/changeTotalPrice', this.cartTotalPriceProp);
       this.$store.dispatch('cart/changeCoupon', this.couponProp);
-      //this.$store.dispatch('changeDiscount', this.cartTotalDiscountProp);
+      this.$store.dispatch('cart/changeDiscountPrice', this.cartTotalDiscountProp);
 
     },
 

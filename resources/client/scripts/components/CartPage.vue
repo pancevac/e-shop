@@ -28,6 +28,10 @@
         return this.$store.getters['cart/getSubTotalPrice'];
       },
 
+      getDiscountPrice() {
+        return this.$store.getters['cart/getDiscountPrice'];
+      },
+
       getCoupon() {
         return this.$store.getters['cart/getCoupon'];
       },
@@ -81,6 +85,7 @@
         this.$store.dispatch('cart/changeItemCount', response.data.cartItemsCount);
         this.$store.dispatch('cart/changeSubTotalPrice', response.data.subtotalPrice);
         this.$store.dispatch('cart/changeTotalPrice', response.data.totalPrice);
+        this.$store.dispatch('cart/changeDiscountPrice', response.data.discountPrice);
         this.$store.dispatch('cart/changeCoupon', response.data.coupon);
       },
 

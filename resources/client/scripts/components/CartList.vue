@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="col-md-2 col-6">
-          <div class="price">${{ formatPrice(item.price) }}</div>
+          <div class="price">{{ item.price_formatted }}</div>
         </div>
         <div class="col-md-2 col-6">
           <div class="quantity-container d-flex align-items-center">
@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="col-md-2 col-12">
-          <div class="total">${{ totalPerProduct(index) }}</div>
+          <div class="total">{{ item.price_qty_formatted }}</div>
         </div>
         <div class="col-md-1 col-12">
           <a href="#" @click.prevent="removeItem(index)">
@@ -68,13 +68,6 @@
     },
 
     methods: {
-
-      /**
-       * Total price per quantity
-       */
-      totalPerProduct(index) {
-        return this.formatPrice(this.getCartItems[index].price * this.getCartItems[index].qty);
-      },
 
       /**
        * Increase items quantity, send request to backend
@@ -136,17 +129,8 @@
         this.$store.dispatch('cart/changeItemCount', response.data.cartItemsCount);
         this.$store.dispatch('cart/changeSubTotalPrice', response.data.subtotalPrice);
         this.$store.dispatch('cart/changeTotalPrice', response.data.totalPrice);
+        this.$store.dispatch('cart/changeDiscountPrice', response.data.discountPrice);
         this.$store.dispatch('cart/changeCoupon', response.data.coupon);
-        //this.$store.dispatch('cart/changeDiscount', response.data.discount);
-      },
-
-      /**
-       * Format price euro.
-       *
-       * @param value
-       */
-      formatPrice(value) {
-        return accounting.formatMoney(value, '', 2, '.', ',');
       },
     },
 
