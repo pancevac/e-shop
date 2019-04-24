@@ -190,7 +190,7 @@
                   <div>Ukupno</div>
                 </div>
 
-                @foreach($cartItems as $item)
+                @foreach(getCartItems() as $item)
 
                   <div class="list-row d-flex justify-content-between">
                     <div>{{ $item['name'] }}</div>

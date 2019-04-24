@@ -31,13 +31,9 @@ class CheckoutsController extends Controller
 
         $this->seoDefault('Checkout');
 
-        $user = auth()->check() ? $this->collectLoggedCustomerInfo() : null;
+        $user = auth()->check() ? auth()->user()->load('customer') : null;
 
         return view('pages.checkout', [
-            'cartItems' => getCartItems(),
-            'subTotal' => getSubtotalPrice(),
-            'total' => getTotalPrice(),
-            'discount' => getDiscount(),
             'user' => $user,
         ]);
     }
@@ -114,33 +110,6 @@ class CheckoutsController extends Controller
                 'discount' => session()->has('coupon') ? session()->get('coupon')->discount : null,
             ]
         ]);
-    }
-
-    /**
-     * Get currently logged customer info, temporary hided fields like id, user_id etc.etc
-     *
-     * @return mixed
-     */
-    private function collectLoggedCustomerInfo()
-    {
-        // Retrieve logged user with customer profile
-        $loggedCustomer = auth()->user()->load('customer');
-
-        // Temporarily hide user fields from showing in json
-        $loggedCustomer->makeHidden([
-            'id', 'role_id', 'email_verified_at', 'image', 'block', 'created_at', 'updated_at', 'role'
-        ]);
-
-        if ($loggedCustomer->customer) {
-
-            // Temporarily hide customer fields from showing in json
-            $loggedCustomer->customer->makeHidden([
-                'id', 'user_id', 'created_at', 'updated_at'
-            ]);
-        }
-
-        return $loggedCustomer;
-
     }
 
     /**
