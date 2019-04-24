@@ -55,11 +55,17 @@ trait ShoppingCartTrait
             ->makeHidden($this->hiddenProductAttributes);
 
         foreach ($cartItems as $key => $item) {
+
+
+            $product = $products->where('id', $item->id)->first();
             // Convert each item object's properties as array
             // We do this cuz shopping-cart package override laravel's toArray() method which remove eager loaded associated model.
             // We bypass this with transforming item object properties into array.
             $cartItemsWithModel[$key] = get_object_vars($item);
-            $cartItemsWithModel[$key]['model'] = $products->where('id', $item->id)->first();
+            $cartItemsWithModel[$key]['model'] = $product;
+            $cartItemsWithModel[$key]['price_formatted'] = currency($this->getPricePerProduct($cartItemsWithModel[$key], false));
+            $cartItemsWithModel[$key]['price_qty_formatted'] = currency($this->getPricePerProduct($cartItemsWithModel[$key]));
+
         }
 
         $this->cartItems = $cartItemsWithModel;
@@ -79,21 +85,25 @@ trait ShoppingCartTrait
     /**
      * Return shopping cart subtotal price (without discounts) as array or json
      *
-     * @return mixed
+     * @param bool $format
+     * @return string|float
      */
-    public function getSubtotalPrice()
+    public function getSubtotalPrice($format = false)
     {
-        return array_reduce($this->getShoppingCartItems(), function ($subTotal, array $cartItem) {
-            return $subTotal + ($cartItem['qty'] * $cartItem['price']);
+        $subtotal = array_reduce($this->getShoppingCartItems(), function ($carry, array $cartItem) {
+            return $carry + ($cartItem['qty'] * $cartItem['price']);
         }, 0);
+
+        return $this->processPrice($subtotal, $format);
     }
 
     /**
      * Get shopping cart total price (discount included if coupon is set)
      *
-     * @return float|int
+     * @param bool $format
+     * @return string|float|int
      */
-    public function getTotalPrice()
+    public function getTotalPrice($format = false)
     {
         if (session()->has('coupon')) {
 
@@ -101,36 +111,46 @@ trait ShoppingCartTrait
 
             $subTotal = $this->getSubtotalPrice();
 
-            return $subTotal - ($subTotal * ($coupon->discount / 100));
+            $total = $subTotal - ($subTotal * ($coupon->discount / 100));
+
+            return $this->processPrice($total, $format);
         }
 
-        return $this->getSubtotalPrice();
+        $total = $this->getSubtotalPrice();
+
+        return $this->processPrice($total, $format);
     }
 
     /**
      * Get discount value.
      *
-     * @return float|int|mixed
+     * @param bool $format
+     * @return float|int|string|false
      */
-    public function getDiscountPrice()
+    public function getDiscountPrice(bool $format = false)
     {
         if (session()->has('coupon')) {
 
-            $subTotal = $this->getSubtotalPrice();
+            $discountPrice = $this->getSubtotalPrice() - $this->getTotalPrice();
 
-            return $subTotal - $this->getTotalPrice();
+            return $this->processPrice($discountPrice, $format);
         }
     }
 
     /**
      * Return price multiple by quantity and with coupon discount per product.
      *
-     * @param $shoppingCartItem
+     * @param array $shoppingCartItem
+     * @param bool $multipleByQty
      * @return float|int
      */
-    public function getPricePerProduct($shoppingCartItem)
+    public function getPricePerProduct(array $shoppingCartItem, bool $multipleByQty = true)
     {
-        $subTotal = $shoppingCartItem['price'] * $shoppingCartItem['qty'];
+        $subTotal = $shoppingCartItem['price'];
+
+        if ($multipleByQty) {
+            $subTotal = $subTotal * $shoppingCartItem['qty'];
+        }
 
         if (session()->has('coupon')) {
             $coupon = session()->get('coupon');
@@ -167,9 +187,10 @@ trait ShoppingCartTrait
             'message' => $withMessage,
             'cartItems' => $this->getShoppingCartItems(),
             'cartItemsCount' => $this->getCartCount(),
-            'subtotalPrice' => $this->getSubtotalPrice(),
-            'totalPrice' => $this->getTotalPrice(),
-            'coupon' => session()->get('coupon')
+            'subtotalPrice' => $this->getSubtotalPrice(true),
+            'totalPrice' => $this->getTotalPrice(true),
+            'discountPrice' => $this->getDiscountPrice(true),
+            'coupon' => session()->get('coupon'),
         ];
 
         if (! empty($append)) {
@@ -178,5 +199,17 @@ trait ShoppingCartTrait
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Format price as string with currency or just return float.
+     *
+     * @param float $price
+     * @param bool $format
+     * @return float|string|\Torann\Currency\Currency
+     */
+    protected function processPrice(float $price, $format = false)
+    {
+        return $format ? currency($price) : $price;
     }
 }

@@ -19,7 +19,7 @@ function getCartItems($returnAsJson = false) {
  */
 function getTotalPrice($format = false) {
 
-    return app('shoppingCart')->getTotalPrice();
+    return app('shoppingCart')->getTotalPrice($format);
 }
 
 /**
@@ -30,7 +30,7 @@ function getTotalPrice($format = false) {
  */
 function getSubtotalPrice($format = false) {
 
-    return app('shoppingCart')->getSubtotalPrice();
+    return app('shoppingCart')->getSubtotalPrice($format);
 }
 
 /**
@@ -46,19 +46,22 @@ function getCartItemsCount() {
 /**
  * Return discount value.
  *
+ * @param bool $format
  * @return mixed
  */
-function getDiscount() {
+function getDiscount($format = false) {
 
-    return app('shoppingCart')->getDiscountPrice();
+    return app('shoppingCart')->getDiscountPrice($format);
 }
 
 /**
  * Return discount value.
  *
+ * @param $cartItem
+ * @param bool $multiplyByQty
  * @return mixed
  */
-function getPricePerProduct($cartItem) {
+function getPricePerProduct($cartItem, $multiplyByQty = true) {
 
-    return app('shoppingCart')->getPricePerProduct($cartItem);
+    return app('shoppingCart')->getPricePerProduct($cartItem, $multiplyByQty);
 }
