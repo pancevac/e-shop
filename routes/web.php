@@ -87,8 +87,8 @@ Route::post('/korpa/ukloni-kupon', 'Web\CartsController@decoupon');
  * Routes for customer wish-list
  */
 Route::get('/lista-zelja', 'Web\WishListsController@showWishListPage')->name('wishList')->middleware('verified');
-Route::post('/lista-zelja', 'Web\WishlistsController@addToWishList')->name('wishList.add')->middleware('verified');
-Route::delete('/lista-zelja/{code}', 'Web\WishlistsController@removeFromWishList')->name('wishList.delete')->middleware('verified');
+Route::post('/lista-zelja', 'Web\WishListsController@addToWishList')->name('wishList.add')->middleware('verified');
+Route::delete('/lista-zelja/{code}', 'Web\WishListsController@removeFromWishList')->name('wishList.delete')->middleware('verified');
 
 /**
  * Routes for checkout page

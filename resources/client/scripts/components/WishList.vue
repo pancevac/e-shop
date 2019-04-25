@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="col-md-2 col-6">
-          <div class="price">${{ formatPrice(item.price) }}</div>
+          <div class="price">{{ item.price_formatted }}</div>
         </div>
 
         <div class="col-md-2 col-12">
@@ -69,15 +69,6 @@
           .catch(e => {
             this.$toasted.global.toastError();
           })
-      },
-
-      /**
-       * Format price euro.
-       *
-       * @param value
-       */
-      formatPrice(value) {
-        return accounting.formatMoney(value, '', 2, '.', ',');
       },
 
     },
