@@ -22,7 +22,11 @@
                 <div class="dropdown-menu">
 
                   @foreach($menu->children as $children)
-                    <a class="dropdown-item" href="{{ url($children->link) }}">{{ $children->title }}</a>
+                    @if (strpos($children->link, '?') !== false)
+                      <a class="dropdown-item" href="{{ url()->current() . $children->link }}">{{ $children->title }}</a>
+                    @else
+                      <a class="dropdown-item" href="{{ url($children->link) }}">{{ $children->title }}</a>
+                    @endif
                   @endforeach
 
                 </div>
