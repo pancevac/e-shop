@@ -103,5 +103,10 @@ return array(
         'height' => 895,
         'method' => 'resize',
     ],
+    'product_small' => [
+        'width' => 70,
+        'height' => 70,
+        'method' => 'crop',
+    ],
 
 );

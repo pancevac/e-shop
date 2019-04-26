@@ -238,20 +238,33 @@ class Product extends Model implements Buyable
 
     public function getCartProductImageAttribute()
     {
-        // 147*100
-        return \Imagecache::get($this->image, 'cart_product_image')->src;
+        return $this->optimizeImage('cart_product_image'); // 147*100
     }
 
     public function getProductWidgetAttribute()
     {
-        // 370*395
-        return \Imagecache::get($this->image, 'product_widget')->src;
+        return $this->optimizeImage('product_widget'); // 370*395
     }
 
     public function getHomeProductAttribute()
     {
-        // 255*271
-        return \Imagecache::get($this->image, 'home_product')->src;
+        return $this->optimizeImage('home_product'); // 255*271
+    }
+
+    public function getProductSmallAttribute()
+    {
+        return $this->optimizeImage('product_small'); // 70*70
+    }
+
+    /**
+     * Optimize image by resizing or cropping to predefined dimensions.
+     *
+     * @param $profile
+     * @return string
+     */
+    public function optimizeImage($profile)
+    {
+        return \Imagecache::get($this->image, $profile)->src;
     }
 
     /**
