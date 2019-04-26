@@ -25,11 +25,12 @@
   .v-lazy-image {
     opacity: 0;
     transition: opacity 0.7s;
-    position: relative;
+    position: absolute;
     top: 50%;
-    left: 50%;
-    height: 100%;
-    width: auto;
+    left: 14%;
+    max-width: 70px;
+    height: auto;
+    /*width: auto;*/
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
   }
