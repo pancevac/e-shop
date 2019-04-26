@@ -30,7 +30,7 @@ return array(
     'product_image' => array(
         'width' => 550,
         'height' => 500,
-        'method' => 'crop',
+        'method' => 'resize',
     ),
     'cart_product_image' => array(
         'width' => 147,

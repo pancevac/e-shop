@@ -97,19 +97,19 @@
     <div class="details-tab-navigation d-flex justify-content-center mt-30">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li>
-          <a class="nav-link" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-expanded="true">Description</a>
+          <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-expanded="true">Opšte karakteristike</a>
         </li>
         <li>
-          <a class="nav-link" id="specification-tab" data-toggle="tab" href="#specification" role="tab" aria-controls="specification">Specification</a>
+          <a class="nav-link" id="specification-tab" data-toggle="tab" href="#specification" role="tab" aria-controls="specification">Specifikacije</a>
         </li>
         <li>
-          <a class="nav-link active" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a>
+          <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Utisci</a>
         </li>
       </ul>
     </div>
     <div class="tab-content" id="myTabContent">
 
-      <div class="tab-pane fade" id="description" role="tabpanel" aria-labelledby="description">
+      <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description">
         <div class="description">
           @if ($product->description)
             {!! $product->description !!}
@@ -130,7 +130,7 @@
         </div>
       </div>
 
-      <div class="tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews">
+      <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews">
         <product-reviews
             :comments="{{ $product->comments }}"
             :average-rate="{{ round($product->averageRate(), 2) }}"

@@ -49,11 +49,15 @@ class WishListsController extends Controller
             ->get()->each->setAppends(['cartProductImage', 'link']);
 
         foreach ($wishListItems as $key => $item) {
+
+            $product = $products->where('id', $item->id)->first();
+
             // Convert each item object's properties as array
             // We do this cuz shopping-cart package override laravel's toArray() method which remove eager loaded associated model.
             // We bypass this with transforming item object properties into array.
             $wishListItemsWithModel[$key] = get_object_vars($item);
-            $wishListItemsWithModel[$key]['model'] = $products->where('id', $item->id)->first();
+            $wishListItemsWithModel[$key]['model'] = $product;
+            $wishListItemsWithModel[$key]['price_formatted'] = currency($product->getBuyablePrice());
         }
 
         return $wishListItemsWithModel;

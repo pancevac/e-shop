@@ -18,7 +18,8 @@
 }
 
 .p1-gradient-bg {
-  background-image: linear-gradient( 45deg, rgb(246,70,61) 0%, rgb(246,57,141) 45%, rgb(245,44,220) 100%);
+  //background-image: linear-gradient( 45deg, rgb(246,70,61) 0%, rgb(246,57,141) 45%, rgb(245,44,220) 100%);
+	background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
   /*background-image: -webkit-linear-gradient( 45deg, rgb(246,70,61) 0%, rgb(246,57,141) 45%, rgb(245,44,220) 100%);
   background-image: -ms-linear-gradient( 45deg, rgb(246,70,61) 0%, rgb(246,57,141) 45%, rgb(245,44,220) 100%);*/
 }
@@ -26,7 +27,8 @@
 
 
 .p1-gradient-color {
-  background: linear-gradient( 45deg, rgb(246,70,61) 0%, rgb(246,57,141) 45%, rgb(245,44,220) 100%);
+  //background: linear-gradient( 45deg, rgb(246,70,61) 0%, rgb(246,57,141) 45%, rgb(245,44,220) 100%);
+	background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
   /*background: -webkit-linear-gradient( 45deg, rgb(246,70,61) 0%, rgb(246,57,141) 45%, rgb(245,44,220) 100%);
   background: -ms-linear-gradient( 45deg, rgb(246,70,61) 0%, rgb(246,57,141) 45%, rgb(245,44,220) 100%);*/
   -webkit-background-clip: text;
@@ -1010,7 +1012,7 @@
 		border: none;
 	}
 	.nav-link {
-		border: 1px solid #eee;
+		//border: 1px solid #eee;
 		background: $white;
 		color: $black;
 		padding: 0 30px;
@@ -1020,12 +1022,12 @@
 		&:hover {
 			@extend .p1-gradient-bg;
 			color: $white;
-			border: 1px solid transparent;
+			//border: 1px solid transparent;
 		}
 		&.active {
 			@extend .p1-gradient-bg;
 			color: $white;
-			border: 1px solid transparent;
+			//border: 1px solid transparent;
 		}
 	}
 }
