@@ -15,6 +15,7 @@ Vue.component('add-to-wish-list', require('./components/AddToWishList'));
 Vue.component('product-reviews', require('./components/comments'));
 Vue.component('product-gallery', require('./components/ProductGallery'));
 Vue.component('lazy-image', require('./components/LazyImage'));
+Vue.component('lazy-image-small', require('./components/LazyImageSmall'));
 Vue.component('range-slider', require('./components/RangeSlider'));
 Vue.component('cart-state', require('./components/CartState'));
 Vue.component('cart-page', require('./components/CartPage'));

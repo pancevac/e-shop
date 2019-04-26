@@ -9,7 +9,12 @@
 
         <div class="col-lg-3 col-md-4 col-sm-6">
           <div class="single-search-product d-flex">
-            <a href="{{ $product->getLink() }}"><img src="{{ asset($product->image) }}" alt=""></a>
+            <a href="{{ $product->getLink() }}">
+              <lazy-image-small
+                src="{{ asset($product->productSmall) }}"
+                placeholder="{{ asset('images/placeholder.png') }}"
+              ></lazy-image-small>
+            </a>
             <div class="desc">
               <a href="{{ $product->getLink() }}" class="title">{{ $product->title }}</a>
               <div class="price"><span class="lnr lnr-tag"></span> {{ currency($product->price) }}</div>
