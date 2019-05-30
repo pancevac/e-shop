@@ -5,7 +5,7 @@
 <li class="filter-list">
   <input
       class="pixel-radio"
-      type="radio"
+      type="checkbox"
       id="{{ $label }}"
       name="filters[]"
       value="{{ $value }}"
