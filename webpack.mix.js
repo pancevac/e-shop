@@ -11,7 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-// Server side
+// Admin side
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .copy('resources/js/dist/css/style.min.css', 'public/css/style.min.css');
