@@ -107,7 +107,7 @@ router.beforeEach(
       let permissions = store.getters['user/getUser'].role.permissions;
       let pass;
 
-      permissions.forEach(function (permission) {
+      permissions.find(function (permission) {
         if (to.meta.permission === permission.title)
           pass = true;
         if (store.getters['user/isAdmin'])
@@ -133,7 +133,7 @@ Vue.mixin({
     can(permissionName) {
       let user = this.user;  // computed property from component where this method is called
       let allow;
-      user.role.permissions.forEach(function (permission) {
+      user.role.permissions.find(function (permission) {
         if (store.getters['user/isAdmin'])
           allow = true;
         if (permission.title === permissionName)
