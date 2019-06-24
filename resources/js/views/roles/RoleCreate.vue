@@ -76,7 +76,7 @@
 
       submit() {
         axios
-          .post('/api/roles/', this.role)
+          .post('api/roles', this.role)
           .then(res => {
             this.$toasted.global.toastSuccess({ message: res.data.message });
             this.$router.push('/roles');

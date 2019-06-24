@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
-    image: digitalocean.com/php
+    image: laravel_app
     container_name: ${DOCKER_CONTAINERS_PREFIX}_app
     restart: unless-stopped
     tty: true
@@ -44,7 +44,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: grazia
+      MYSQL_DATABASE: e-shop
       MYSQL_ROOT_PASSWORD: root
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql

@@ -59,7 +59,7 @@
             <ul class="list-group">
               <li class="list-group-item" v-for="attribute in property.attributes">
                 <span>{{ attribute.title }}</span>
-                <router-link tag="a" :to="'/attributes/' + attribute.id + '/edit'" class="btn btn-primary">Izmeni</router-link>
+                <router-link tag="a" :to="'/attributes/' + attribute.idWithoutPrefix + '/edit'" class="btn btn-primary">Izmeni</router-link>
               </li>
             </ul>
           </div>

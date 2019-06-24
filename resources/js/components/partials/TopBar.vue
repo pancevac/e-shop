@@ -57,17 +57,17 @@
               <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <router-link :to="'/products/create'" class="dropdown-item" href="#">Proizvod</router-link>
-              <router-link :to="'/users/create'" class="dropdown-item" href="#">Korisnika</router-link>
-              <router-link :to="'/brands/create'" class="dropdown-item" href="#">Brend</router-link>
-              <router-link :to="'/categories/create'" class="dropdown-item" href="#">Kategoriju</router-link>
-              <router-link :to="'/properties/create'" class="dropdown-item" href="#">Osobine</router-link>
-              <router-link :to="'/attributes/create'" class="dropdown-item" href="#">Atribut</router-link>
-              <router-link :to="'/tags/create'" class="dropdown-item" href="#">Tag</router-link>
-              <router-link :to="'/permissions/create'" class="dropdown-item" href="#">Dozvole</router-link>
-              <router-link :to="'/roles/create'" class="dropdown-item" href="#">Uloge</router-link>
-              <router-link :to="'/menus/create'" class="dropdown-item" href="#">Tipa menija</router-link>
-              <router-link :to="'/coupons/create'" class="dropdown-item" href="#">Kupon</router-link>
+              <router-link v-if="can('product.create')" :to="'/products/create'" class="dropdown-item" href="#">Proizvod</router-link>
+              <router-link v-if="can('user.create')" :to="'/users/create'" class="dropdown-item" href="#">Korisnika</router-link>
+              <router-link v-if="can('brand.create')" :to="'/brands/create'" class="dropdown-item" href="#">Brend</router-link>
+              <router-link v-if="can('category.create')" :to="'/categories/create'" class="dropdown-item" href="#">Kategoriju</router-link>
+              <router-link v-if="can('property.create')" :to="'/properties/create'" class="dropdown-item" href="#">Osobine</router-link>
+              <router-link v-if="can('attribute.create')" :to="'/attributes/create'" class="dropdown-item" href="#">Atribut</router-link>
+              <router-link v-if="can('tag.create')" :to="'/tags/create'" class="dropdown-item" href="#">Tag</router-link>
+              <router-link v-if="can('permission.create')" :to="'/permissions/create'" class="dropdown-item" href="#">Dozvole</router-link>
+              <router-link v-if="can('role.create')" :to="'/roles/create'" class="dropdown-item" href="#">Uloge</router-link>
+              <router-link v-if="can('menu.create')" :to="'/menus/create'" class="dropdown-item" href="#">Tipa menija</router-link>
+              <router-link v-if="can('coupon.create')" :to="'/coupons/create'" class="dropdown-item" href="#">Kupon</router-link>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Something else here</a>
             </div>

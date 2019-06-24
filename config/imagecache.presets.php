@@ -100,7 +100,7 @@ return array(
     ],
     '310x895' => [
         'width' => 310,
-        'height' => 895,
+        'height' => 489,
         'method' => 'resize',
     ],
     'product_small' => [

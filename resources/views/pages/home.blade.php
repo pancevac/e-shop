@@ -63,7 +63,7 @@
             <div class="content">
               <a href="{{ $fourth->link }}" target="_blank">
                 <div class="content-overlay"></div>
-                <img class="content-image img-fluid d-block mx-auto" src="{{ asset(\Imagecache::get($widget->image, '310x895')->src) }}" alt="">
+                <img class="content-image img-fluid d-block mx-auto" src="{{ asset(\Imagecache::get($fourth->image, '310x895')->src) }}" alt="">
                 <div class="content-details fadeIn-bottom">
                   <h3 class="content-title">{{ $fourth->title }}</h3>
                 </div>
