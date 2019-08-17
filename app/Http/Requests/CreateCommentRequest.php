@@ -14,8 +14,7 @@ class CreateCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
-        return Auth::user() ? true : false;
+        return Auth::check();
     }
 
     /**
